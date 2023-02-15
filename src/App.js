@@ -1,7 +1,16 @@
 import "./App.css";
+import PBody from "./components/PBody";
+import PFooter from "./components/PFooter";
+import PHeader from "./components/PHeader";
 
 function App() {
-  return <h1 className="text-3xl font-bold underline">Hello PF!</h1>;
+  return (
+    <>
+      <PHeader />
+      <PBody />
+      <PFooter />
+    </>
+  );
 }
 
 export default App;
