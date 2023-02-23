@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 /**
  *
@@ -12,7 +12,6 @@ function PHeader({ selected = 0 }) {
      */
     (event) => {
       event.preventDefault();
-      console.log(event.target);
       const sectionId = `#${event.target.href.split("#")[1]}`;
       const section = document.querySelector(sectionId);
 
@@ -30,7 +29,7 @@ function PHeader({ selected = 0 }) {
     >
       <nav
         id="site-nav-bar"
-        className="flex justify-center text-2xl [&>a]:flex [&>a]:h-16 [&>a]:w-48 [&>a]:items-center [&>a]:justify-center [&>a]:border-b-4 [&>a]:border-b-black/0"
+        className="flex justify-evenly text-2xl [&>a]:flex [&>a]:h-16 [&>a]:w-48 [&>a]:items-center [&>a]:justify-center [&>a]:border-b-4 [&>a]:border-b-black/0"
       >
         <a
           className={selected === 0 ? "!border-b-black" : ""}
@@ -42,7 +41,7 @@ function PHeader({ selected = 0 }) {
         <a
           className={selected === 1 ? "!border-b-black" : ""}
           onClick={scrollToSection}
-          href="#history"
+          href="#records"
         >
           Records
         </a>
@@ -65,7 +64,7 @@ function PHeader({ selected = 0 }) {
           onClick={scrollToSection}
           href="#contacts"
         >
-          <span>Contacts</span>
+          Contacts
         </a>
       </nav>
     </header>
