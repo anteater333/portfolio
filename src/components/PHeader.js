@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
  *
@@ -6,6 +6,10 @@ import { useCallback, useEffect } from "react";
  * @returns
  */
 function PHeader({ selected = 0 }) {
+  const [showHeader, setShowHeader] = useState(false);
+
+  const headerRef = useRef(null);
+
   const scrollToSection = useCallback(
     /**
      * @param {Event} event
@@ -25,7 +29,12 @@ function PHeader({ selected = 0 }) {
   return (
     <header
       id="site-header"
-      className="fixed top-0 w-full bg-white bg-opacity-80 px-16 pt-2"
+      ref={headerRef}
+      className={`fixed w-full overflow-hidden bg-white bg-opacity-80 px-16 pt-2 transition-all ${
+        showHeader || selected !== 0 ? "top-0" : "-top-8 opacity-0"
+      }`}
+      onMouseEnter={() => setShowHeader(true)}
+      onMouseLeave={() => setShowHeader(false)}
     >
       <nav
         id="site-nav-bar"
@@ -33,7 +42,7 @@ function PHeader({ selected = 0 }) {
       >
         <a
           className={`transition-all ${
-            selected === 0 ? "!border-b-black" : ""
+            selected === 0 && showHeader ? "!border-b-black" : ""
           }`}
           onClick={scrollToSection}
           href="#profile"
