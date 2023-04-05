@@ -1,22 +1,28 @@
-import { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import throttle from "../utils/throttle";
 
-function PBody({ setCurrentSection }) {
-  const sectionRefs = useRef([]);
+function PBody({
+  setCurrentSection,
+}: {
+  setCurrentSection: React.Dispatch<React.SetStateAction<number>>;
+}) {
+  const sectionRefs = useRef<HTMLElement[] | null>([]);
 
   const handleScroll = useCallback(
-    (event) => {
+    (event: React.WheelEvent<HTMLElement>) => {
       const scroll = window.scrollY;
       const sectionElements = sectionRefs.current;
-      const currentSectionIndex = sectionElements.findIndex((section) => {
-        return (
-          scroll > section.offsetTop - window.outerHeight / 3 &&
-          scroll <
-            section.offsetTop - window.outerHeight / 3 + section.offsetHeight
-        );
-      });
+      const currentSectionIndex = sectionElements?.findIndex(
+        (section: HTMLElement) => {
+          return (
+            scroll > section.offsetTop - window.outerHeight / 3 &&
+            scroll <
+              section.offsetTop - window.outerHeight / 3 + section.offsetHeight
+          );
+        }
+      );
 
-      setCurrentSection(currentSectionIndex);
+      setCurrentSection(currentSectionIndex ? currentSectionIndex : 0);
     },
     [setCurrentSection]
   );
@@ -33,35 +39,35 @@ function PBody({ setCurrentSection }) {
   return (
     <div className="bg-white">
       <section
-        ref={(el) => (sectionRefs.current[0] = el)}
+        ref={(el: HTMLElement) => (sectionRefs.current![0] = el)}
         id="profile"
         style={{ height: 1024 }}
       >
         <h2>Profile</h2>
       </section>
       <section
-        ref={(el) => (sectionRefs.current[1] = el)}
+        ref={(el: HTMLElement) => (sectionRefs.current![1] = el)}
         id="records"
         style={{ height: 1024 }}
       >
         <h2>Records</h2>
       </section>
       <section
-        ref={(el) => (sectionRefs.current[2] = el)}
+        ref={(el: HTMLElement) => (sectionRefs.current![2] = el)}
         id="skills"
         style={{ height: 1024 }}
       >
         <h2>Skills</h2>
       </section>
       <section
-        ref={(el) => (sectionRefs.current[3] = el)}
+        ref={(el: HTMLElement) => (sectionRefs.current![3] = el)}
         id="projects"
         style={{ height: 1024 }}
       >
         <h2>Projects</h2>
       </section>
       <section
-        ref={(el) => (sectionRefs.current[4] = el)}
+        ref={(el: HTMLElement) => (sectionRefs.current![4] = el)}
         id="contacts"
         style={{ height: 1024 }}
       >

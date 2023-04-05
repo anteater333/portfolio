@@ -1,19 +1,24 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 function PHeader({ selected = 0 }: { selected: number }) {
   const [showHeader, setShowHeader] = useState(false);
 
   const headerRef = useRef(null);
 
-  const scrollToSection = useCallback((event: MouseEvent) => {
-    event.preventDefault();
-    const sectionId = `#${event.target.href.split("#")[1]}`;
-    const section = document.querySelector(sectionId);
+  const scrollToSection = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+      const sectionId = `#${
+        (event.target as HTMLAnchorElement).href.split("#")[1]
+      }`;
+      const section = document.querySelector(sectionId);
 
-    section.scrollIntoView({ behavior: "smooth" });
+      section!.scrollIntoView({ behavior: "smooth" });
 
-    window.history.pushState({}, null, sectionId);
-  }, []);
+      window.history.pushState({}, "", sectionId);
+    },
+    []
+  );
 
   return (
     <header

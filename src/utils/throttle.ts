@@ -1,11 +1,8 @@
-export default function throttle(
-  callbackFn: { call: () => void },
-  limit: number
-) {
+export default function throttle(callbackFn: Function, limit: number) {
   let wait = false;
   return function () {
     if (!wait) {
-      callbackFn.call();
+      callbackFn.call(globalThis); // invoke
       wait = true;
       setTimeout(function () {
         wait = false;
