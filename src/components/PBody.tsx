@@ -31,7 +31,7 @@ function PBody({ setCurrentSection }) {
   }, [handleScroll]);
 
   return (
-    <div>
+    <div className="bg-white">
       <section
         ref={(el) => (sectionRefs.current[0] = el)}
         id="profile"

@@ -1,4 +1,7 @@
-export default function throttle(callbackFn, limit) {
+export default function throttle(
+  callbackFn: { call: () => void },
+  limit: number
+) {
   let wait = false;
   return function () {
     if (!wait) {

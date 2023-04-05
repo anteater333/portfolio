@@ -1,36 +1,25 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-/**
- *
- * @param {{selected: number}} props
- * @returns
- */
-function PHeader({ selected = 0 }) {
+function PHeader({ selected = 0 }: { selected: number }) {
   const [showHeader, setShowHeader] = useState(false);
 
   const headerRef = useRef(null);
 
-  const scrollToSection = useCallback(
-    /**
-     * @param {Event} event
-     */
-    (event) => {
-      event.preventDefault();
-      const sectionId = `#${event.target.href.split("#")[1]}`;
-      const section = document.querySelector(sectionId);
+  const scrollToSection = useCallback((event: MouseEvent) => {
+    event.preventDefault();
+    const sectionId = `#${event.target.href.split("#")[1]}`;
+    const section = document.querySelector(sectionId);
 
-      section.scrollIntoView({ behavior: "smooth" });
+    section.scrollIntoView({ behavior: "smooth" });
 
-      window.history.pushState({}, null, sectionId);
-    },
-    []
-  );
+    window.history.pushState({}, null, sectionId);
+  }, []);
 
   return (
     <header
       id="site-header"
       ref={headerRef}
-      className={`fixed w-full overflow-hidden bg-white bg-opacity-80 px-16 pt-2 transition-all ${
+      className={`fixed w-full overflow-hidden bg-sky-50 bg-opacity-80 px-16 pt-2 transition-all ${
         showHeader || selected !== 0 ? "top-0" : "-top-8 opacity-0"
       }`}
       onMouseEnter={() => setShowHeader(true)}
