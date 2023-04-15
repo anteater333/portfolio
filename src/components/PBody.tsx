@@ -1,5 +1,10 @@
 import React, { useCallback, useEffect, useRef } from "react";
 import throttle from "../utils/throttle";
+import ProfileSection from "./sections/ProfileSection";
+import RecordsSection from "./sections/RecordsSection";
+import SkillsSection from "./sections/SkillsSection";
+import WorksSection from "./sections/WorksSection";
+import ContactsSection from "./sections/ContactSection";
 
 function PBody({
   setCurrentSection,
@@ -37,42 +42,20 @@ function PBody({
   }, [handleScroll]);
 
   return (
-    <div className="bg-white">
-      <section
+    <div className={`w-recommended bg-white`}>
+      <ProfileSection
         ref={(el: HTMLElement) => (sectionRefs.current![0] = el)}
-        id="profile"
-        style={{ height: 1024 }}
-      >
-        <h2>Profile</h2>
-      </section>
-      <section
+      />
+      <RecordsSection
         ref={(el: HTMLElement) => (sectionRefs.current![1] = el)}
-        id="records"
-        style={{ height: 1024 }}
-      >
-        <h2>Records</h2>
-      </section>
-      <section
+      />
+      <SkillsSection
         ref={(el: HTMLElement) => (sectionRefs.current![2] = el)}
-        id="skills"
-        style={{ height: 1024 }}
-      >
-        <h2>Skills</h2>
-      </section>
-      <section
-        ref={(el: HTMLElement) => (sectionRefs.current![3] = el)}
-        id="projects"
-        style={{ height: 1024 }}
-      >
-        <h2>Projects</h2>
-      </section>
-      <section
+      />
+      <WorksSection ref={(el: HTMLElement) => (sectionRefs.current![3] = el)} />
+      <ContactsSection
         ref={(el: HTMLElement) => (sectionRefs.current![4] = el)}
-        id="contacts"
-        style={{ height: 1024 }}
-      >
-        <h2>Contacts</h2>
-      </section>
+      />
     </div>
   );
 }

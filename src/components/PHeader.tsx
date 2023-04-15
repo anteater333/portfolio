@@ -39,7 +39,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
             selected === 0 && showHeader ? "!border-b-black" : ""
           }`}
           onClick={scrollToSection}
-          href="#profile"
+          href="#profile-section"
         >
           Profile
         </a>
@@ -48,7 +48,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
             selected === 1 ? "!border-b-black" : ""
           }`}
           onClick={scrollToSection}
-          href="#records"
+          href="#records-section"
         >
           Records
         </a>
@@ -57,7 +57,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
             selected === 2 ? "!border-b-black" : ""
           }`}
           onClick={scrollToSection}
-          href="#skills"
+          href="#skills-section"
         >
           Skills
         </a>
@@ -66,16 +66,16 @@ function PHeader({ selected = 0 }: { selected: number }) {
             selected === 3 ? "!border-b-black" : ""
           }`}
           onClick={scrollToSection}
-          href="#projects"
+          href="#works-section"
         >
-          Projects
+          Works
         </a>
         <a
           className={`transition-all ${
             selected === 4 ? "!border-b-black" : ""
           }`}
           onClick={scrollToSection}
-          href="#contacts"
+          href="#contacts-section"
         >
           Contacts
         </a>
