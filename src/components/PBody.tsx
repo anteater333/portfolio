@@ -42,7 +42,7 @@ function PBody({
   }, [handleScroll]);
 
   return (
-    <div className={`w-recommended bg-white`}>
+    <main className={`w-recommended bg-white`}>
       <ProfileSection
         ref={(el: HTMLElement) => (sectionRefs.current![0] = el)}
       />
@@ -56,7 +56,7 @@ function PBody({
       <ContactsSection
         ref={(el: HTMLElement) => (sectionRefs.current![4] = el)}
       />
-    </div>
+    </main>
   );
 }
 
