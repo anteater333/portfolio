@@ -63,28 +63,21 @@ export const useLoadingIndicator = (percentage?: number) => {
     if (percentage) setPercentage(percentage);
   }, [setPercentage, percentage]);
 
-  const showLoading = useCallback(
-    (percentage?: number) => {
-      if (percentage) {
-        setPercentage(percentage);
-      } else {
-        setPercentage(100);
-      }
-      setIsLoading(true);
-    },
-    [setPercentage, setIsLoading]
-  );
+  const showLoading = useCallback(() => {
+    setIsLoading(true);
+  }, [setIsLoading]);
 
   /** 로딩 표시를 숨깁니다. */
   const hideLoading = useCallback(() => {
-    setPercentage(0);
     setIsLoading(false);
-  }, [setPercentage, setIsLoading]);
+  }, [setIsLoading]);
 
   return {
     /** 로딩 표시를 나타냅니다. */
     showLoading,
     /** 로딩 표시를 숨깁니다. */
     hideLoading,
+    /** 퍼센트 수치를 변경합니다. */
+    setPercentage,
   };
 };

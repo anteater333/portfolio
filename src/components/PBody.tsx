@@ -13,7 +13,8 @@ function PBody({
 }) {
   const sectionRefs = useRef<HTMLElement[] | null>([]);
 
-  const handleScroll = useCallback(
+  /** 현재 스크롤 위치에 따라 현재 섹션을 계산 */
+  const selectCurrentSectionByScroll = useCallback(
     (event: React.WheelEvent<HTMLElement>) => {
       const scroll = window.scrollY;
       const sectionElements = sectionRefs.current;
@@ -32,14 +33,15 @@ function PBody({
     [setCurrentSection]
   );
 
+  /** 페이지 로드 시 스크롤 이벤트 리스너 등록 */
   useEffect(() => {
-    const throttledFunc = throttle(handleScroll, 50);
+    const throttledFunc = throttle(selectCurrentSectionByScroll, 50);
     window.addEventListener("scroll", throttledFunc);
 
     return () => {
       window.removeEventListener("scroll", throttledFunc);
     };
-  }, [handleScroll]);
+  }, [selectCurrentSectionByScroll]);
 
   return (
     <main className={`w-recommended bg-white`}>

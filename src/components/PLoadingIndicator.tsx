@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { RGB, calcRGBByPercentage } from "../utils/styleUtil";
 
 type PLoadingIndicatorProps = {
   percentage: number;
@@ -6,9 +7,7 @@ type PLoadingIndicatorProps = {
 
 function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
   const [colorByPercent, setColorByPercent] =
-    useState<string>("rgb(242,242,242)");
-
-  const [factor, setFactor] = useState<number>(242);
+    useState<RGB>("rgb(242, 242, 242)");
 
   const [ellipsisCnt, setEllipsisCnt] = useState<number>(1);
 
@@ -16,18 +15,12 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
    * RGB(34, 34, 34) to RGB(242, 242, 242) by props.percentage
    */
   useEffect(() => {
-    setColorByPercent(`rgb(${factor},${factor},${factor})`);
-  }, [percentage, factor]);
+    setColorByPercent(calcRGBByPercentage(100 - percentage));
+  }, [percentage]);
 
-  /** 색상 변경 테스트용 코드, 삭제 필요 */
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     if (factor > 34) {
-  //       setFactor(Math.max(factor - 50, 34));
-  //     }
-  //   }, 500);
-  // }, [factor]);
-
+  /**
+   * Ticking ellipsis
+   */
   useEffect(() => {
     const ticker = setInterval(() => {
       setEllipsisCnt((prev) => (prev % 3) + 1);
@@ -41,7 +34,7 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
   return (
     <div className="global-loading-indicator absolute top-0 z-50 h-recommended w-recommended bg-black">
       <div
-        className="loading-text-area absolute bottom-16 right-16 flex font-galmuri9 text-9xl"
+        className="loading-text-area absolute bottom-16 right-16 flex select-none font-galmuri9 text-9xl"
         style={{
           color: colorByPercent,
         }}
