@@ -46,7 +46,7 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
           </span>
         </div>
         <div className="loading-percentage ml-4 inline-block w-[320px] text-right">
-          {percentage}%
+          {Math.floor(percentage)}%
         </div>
       </div>
     </div>

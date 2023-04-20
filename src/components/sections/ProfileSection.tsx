@@ -1,11 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionProps from "./SectionProps";
 import imgBackground from "../../resources/images/profile/img_s1_00_background.png";
 import imgMeIRL from "../../resources/images/profile/img_s1_01_me_IRL.png";
 import imgMeCharacter from "../../resources/images/profile/img_s1_02_me_character.png";
 
 const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
-  (props: SectionProps, ref) => {
+  ({ updateLoadingProgress }: SectionProps, ref) => {
+    /** Loading 동작 Mocking 코드 */
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+      const counter = setInterval(() => {
+        setCount((prev) => {
+          if (prev >= 400) {
+            clearInterval(counter);
+            return 400;
+          }
+          return prev + 1;
+        });
+      }, 1);
+      return () => {
+        clearInterval(counter);
+      };
+    }, []);
+    useEffect(() => {
+      updateLoadingProgress(count, 0);
+    }, [count, updateLoadingProgress]);
+    ////////////////////////////////////////
+
     return (
       <section
         id="profile-section"
@@ -32,7 +53,7 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
               />
             </div>
           </div>
-          <div className="profile-text-area flex-1  pr-[128px] pt-[96px] text-white">
+          <div className="profile-text-area flex-1 select-none  pr-[128px] pt-[96px] text-white">
             <div className="profile-text-area-upper">
               <h1 className="text-9xl font-bold">이지훈 Lee Ji-hoon</h1>
               <h3 className="text-5xl font-bold">anteater1056@gmail.com</h3>
