@@ -23,16 +23,21 @@ function PBody({
    *  페이지 최초 로딩 시 로딩화면 표시
    */
   useEffect(() => {
+    window.scrollTo(0, 0);
     showLoading();
   }, [showLoading]);
 
   /** 각 섹션 로딩 진행률에 따라 전체 진행률 계산해 로딩 컴포넌트에 반영 */
   useEffect(() => {
-    console.log(sectionProgressList);
-    setPercentage(
-      (100 * sectionProgressList.reduce((pv, cv) => pv + cv, 0)) / 500
-    );
-  }, [sectionProgressList, setPercentage]);
+    const totalProgress =
+      (100 * sectionProgressList.reduce((pv, cv) => pv + cv, 0)) / 500;
+
+    setPercentage(totalProgress);
+
+    if (totalProgress >= 100) {
+      hideLoading();
+    }
+  }, [hideLoading, sectionProgressList, setPercentage]);
 
   /** 각 섹션별 진행률을 부모 컴포넌트로 전달하는 이벤트 핸들러 */
   const updateSectionProgress = useCallback(
@@ -43,7 +48,7 @@ function PBody({
         return newArray;
       });
     },
-    [setSectionProgressList]
+    []
   );
 
   /** 현재 스크롤 위치에 따라 현재 섹션을 계산 */

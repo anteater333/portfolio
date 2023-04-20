@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SectionProps from "./SectionProps";
 
 const ContactsSection = React.forwardRef<HTMLElement, SectionProps>(
-  (props: SectionProps, ref) => {
+  ({ updateLoadingProgress }: SectionProps, ref) => {
+    useEffect(() => {
+      updateLoadingProgress(100, 4);
+    }, [updateLoadingProgress]);
+
     return (
       <section id="contacts-section" ref={ref} className={`h-recommended`}>
         <h2>Contacts</h2>

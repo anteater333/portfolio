@@ -1,31 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import SectionProps from "./SectionProps";
 import imgBackground from "../../resources/images/profile/img_s1_00_background.png";
 import imgMeIRL from "../../resources/images/profile/img_s1_01_me_IRL.png";
 import imgMeCharacter from "../../resources/images/profile/img_s1_02_me_character.png";
+import { useImageLoader } from "../../hooks/useImageLoader";
 
 const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
   ({ updateLoadingProgress }: SectionProps, ref) => {
-    /** Loading 동작 Mocking 코드 */
-    const [count, setCount] = useState(0);
+    const { progress: prgMeCharacter, ImageComponent: ImgMeCharacter } =
+      useImageLoader(imgMeCharacter);
+    const { progress: prgMeIRL, ImageComponent: ImgMeIRL } =
+      useImageLoader(imgMeIRL);
+    const { progress: prgBackground, ImageComponent: ImgBackground } =
+      useImageLoader(imgBackground);
+
+    /**
+     * 이 섹션에 포함된 이미지들의 로딩 진행률을 계산해 부모에게 전달함.
+     */
     useEffect(() => {
-      const counter = setInterval(() => {
-        setCount((prev) => {
-          if (prev >= 400) {
-            clearInterval(counter);
-            return 400;
-          }
-          return prev + 1;
-        });
-      }, 1);
-      return () => {
-        clearInterval(counter);
-      };
-    }, []);
-    useEffect(() => {
-      updateLoadingProgress(count, 0);
-    }, [count, updateLoadingProgress]);
-    ////////////////////////////////////////
+      updateLoadingProgress((prgBackground + prgMeCharacter + prgMeIRL) / 3, 0);
+    }, [prgMeIRL, prgMeCharacter, prgBackground, updateLoadingProgress]);
 
     return (
       <section
@@ -36,21 +30,10 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
         <div className="profile-content-area absolute z-30 flex h-recommended w-recommended">
           <div className="profile-myself-area w-1/3">
             <div className="profile-my-IRL-picture absolute h-full overflow-hidden">
-              <img
-                className="-ml-16 mt-8"
-                src={imgMeIRL}
-                alt="me-irl"
-                onLoad={() => {}}
-                loading="lazy"
-              />
+              <ImgMeIRL className="-ml-16 mt-8" alt="me-irl" />
             </div>
             <div className="profile-my-character absolute left-[100px] top-[96px]">
-              <img
-                src={imgMeCharacter}
-                alt="me-character"
-                onLoad={() => {}}
-                loading="lazy"
-              />
+              <ImgMeCharacter alt="me-character" />
             </div>
           </div>
           <div className="profile-text-area flex-1 select-none  pr-[128px] pt-[96px] text-white">
@@ -88,12 +71,9 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
           }}
         />
         <div className="profile-background-image absolute z-10 h-recommended w-recommended">
-          <img
+          <ImgBackground
             className="object-none object-center"
-            src={imgBackground}
             alt="background-img"
-            onLoad={() => {}}
-            loading="lazy"
           />
         </div>
         <div className="profile-background-placeholder absolute z-0 h-recommended w-recommended bg-black"></div>
