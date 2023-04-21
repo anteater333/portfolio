@@ -1,9 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SectionProps from "./SectionProps";
 import imgBackground from "../../resources/images/profile/img_s1_00_background.png";
 import imgMeIRL from "../../resources/images/profile/img_s1_01_me_IRL.png";
 import imgMeCharacter from "../../resources/images/profile/img_s1_02_me_character.png";
 import { useImageLoader } from "../../hooks/useImageLoader";
+import throttle from "../../utils/throttle";
+
+/**
+ * 트랜지션 시퀀스 정의 TailwindCSS 클래스 배열.
+ */
+const transitionSequence = [
+  "transition-{opacity} delay-[500ms] duration-[100ms]",
+  "transition-{opacity} delay-[750ms] duration-[750ms]",
+  "transition-{opacity} delay-[750ms] duration-[750ms]",
+  "transition-{opacity} delay-[1500ms] duration-[1000ms]",
+  "transition-{opacity} delay-[2000ms] duration-[1000ms]",
+  "transition-{opacity} delay-[2500ms] duration-[1000ms]",
+  "transition-{opacity} delay-[500ms] duration-[500ms]",
+];
 
 const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
   ({ updateLoadingProgress }: SectionProps, ref) => {
@@ -41,27 +55,54 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
       );
     }, [imgMeIRLLoaded, imgMeCharacterLoaded, imgBackgroundLoaded]);
 
+    const [mouseX, setMouseX] = useState(1920 / 2);
+    const [mouseY, setMouseY] = useState(1200 / 2);
+    /**
+     * 마우스 위치를 인식해 이미지의 위치를 조정
+     */
+    const trackMouseMove = useCallback(
+      (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+        setMouseX(event.clientX);
+        setMouseY(event.clientY);
+      },
+      []
+    );
+
     return (
       <section
         id="profile-section"
         ref={ref}
         className="h-recommended overflow-hidden"
+        onMouseMove={throttle(trackMouseMove, 50)}
       >
         <div className="profile-content-area absolute z-30 flex h-recommended w-recommended">
           <div className="profile-myself-area w-1/3">
             <div
               className={`profile-my-IRL-picture absolute h-full overflow-hidden ${
                 isAllImgReady ? "opacity-100" : "opacity-0"
-              } ${transitionSequence[2]}`}
+              } ${transitionSequence[6]}`}
             >
-              <ImgMeIRL className="-ml-16 mt-8" alt="me-irl" />
+              <ImgMeIRL
+                className="-ml-16 mt-8"
+                alt="me-irl"
+                style={{
+                  paddingLeft: 16 * ((mouseX / 1920) * 2),
+                  paddingTop: 8 * ((mouseY / 1200) * 2),
+                }}
+              />
             </div>
             <div
               className={`profile-my-character absolute left-[100px] top-[96px] ${
                 isAllImgReady ? "opacity-100" : "opacity-0"
               } ${transitionSequence[0]}`}
             >
-              <ImgMeCharacter alt="me-character" />
+              <ImgMeCharacter
+                alt="me-character"
+                style={{
+                  paddingLeft: 4 * ((mouseX / 1920) * 2),
+                  paddingTop: 2 * ((mouseY / 1200) * 2),
+                }}
+              />
             </div>
           </div>
           <div className="profile-text-area flex-1 select-none pl-12 pr-[128px] pt-[96px] text-white">
@@ -107,7 +148,7 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
         <div
           className={`profile-overlay-blue absolute z-20 ${
             isAllImgReady ? "opacity-100" : "opacity-0"
-          } h-recommended w-recommended ${transitionSequence[0]}`}
+          } h-recommended w-recommended ${transitionSequence[1]}`}
           style={{
             background: `linear-gradient(180deg, rgba(12, 74, 110, 0.5) 0.08%, rgba(12, 74, 110, 0.7) 99.98%)`,
           }}
@@ -120,6 +161,11 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
           <ImgBackground
             className="object-none object-center"
             alt="background-img"
+            style={{
+              objectPosition: `${-300 + 64 * ((mouseX / 1920) * 2)}px ${
+                -200 + 32 * ((mouseY / 1200) * 2)
+              }px`,
+            }}
           />
         </div>
         <div className="profile-background-placeholder absolute z-0 h-recommended w-recommended bg-black"></div>
@@ -127,14 +173,5 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
     );
   }
 );
-
-const transitionSequence = [
-  "transition-{opacity} delay-[500ms] duration-[750ms]",
-  "transition-{opacity} delay-[1250ms] duration-[750ms]",
-  "transition-{opacity} delay-[1250ms] duration-[750ms]",
-  "transition-{opacity} delay-[1900ms] duration-[1000ms]",
-  "transition-{opacity} delay-[2400ms] duration-[1000ms]",
-  "transition-{opacity} delay-[2900ms] duration-[1000ms]",
-];
 
 export default ProfileSection;
