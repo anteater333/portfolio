@@ -55,5 +55,7 @@ export const useImageLoader = (imageURL: string) => {
     ImageComponent,
     /** 이미지 로딩 진행률 */
     progress,
+    /** 로딩 완료 여부 */
+    isLoaded,
   };
 };
