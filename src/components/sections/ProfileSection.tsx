@@ -68,6 +68,37 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
       []
     );
 
+    /**
+     * Easter Egg
+     */
+    const [isMouseOnEE, setIsMouseOnEE] = useState(false);
+    const [isEEActivated, setIsEEActivated] = useState(false);
+    const [EEOpacity, setEEOpacity] = useState(0);
+
+    useEffect(() => {
+      if (!isEEActivated && isMouseOnEE) {
+        let counterToReveal = 100;
+        let counterToActive = 150;
+
+        let timerId = setInterval(() => {
+          counterToReveal =
+            counterToReveal > 0 ? counterToReveal - 1 : counterToReveal;
+          setEEOpacity(50 - counterToReveal / 2);
+          counterToActive--;
+
+          if (counterToActive <= 0) {
+            setIsEEActivated(true);
+            clearInterval(timerId);
+          }
+        });
+
+        return () => {
+          clearInterval(timerId);
+          setEEOpacity(0);
+        };
+      }
+    }, [isMouseOnEE, isEEActivated]);
+
     return (
       <section
         id="profile-section"
@@ -141,7 +172,19 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
                 <span className={`text-green-500`}>공상을 현실로</span> 만드는
                 삶
               </h2>
-              <h4 className="pr-2 text-base">그리고 약간의 실없는 농담들</h4>
+              <h4
+                className="pr-2 text-base"
+                onMouseEnter={() => setIsMouseOnEE(true)}
+                onMouseLeave={() => setIsMouseOnEE(false)}
+                onClick={() => {
+                  if (isEEActivated) setIsEEActivated(false);
+                }}
+                style={{
+                  opacity: isEEActivated ? `100%` : `${EEOpacity}%`,
+                }}
+              >
+                그리고 약간의 실없는 농담들
+              </h4>
             </div>
           </div>
         </div>
