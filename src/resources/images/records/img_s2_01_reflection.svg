@@ -1,0 +1,18 @@
+<svg
+  width="440"
+  height="262"
+  viewBox="0 0 440 262"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M440 0L0 80V120L440 40V0Z"
+    fill="#F2F2F2"
+    fill-opacity="0.5"
+  />
+  <path
+    d="M440 102L0 182V262L440 182V102Z"
+    fill="#F2F2F2"
+    fill-opacity="0.5"
+  />
+</svg>

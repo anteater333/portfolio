@@ -46,7 +46,7 @@ export const useImageLoader = (imageURL: string) => {
     return (
       props: JSX.IntrinsicAttributes &
         ClassAttributes<HTMLImageElement> &
-        ImgHTMLAttributes<HTMLImageElement>
+        ImgHTMLAttributes<HTMLImageElement> & { alt: string }
     ) => <img {...props} src={imgBlob} alt={props.alt} />;
   }, [imgBlob, isLoaded]);
 
