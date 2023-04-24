@@ -24,7 +24,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
     <header
       id="site-header"
       ref={headerRef}
-      className={`fixed w-full overflow-hidden bg-sky-50 bg-opacity-80 px-16 pt-2 transition-all ${
+      className={`fixed z-40 w-full overflow-hidden bg-sky-50 bg-opacity-80 px-16 pt-2 transition-all ${
         showHeader || selected !== 0 ? "top-0" : "-top-8 opacity-0"
       }`}
       onMouseEnter={() => setShowHeader(true)}

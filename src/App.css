@@ -1,0 +1,6 @@
+@import url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
+#root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

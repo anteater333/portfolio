@@ -13,6 +13,9 @@ module.exports = {
         white: "#f2f2f2",
         black: "#222222",
       },
+      fontFamily: {
+        galmuri9: ["Galmuri9"],
+      },
     },
   },
   plugins: [],
