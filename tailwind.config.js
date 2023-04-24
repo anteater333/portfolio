@@ -12,6 +12,7 @@ module.exports = {
       colors: {
         white: "#f2f2f2",
         black: "#222222",
+        pureBlack: "#000000",
       },
       fontFamily: {
         galmuri9: ["Galmuri9"],
