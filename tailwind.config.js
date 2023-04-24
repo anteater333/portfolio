@@ -16,6 +16,9 @@ module.exports = {
       fontFamily: {
         galmuri9: ["Galmuri9"],
       },
+      fontSize: {
+        "10xl": "10rem",
+      },
     },
   },
   plugins: [],

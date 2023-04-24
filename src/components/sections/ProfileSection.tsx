@@ -103,7 +103,7 @@ const ProfileSection = React.forwardRef<HTMLElement, SectionProps>(
       <section
         id="profile-section"
         ref={ref}
-        className="h-recommended overflow-hidden"
+        className="relative h-recommended overflow-hidden"
         onMouseMove={throttle(trackMouseMove, 50)}
       >
         <div className="profile-content-area absolute z-30 flex h-recommended w-recommended">

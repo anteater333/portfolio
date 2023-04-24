@@ -8,8 +8,14 @@ const RecordsSection = React.forwardRef<HTMLElement, SectionProps>(
     }, [updateLoadingProgress]);
 
     return (
-      <section id="records-section" ref={ref} className={`h-recommended`}>
-        <h2>Records</h2>
+      <section
+        id="records-section"
+        ref={ref}
+        className="relative h-recommended overflow-hidden"
+      >
+        <h1 className="absolute right-16 top-10 border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500">
+          Records
+        </h1>
       </section>
     );
   }
