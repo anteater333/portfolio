@@ -24,8 +24,10 @@ function PHeader({ selected = 0 }: { selected: number }) {
     <header
       id="site-header"
       ref={headerRef}
-      className={`fixed z-40 w-full overflow-hidden bg-sky-50 bg-opacity-80 px-16 pt-2 transition-all ${
-        showHeader || selected !== 0 ? "top-0" : "-top-8 opacity-0"
+      className={`fixed z-40 w-full overflow-hidden bg-white bg-opacity-80 px-16 pt-2 transition-all ${
+        showHeader || (selected !== 0 && selected !== 4)
+          ? "top-0"
+          : "-top-8 opacity-0"
       }`}
       onMouseEnter={() => setShowHeader(true)}
       onMouseLeave={() => setShowHeader(false)}
@@ -45,7 +47,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
         </a>
         <a
           className={`transition-all ${
-            selected === 1 ? "!border-b-black" : ""
+            selected === 1 ? "!border-b-blue-500 !text-blue-500" : ""
           }`}
           onClick={scrollToSection}
           href="#records-section"
@@ -54,7 +56,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
         </a>
         <a
           className={`transition-all ${
-            selected === 2 ? "!border-b-black" : ""
+            selected === 2 ? "!border-b-green-500 !text-green-500" : "" // TBD : 섹션의 움직임에 따라 색상 변경
           }`}
           onClick={scrollToSection}
           href="#skills-section"
@@ -63,7 +65,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
         </a>
         <a
           className={`transition-all ${
-            selected === 3 ? "!border-b-black" : ""
+            selected === 3 ? "!border-b-indigo-500 !text-indigo-500" : ""
           }`}
           onClick={scrollToSection}
           href="#works-section"
