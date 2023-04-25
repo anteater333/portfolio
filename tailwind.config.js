@@ -7,7 +7,7 @@ module.exports = {
         recommended: "1920px",
       },
       height: {
-        recommended: "1200px",
+        recommended: "1000px",
       },
       colors: {
         white: "#f2f2f2",

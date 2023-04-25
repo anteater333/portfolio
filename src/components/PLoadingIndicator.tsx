@@ -32,8 +32,8 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
   }, []);
 
   return (
-    <div className="global-loading-indicator-container absolute top-0 z-50 h-full w-full bg-black">
-      <div className="global-loading-indicator absolute top-0 z-50 h-recommended w-recommended bg-black">
+    <div className="global-loading-indicator-container absolute z-50 flex h-full w-full items-center justify-center bg-black">
+      <div className="global-loading-indicator relative h-recommended w-recommended bg-black">
         <div
           className="loading-text-area absolute bottom-16 right-16 flex select-none font-galmuri9 text-9xl"
           style={{

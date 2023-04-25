@@ -4,4 +4,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 95vh;
+}
+
+#app-main-screen,
+html {
+  scrollbar-width: none;
+}
+
+#app-main-screen::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
 }
