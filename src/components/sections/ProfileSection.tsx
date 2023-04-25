@@ -202,8 +202,8 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
           className="object-none object-center"
           alt="background-img"
           style={{
-            objectPosition: `${-300 + 64 * ((mouseX / 1920) * 2)}px ${
-              -200 + 32 * ((mouseY / 1000) * 2)
+            objectPosition: `${-300 - 32 * ((mouseX / 1920) * 2)}px ${
+              -200 - 16 * ((mouseY / 1000) * 2)
             }px`,
           }}
         />
