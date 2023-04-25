@@ -3,8 +3,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: 95vh;
+}
+
+#root > :first-child {
+  flex-shrink: 0;
 }
 
 #app-main-screen,
