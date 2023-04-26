@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 import imgBackground from "../../resources/images/profile/img_s1_00_background.png";
 import imgMeIRL from "../../resources/images/profile/img_s1_01_me_IRL.png";
 import imgMeCharacter from "../../resources/images/profile/img_s1_02_me_character.png";
 import { useImageLoader } from "../../hooks/useImageLoader";
 import throttle from "../../utils/throttle";
+import useIntersection from "../../hooks/useIntersection";
 
 /**
  * 트랜지션 시퀀스 정의 TailwindCSS 클래스 배열.
@@ -44,15 +45,6 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
   useEffect(() => {
     updateLoadingProgress((prgBackground + prgMeCharacter + prgMeIRL) / 3, 0);
   }, [prgMeIRL, prgMeCharacter, prgBackground, updateLoadingProgress]);
-
-  /**
-   * 전체 이미지가 준비되었음을 체크. 트랜지션의 시작점.
-   */
-  useEffect(() => {
-    setIsAllImgReady(
-      imgMeCharacterLoaded && imgMeIRLLoaded && imgBackgroundLoaded
-    );
-  }, [imgMeIRLLoaded, imgMeCharacterLoaded, imgBackgroundLoaded]);
 
   const [mouseX, setMouseX] = useState(1920 / 2);
   const [mouseY, setMouseY] = useState(1200 / 2);
@@ -98,11 +90,26 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
     }
   }, [isMouseOnEE, isEEActivated]);
 
+  /** Intersection Observer 사용 */
+  const ref = useRef<HTMLDivElement | null>(null);
+  const entry = useIntersection(ref, { freezeOnceVisible: true });
+  const isVisible = !!entry?.isIntersecting;
+
+  /**
+   * 전체 이미지가 준비되었음을 체크. 트랜지션의 시작점.
+   */
+  useEffect(() => {
+    setIsAllImgReady(
+      isVisible && imgMeCharacterLoaded && imgMeIRLLoaded && imgBackgroundLoaded
+    );
+  }, [imgMeIRLLoaded, imgMeCharacterLoaded, imgBackgroundLoaded, isVisible]);
+
   return (
     <section
       id="profile-section"
       className="relative h-recommended snap-center overflow-hidden"
       onMouseMove={throttle(trackMouseMove, 50)}
+      ref={ref}
     >
       <div
         id="profile-content-area"

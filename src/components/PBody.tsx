@@ -17,11 +17,6 @@ function PBody() {
    *  페이지 최초 로딩 시 로딩화면 표시
    */
   useEffect(() => {
-    window.history.pushState({}, "", "/");
-    setTimeout(() => {
-      // 새로고침 시 페이지 최상단으로 강제 스크롤
-      window.scrollTo({ behavior: "smooth", left: 0, top: 0 });
-    }, 50);
     showLoading();
   }, [showLoading]);
 
