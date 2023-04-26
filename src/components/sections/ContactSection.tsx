@@ -9,7 +9,7 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
   return (
     <section
       id="contacts-section"
-      className="relative flex h-recommended flex-col items-center bg-pureBlack"
+      className="relative flex h-recommended snap-center flex-col items-center bg-pureBlack"
     >
       <h1 className="mt-4 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
         Contacts

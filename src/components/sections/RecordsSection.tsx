@@ -24,7 +24,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   return (
     <section
       id="records-section"
-      className="relative h-recommended overflow-hidden"
+      className="relative h-recommended snap-center overflow-hidden"
       onWheel={(e) => {
         e.preventDefault();
         e.stopPropagation();

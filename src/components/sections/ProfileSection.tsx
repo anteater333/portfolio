@@ -101,7 +101,7 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
   return (
     <section
       id="profile-section"
-      className="relative h-recommended overflow-hidden"
+      className="relative h-recommended snap-center overflow-hidden"
       onMouseMove={throttle(trackMouseMove, 50)}
     >
       <div className="profile-content-area absolute z-30 flex h-recommended w-recommended">
