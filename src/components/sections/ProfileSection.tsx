@@ -104,10 +104,14 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
       className="relative h-recommended snap-center overflow-hidden"
       onMouseMove={throttle(trackMouseMove, 50)}
     >
-      <div className="profile-content-area absolute z-30 flex h-recommended w-recommended">
-        <div className="profile-myself-area w-1/3">
+      <div
+        id="profile-content-area"
+        className="absolute z-30 flex h-recommended w-recommended"
+      >
+        <div id="profile-myself-area" className="w-1/3">
           <div
-            className={`profile-my-IRL-picture absolute h-full overflow-hidden ${
+            id="profile-my-IRL-picture"
+            className={`absolute h-full overflow-hidden ${
               isAllImgReady ? "opacity-100" : "opacity-0"
             } ${transitionSequence[6]}`}
           >
@@ -121,7 +125,8 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
             />
           </div>
           <div
-            className={`profile-my-character absolute left-[100px] top-[96px] ${
+            id="profile-my-character"
+            className={`absolute left-[100px] top-[96px] ${
               isAllImgReady ? "opacity-100" : "opacity-0"
             } ${transitionSequence[0]}`}
           >
@@ -134,11 +139,15 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
             />
           </div>
         </div>
-        <div className="profile-text-area flex-1 select-none pl-12 pr-[128px] pt-[96px] text-white">
+        <div
+          id="profile-text-area"
+          className="flex-1 select-none pl-12 pr-[128px] pt-[96px] text-white"
+        >
           <div
-            className={`profile-text-area-upper ${
-              isAllImgReady ? "opacity-100" : "opacity-0"
-            } ${transitionSequence[3]}`}
+            id="profile-text-area-upper"
+            className={`${isAllImgReady ? "opacity-100" : "opacity-0"} ${
+              transitionSequence[3]
+            }`}
           >
             <h1 className="text-9xl font-bold">이지훈 Lee Ji-hoon</h1>
             <h3 className="text-5xl font-bold">anteater1056@gmail.com</h3>
@@ -148,9 +157,10 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
             </h3>
           </div>
           <div
-            className={`profile-text-area-middle mt-24 ${
-              isAllImgReady ? "opacity-100" : "opacity-0"
-            } ${transitionSequence[4]}`}
+            id="profile-text-area-middle"
+            className={`mt-24 ${isAllImgReady ? "opacity-100" : "opacity-0"} ${
+              transitionSequence[4]
+            }`}
           >
             <h2 className="mb-4 text-8xl font-bold">
               <span className={`text-green-500`}>소프트웨어 장인</span> 지망생
@@ -161,7 +171,8 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
             </h3>
           </div>
           <div
-            className={`profile-text-area-bottom mt-24 text-right ${
+            id="profile-text-area-bottom"
+            className={`mt-24 text-right ${
               isAllImgReady ? "opacity-100" : "opacity-0"
             } ${transitionSequence[5]}`}
           >
@@ -186,7 +197,8 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
         </div>
       </div>
       <div
-        className={`profile-overlay-blue absolute z-20 ${
+        id="profile-overlay-blue"
+        className={`absolute z-20 ${
           isAllImgReady ? "opacity-100" : "opacity-0"
         } h-recommended w-recommended ${transitionSequence[1]}`}
         style={{
@@ -194,7 +206,8 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
         }}
       />
       <div
-        className={`profile-background-image absolute z-10 h-recommended w-recommended ${
+        id="profile-background-image"
+        className={`absolute z-10 h-recommended w-recommended ${
           isAllImgReady ? "opacity-100" : "opacity-0"
         } ${transitionSequence[1]}`}
       >
@@ -208,7 +221,10 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
           }}
         />
       </div>
-      <div className="profile-background-placeholder absolute z-0 h-recommended w-recommended bg-black"></div>
+      <div
+        id="profile-background-placeholder"
+        className="absolute z-0 h-recommended w-recommended bg-black"
+      ></div>
     </section>
   );
 }

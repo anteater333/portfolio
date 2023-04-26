@@ -33,10 +33,13 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
       <h1 className="absolute right-16 top-40 border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500">
         Records
       </h1>
-      <div className="records-content-area flex h-full font-bold">
-        <div className="records-content-left w-2/3">
+      <div id="records-content-area" className="flex h-full font-bold">
+        <div id="records-content-left" className="w-2/3">
           <div className="flex h-full w-full flex-col pl-28 pt-36">
-            <div className="records-picture-area flex h-[27.5rem] w-[27.5rem] justify-center overflow-hidden rounded-[6.25rem] bg-gradient-to-t from-sky-400 to-blue-500">
+            <div
+              id="records-picture-area"
+              className="flex h-[27.5rem] w-[27.5rem] justify-center overflow-hidden rounded-[6.25rem] bg-gradient-to-t from-sky-400 to-blue-500"
+            >
               <ImgMeCharacter alt="me-character" />
               <img
                 className={`absolute`}
@@ -71,7 +74,10 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
             </div>
           </div>
         </div>
-        <div className="records-content-right flex h-full w-1/3 flex-col justify-end font-bold">
+        <div
+          id="records-content-right"
+          className="flex h-full w-1/3 flex-col justify-end font-bold"
+        >
           <div className="h-[37.5rem]">
             <div className="absolute flex flex-col space-y-28">
               {/* Mock Data #1 */}
