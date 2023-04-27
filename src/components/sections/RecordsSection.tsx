@@ -1,9 +1,95 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 import { useImageLoader } from "../../hooks/useImageLoader";
 
 import imgMeCharacter from "../../resources/images/records/img_s2_00_me_character_no_bg.png";
 import imgReflection from "../../resources/images/records/img_s2_01_reflection.svg";
+import useIntersection from "../../hooks/useIntersection";
+
+type RecordSpecItemProp = { text: string; emoji?: string };
+
+function RecordSpecItem({ text, emoji }: RecordSpecItemProp) {
+  return <span>#{text.replaceAll(" ", "_")}</span>;
+}
+
+/**
+ * 생애/이력 데이터
+ */
+const recordsArray: {
+  year: number;
+  title: string;
+  lines: JSX.Element[][];
+}[] = [
+  {
+    year: 2021,
+    title: "소프트웨어 마에스트로 12기 활동",
+    lines: [
+      [
+        RecordSpecItem({
+          text: "SOMA 미니 프로젝트 3rd",
+        }),
+      ],
+      [
+        RecordSpecItem({
+          text: "SOMA 해커톤 2nd",
+          emoji: "💤",
+        }),
+      ],
+      [
+        RecordSpecItem({
+          text: "팀 프로젝트 AIQA",
+        }),
+      ],
+    ],
+  },
+  {
+    year: 2014,
+    title: "부경대학교 컴퓨터공학과 입학",
+    lines: [
+      [RecordSpecItem({ text: "프로그래밍 동아리 WAP 18기 활동" })],
+      [
+        RecordSpecItem({ text: "Java" }),
+        RecordSpecItem({ text: "C#" }),
+        RecordSpecItem({ text: "Unity 등등" }),
+      ],
+      [RecordSpecItem({ text: "다양한 소규모 프로젝트 진행", emoji: "⌨️" })],
+      [RecordSpecItem({ text: "K-해커톤 (비대면) 본선 탈락", emoji: "😷" })],
+    ],
+  },
+  {
+    year: 20011,
+    title: "대구 성산고등학교 입학",
+    lines: [
+      [
+        RecordSpecItem({
+          text: "2012 학생 창의력 챔피언 대회 대상",
+          emoji: "🏆",
+        }),
+      ],
+      [RecordSpecItem({ text: "교내 영자신문 동아리 활동" })],
+      [RecordSpecItem({ text: "정보 올림피아드 지역 본선 탈락", emoji: "😂" })],
+    ],
+  },
+  {
+    year: 2008,
+    title: "대구 성서중학교 입학",
+    lines: [
+      [RecordSpecItem({ text: "프로그래밍 첫 경험" })],
+      [RecordSpecItem({ text: "스타크래프트 유즈맵 제작", emoji: "🎮" })],
+    ],
+  },
+  {
+    year: 2002,
+    title: "대구 장산초등학교 입학",
+    lines: [
+      [RecordSpecItem({ text: "워드 컴활 등 IT 자격증(2급) 취득" })],
+      [RecordSpecItem({ text: "ITQ OA Master 취득" })],
+      [RecordSpecItem({ text: "교내 정보검색 대회 우승" })],
+      [RecordSpecItem({ text: "정보 올림피아드 지역 예선 탈락", emoji: "😭" })],
+    ],
+  },
+  { year: 1995, title: "대구 출생", lines: [] },
+];
 
 function RecordsSection({ updateLoadingProgress }: SectionProps) {
   const {
@@ -14,6 +100,10 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
 
   const [recordScroll, setRecordScroll] = useState(0);
 
+  const ref = useRef<HTMLDivElement | null>(null);
+  const entry = useIntersection(ref, {});
+  const isVisible = !!entry?.isIntersecting;
+
   /**
    * 이 섹션에 포함된 이미지들의 로딩 진행률을 계산해 부모에게 전달함.
    */
@@ -21,19 +111,27 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     updateLoadingProgress(prgMeCharacter / 1, 1);
   }, [prgMeCharacter, updateLoadingProgress]);
 
+  console.log(isVisible);
+
   return (
     <section
       id="records-section"
-      className="relative h-recommended snap-center overflow-hidden"
+      className={`transition-{opacity} relative h-recommended snap-start overflow-scroll duration-[1000ms] ${
+        isVisible ? "opacity-100" : "opacity-0"
+      }`}
       onWheel={(e) => {
         e.preventDefault();
         e.stopPropagation();
       }}
+      ref={ref}
     >
       <h1 className="absolute right-16 top-40 border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500">
         Records
       </h1>
-      <div id="records-content-area" className="flex h-full font-bold">
+      <div
+        id="records-content-area"
+        className={`flex h-full origin-bottom font-bold`}
+      >
         <div id="records-content-left" className="w-2/3">
           <div className="flex h-full w-full flex-col pl-28 pt-36">
             <div
