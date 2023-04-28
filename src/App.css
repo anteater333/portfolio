@@ -11,12 +11,14 @@
 }
 
 #app-main-screen,
-html {
+html,
+section {
   scrollbar-width: none;
 }
 
 #app-main-screen::-webkit-scrollbar,
-::-webkit-scrollbar {
+::-webkit-scrollbar,
+section::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
