@@ -28,9 +28,9 @@ const recordsArray: {
   lines: JSX.Element[][];
 }[] = [
   {
-    title: "Scroll down to see",
-    lines: [],
-    year: "",
+    title: "Records",
+    lines: [[<span className="text-5xl">Scroll down to see</span>]],
+    year: "My",
   },
   {
     year: 1995,
@@ -107,7 +107,7 @@ const recordsArray: {
       ],
     ],
   },
-  { year: "현재", title: "구직 중", lines: [] },
+  { year: "현재", title: "나를 받아 줄 곳을 찾는 중", lines: [] },
   { year: "And", title: "Anteater will return...", lines: [] },
 ];
 
@@ -134,6 +134,12 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersection(ref, {});
   const isVisible = !!entry?.isIntersecting;
+
+  useEffect(() => {
+    if (!isVisible) {
+      ref.current?.scrollTo({ top: 0 });
+    }
+  }, [isVisible]);
 
   /**
    * 이 섹션에 포함된 이미지들의 로딩 진행률을 계산해 부모에게 전달함.
@@ -237,6 +243,16 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
           <h1 className="absolute right-16 top-40 z-50 border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500">
             Records
           </h1>
+          <div
+            className="transition-{opacity} absolute top-40 z-50 w-full select-none text-center text-3xl font-bold ease-in"
+            style={{
+              transitionDelay: isVisible ? "500ms" : "0ms",
+              transitionDuration: isVisible ? "2000ms" : "0ms",
+              opacity: isVisible ? 0 : 100,
+            }}
+          >
+            휠 클릭으로 스크롤해 보세요.
+          </div>
           <div
             id="records-content-area"
             className={`flex h-full origin-bottom font-bold`}
