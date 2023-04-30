@@ -34,7 +34,7 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
   return (
     <div
       id="global-loading-indicator-container"
-      className="absolute z-50 flex h-full w-full items-center justify-center bg-black"
+      className="absolute z-50 flex h-full w-full items-start justify-center bg-black"
     >
       <div
         id="global-loading-indicator"

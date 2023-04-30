@@ -22,3 +22,14 @@ section::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
+
+/** For On-Click particles in Secion 02: Records **/
+particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

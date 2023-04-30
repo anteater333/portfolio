@@ -11,9 +11,60 @@ import { easeInBack, easeOutBack } from "../../utils/easeFunctions";
 
 type RecordSpecItemProp = { text: string; emoji?: string; big?: boolean };
 
+/** 레코드 데이터 상세 정보를 담게 될 자식 span 아이템 컴포넌트, 해시태그 효과 */
 function RecordSpecItem({ text, emoji, big }: RecordSpecItemProp) {
+  /** 버튼 클릭 시 파티클 효과 */
+  const particleOnClick = (event: React.MouseEvent<HTMLSpanElement>) => {
+    function createParticle(x: number, y: number) {
+      const particle = document.createElement("particle");
+      document.body.appendChild(particle);
+
+      let destinationX = (Math.random() - 0.5) * 300;
+      let destinationY = (Math.random() - 0.5) * 300;
+      let rotation = Math.random() * 520;
+      let delay = Math.random() * 200;
+
+      particle.innerHTML = emoji!;
+      particle.style.fontSize = `${Math.random() * 24 + 40}px`;
+
+      const animation = particle.animate(
+        [
+          {
+            transform: `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(0deg)`,
+            opacity: 1,
+          },
+          {
+            transform: `translate(-50%, -50%) translate(${
+              x + destinationX
+            }px, ${y + destinationY}px) rotate(${rotation}deg)`,
+            opacity: 1,
+          },
+        ],
+        {
+          duration: Math.random() * 1000 + 500,
+          easing: "cubic-bezier(0, .9, .57, 1)",
+          delay: delay,
+        }
+      );
+      animation.addEventListener("finish", (ev) => {
+        particle.remove();
+      });
+    }
+    const amount = Math.random() * 8 + 4;
+
+    for (let i = 0; i < amount; i++) {
+      createParticle(event.clientX, event.clientY);
+    }
+  };
+
   return (
-    <span key={text} className={big ? "text-5xl" : ""}>
+    <span
+      key={text}
+      className={`${!!emoji ? "cursor-pointer" : ""} ${
+        big ? "text-5xl" : ""
+      } select-none`}
+      onClick={emoji ? particleOnClick : undefined}
+    >
       #{text.replaceAll(" ", "_")}
     </span>
   );
@@ -29,14 +80,15 @@ const recordsArray: {
 }[] = [
   {
     title: "Records",
-    lines: [[<span className="text-5xl">Scroll down to see</span>]],
+    lines: [],
     year: "My",
   },
   {
     year: 1995,
     title: "대구 출생",
     lines: [
-      [RecordSpecItem({ text: "달서구 용산동의 소심한 아이", big: true })],
+      [RecordSpecItem({ text: "1남 1녀 중 둘째" })],
+      [RecordSpecItem({ text: "달서구 용산동의 소심한 아이", emoji: "😳" })],
     ],
   },
   {
@@ -107,7 +159,7 @@ const recordsArray: {
       ],
     ],
   },
-  { year: "현재", title: "나를 받아 줄 곳을 찾는 중", lines: [] },
+  { year: "현재", title: "일할 곳을 찾는 중", lines: [] },
   { year: "And", title: "Anteater will return...", lines: [] },
 ];
 
@@ -134,10 +186,18 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersection(ref, {});
   const isVisible = !!entry?.isIntersecting;
+  const [isDisappeared, setIsDisappeared] = useState(false);
 
+  /** 이 섹션이 화면에 표시될 때의 행동 */
   useEffect(() => {
     if (!isVisible) {
       ref.current?.scrollTo({ top: 0 });
+      setIsDisappeared(false);
+    } else {
+      let timeoutId = setTimeout(() => {
+        setIsDisappeared(true);
+      }, 2000);
+      return () => clearTimeout(timeoutId);
     }
   }, [isVisible]);
 
@@ -244,11 +304,12 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
             Records
           </h1>
           <div
-            className="transition-{opacity} absolute top-40 z-50 w-full select-none text-center text-3xl font-bold ease-in"
+            className="transition-{opacity} absolute bottom-40 z-50 w-full select-none text-center text-3xl font-bold ease-in"
             style={{
               transitionDelay: isVisible ? "500ms" : "0ms",
               transitionDuration: isVisible ? "2000ms" : "0ms",
               opacity: isVisible ? 0 : 100,
+              display: isDisappeared ? "none" : "block",
             }}
           >
             휠 클릭으로 스크롤해 보세요.
