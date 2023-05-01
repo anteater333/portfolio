@@ -7,14 +7,18 @@ module.exports = {
         recommended: "1920px",
       },
       height: {
-        recommended: "1200px",
+        recommended: "1000px",
       },
       colors: {
         white: "#f2f2f2",
         black: "#222222",
+        pureBlack: "#000000",
       },
       fontFamily: {
         galmuri9: ["Galmuri9"],
+      },
+      fontSize: {
+        "10xl": "10rem",
       },
     },
   },

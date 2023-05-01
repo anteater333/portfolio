@@ -1,6 +1,35 @@
 @import url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
 #root {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  height: 95vh;
+}
+
+#root > :first-child {
+  flex-shrink: 0;
+}
+
+#app-main-screen,
+html,
+section {
+  scrollbar-width: none;
+}
+
+#app-main-screen::-webkit-scrollbar,
+::-webkit-scrollbar,
+section::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/** For On-Click particles in Secion 02: Records **/
+particle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: contain;
 }

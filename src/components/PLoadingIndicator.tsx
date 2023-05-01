@@ -32,21 +32,31 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
   }, []);
 
   return (
-    <div className="global-loading-indicator-container absolute top-0 z-50 h-full w-full bg-black">
-      <div className="global-loading-indicator absolute top-0 z-50 h-recommended w-recommended bg-black">
+    <div
+      id="global-loading-indicator-container"
+      className="absolute z-50 flex h-full w-full items-start justify-center bg-black"
+    >
+      <div
+        id="global-loading-indicator"
+        className="relative h-recommended w-recommended bg-black"
+      >
         <div
-          className="loading-text-area absolute bottom-16 right-16 flex select-none font-galmuri9 text-9xl"
+          id="loading-text-area"
+          className="absolute bottom-16 right-16 flex select-none font-galmuri9 text-9xl"
           style={{
             color: colorByPercent,
           }}
         >
-          <div className="loading-text inline-block">
+          <div id="loading-text" className="inline-block">
             Loading
-            <span className="loading-ellipsis inline-block w-40">
+            <span id="loading-ellipsis" className="inline-block w-40">
               {Array(ellipsisCnt).fill(".").join("")}
             </span>
           </div>
-          <div className="loading-percentage ml-4 inline-block w-[320px] text-right">
+          <div
+            id="loading-percentage"
+            className="ml-4 inline-block w-[320px] text-right"
+          >
             {Math.floor(percentage)}%
           </div>
         </div>
