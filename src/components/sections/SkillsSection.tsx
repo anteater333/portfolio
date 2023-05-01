@@ -102,10 +102,13 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         Skills
       </h1>
       <div className="absolute top-1/2 flex -translate-y-1/2 flex-col items-center justify-center gap-8">
-        {bgBannerTextArray.map((line, index) => {
-          const isOdd = index % 2 === 1;
+        {bgBannerTextArray.map((line, i) => {
+          const isOdd = i % 2 === 1;
           return (
-            <div className="relative  h-32 select-none font-galmuri7 text-9xl font-bold text-white opacity-10">
+            <div
+              key={`skill-bg-${i}`}
+              className="relative  h-32 select-none font-galmuri7 text-9xl font-bold text-white opacity-10"
+            >
               <div
                 className="absolute flex"
                 style={{
@@ -120,8 +123,8 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                     } 240s linear infinite`,
                   }}
                 >
-                  {line.map((text) => {
-                    return <span>{text}</span>;
+                  {line.map((text, j) => {
+                    return <span key={`skill-bg-${i}-${j}-0`}>{text}</span>;
                   })}
                 </div>
                 <div
@@ -132,8 +135,8 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                     } 240s linear infinite`,
                   }}
                 >
-                  {line.map((text) => {
-                    return <span>{text}</span>;
+                  {line.map((text, j) => {
+                    return <span key={`skill-bg-${i}-${j}-1`}>{text}</span>;
                   })}
                 </div>
               </div>
