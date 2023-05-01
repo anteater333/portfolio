@@ -33,3 +33,22 @@ particle {
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+/** Custom animation for banner text in Section 03: Skills**/
+@keyframes bannermove-main {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes bannermove-sub {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
