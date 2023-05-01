@@ -1,10 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 import { useImageLoader } from "../../hooks/useImageLoader";
 
 import imgMeCharacter from "../../resources/images/records/img_s2_00_me_character_no_bg.png";
 import imgReflection from "../../resources/images/records/img_s2_01_reflection.png";
 import imgTVNoise from "../../resources/images/records/img_s2_02_tv_noise.gif";
+import imgMe00 from "../../resources/images/records/img_s2_03_me_00.png";
+import imgMe01 from "../../resources/images/records/img_s2_04_me_01.png";
+import imgMe02 from "../../resources/images/records/img_s2_05_me_02.png";
+import imgMe03 from "../../resources/images/records/img_s2_06_me_03.png";
+import imgMe04 from "../../resources/images/records/img_s2_07_me_04.png";
+import imgMe05 from "../../resources/images/records/img_s2_08_me_05.png";
+
 import useIntersection from "../../hooks/useIntersection";
 
 import { easeInBack, easeOutBack } from "../../utils/easeFunctions";
@@ -169,14 +176,18 @@ const numberOfRecords = recordsArray.length;
 const scrollPerRecord = 3000;
 /** 다음 레코드로 넘어가는 것을 미리 알리는 스크롤 임계값 */
 const threshold = 2500;
+const lowerThreshold = 250;
 
 function RecordsSection({ updateLoadingProgress }: SectionProps) {
-  const {
-    isLoaded: isLoadedMeCharacter,
-    progress: prgMeCharacter,
-    ImageComponent: ImgMeCharacter,
-  } = useImageLoader(imgMeCharacter);
+  const ImgMeCharacter = useImageLoader(imgMeCharacter);
   const ImgTVNoise = useImageLoader(imgTVNoise);
+
+  const ImgMe00 = useImageLoader(imgMe00);
+  const ImgMe01 = useImageLoader(imgMe01);
+  const ImgMe02 = useImageLoader(imgMe02);
+  const ImgMe03 = useImageLoader(imgMe03);
+  const ImgMe04 = useImageLoader(imgMe04);
+  const ImgMe05 = useImageLoader(imgMe05);
 
   const [recordScroll, setRecordScroll] = useState(0);
   const [calcedRecordScroll, setCalcedRecordScroll] = useState(
@@ -205,8 +216,28 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
    * 이 섹션에 포함된 이미지들의 로딩 진행률을 계산해 부모에게 전달함.
    */
   useEffect(() => {
-    updateLoadingProgress(prgMeCharacter / 1, 1);
-  }, [prgMeCharacter, updateLoadingProgress]);
+    const total =
+      ImgMeCharacter.progress +
+      ImgTVNoise.progress +
+      ImgMe00.progress +
+      ImgMe01.progress +
+      ImgMe02.progress +
+      ImgMe03.progress +
+      ImgMe04.progress +
+      ImgMe05.progress;
+    const length = 8;
+    updateLoadingProgress(total / length, 1);
+  }, [
+    ImgMeCharacter.progress,
+    ImgTVNoise.progress,
+    ImgMe00.progress,
+    ImgMe01.progress,
+    ImgMe02.progress,
+    ImgMe03.progress,
+    ImgMe04.progress,
+    ImgMe05.progress,
+    updateLoadingProgress,
+  ]);
 
   /**
    * 현재 섹션의 위치 계산 함수
@@ -229,7 +260,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
 
   useEffect(() => {
     const calculated = recordScroll % scrollPerRecord;
-    setIsNoiseOn(calculated > threshold); // 일정 threshold 이상 넘어가면 노이즈 표시
+    setIsNoiseOn(calculated > threshold || calculated < lowerThreshold); // 일정 threshold 이상 넘어가면 노이즈 표시
     setRecordIndex(
       Math.min(Math.floor(recordScroll / scrollPerRecord), numberOfRecords - 2)
     );
@@ -289,6 +320,31 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     }
   }, [calcedRecordScroll, recordIndex]);
 
+  /** currentRecord의 값에 따라 화면에 표시될 사진 선택 */
+  const CurrentImage = useMemo(() => {
+    /** RecordIndex로 이미지에 접근 가능하도록 배열 선언 */
+    const RecordImages = [
+      ImgMeCharacter.ImageComponent,
+      ImgMe00.ImageComponent,
+      ImgMe01.ImageComponent,
+      ImgMe02.ImageComponent,
+      ImgMe03.ImageComponent,
+      ImgMe04.ImageComponent,
+      ImgMe05.ImageComponent,
+    ];
+
+    return RecordImages[currentRecord];
+  }, [
+    ImgMe00.ImageComponent,
+    ImgMe01.ImageComponent,
+    ImgMe02.ImageComponent,
+    ImgMe03.ImageComponent,
+    ImgMe04.ImageComponent,
+    ImgMe05.ImageComponent,
+    ImgMeCharacter.ImageComponent,
+    currentRecord,
+  ]);
+
   return (
     <section
       id="records-section"
@@ -325,7 +381,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
                     id="records-picture-area"
                     className="flex h-[27.5rem] w-[27.5rem] justify-center overflow-hidden rounded-[6.25rem] bg-gradient-to-t from-sky-400 to-blue-500"
                   >
-                    <ImgMeCharacter alt="me-character" />
+                    <CurrentImage className="p-6" alt="me-picture" />
                     <ImgTVNoise.ImageComponent
                       className={`${"absolute h-[27.5rem] w-[27.5rem] overflow-hidden rounded-[6.25rem] transition-opacity"} ${
                         isNoiseOn || recordIndex > numberOfRecords - 3
