@@ -4,6 +4,8 @@ import SectionProps from "./SectionProps";
 import rightArrow from "../../resources/images/skills/img_s3_00_arrow_button_right.svg";
 import leftArrow from "../../resources/images/skills/img_s3_01_arrow_button_left.svg";
 
+import useIntersection from "../../hooks/useIntersection";
+
 const bgBannerTextArray = [
   [
     "MONGO",
@@ -105,6 +107,11 @@ const skillsArray = [
 ];
 
 function SkillsSection({ updateLoadingProgress }: SectionProps) {
+  /** Intersection Observer 사용 */
+  const ref = useRef<HTMLDivElement | null>(null);
+  const entry = useIntersection(ref, {});
+  const isVisible = !!entry?.isIntersecting;
+
   const sideScrollRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -212,7 +219,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
     },
     []
   );
-
   const returnToList = useCallback(() => {
     setIsFading(true);
     setTimeout(() => {
@@ -223,10 +229,18 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
     }, 150);
   }, []);
 
+  /** 이 섹션이 화면에 노출 시 행동 */
+  useEffect(() => {
+    if (!isVisible) {
+      returnToList();
+    }
+  }, [isVisible, returnToList]);
+
   return (
     <section
       id="skills-section"
       className="relative h-recommended snap-center overflow-hidden bg-green-500"
+      ref={ref}
     >
       {/* 배경 화면 */}
       <div
