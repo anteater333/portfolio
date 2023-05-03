@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 
 import rightArrow from "../../resources/images/skills/img_s3_00_arrow_button_right.svg";
 import leftArrow from "../../resources/images/skills/img_s3_01_arrow_button_left.svg";
 
 import useIntersection from "../../hooks/useIntersection";
+import throttle from "../../utils/throttle";
 
 const bgBannerTextArray = [
   [
@@ -93,18 +94,24 @@ const bgBannerTextArray = [
   ],
 ];
 
-const skillsArray = [
-  { tmp: 1 },
-  { tmp: 1 },
-  { tmp: 1 },
-  { tmp: 1 },
-  { tmp: 1 },
-  { tmp: 1 },
-  { tmp: 1 },
-  { tmp: 1 },
-  { tmp: 1 },
-  { tmp: 1 },
+const skillsArray: {
+  title: string;
+  description: string[];
+}[] = [
+  { title: "Node", description: [] },
+  { title: "Deno", description: [] },
+  { title: "Database", description: [] },
+  { title: "Javascript", description: [] },
+  { title: "React", description: [] },
+  { title: "Vue", description: [] },
+  { title: "HTML/CSS", description: [] },
+  { title: "Python", description: [] },
+  { title: "IT Infra/Linux", description: [] },
+  { title: "서비스 기획", description: [] },
 ];
+
+/** 내부적으로 Skills는 3 영역으로 구분됨 */
+const skillListSectionPos = [2, 6];
 
 function SkillsSection({ updateLoadingProgress }: SectionProps) {
   /** Intersection Observer 사용 */
@@ -166,9 +173,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
     /** - 마우스 버튼 떼기 */
     const dragMouseUpHandler = () => {
-      // cursor 다시 드러내기
-      target?.style.setProperty("cursor", "grab");
-
       setIsUserScrolling(false);
 
       target?.removeEventListener("mousemove", dragMouseMoveHandler);
@@ -184,9 +188,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         left: target!.scrollLeft,
         x: event.clientX,
       };
-
-      // cursor 숨기기
-      target?.style.setProperty("cursor", "none");
 
       target?.addEventListener("mousemove", dragMouseMoveHandler);
       target?.addEventListener("mouseup", dragMouseUpHandler);
@@ -221,10 +222,12 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
   );
   const returnToList = useCallback(() => {
     setIsFading(true);
+    setIsUserScrolling(true);
     setTimeout(() => {
       setSelectedItem(-1);
       setTimeout(() => {
         setIsFading(false);
+        setIsUserScrolling(false);
       }, 150);
     }, 150);
   }, []);
@@ -233,13 +236,46 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
   useEffect(() => {
     if (!isVisible) {
       returnToList();
+      sideScrollRef.current?.scrollTo({
+        left: sideScrollRef.current?.scrollWidth / 2 - 960 * 2,
+      });
     }
   }, [isVisible, returnToList]);
+
+  const [skillListSection, setSkillListSection] = useState<0 | 1 | 2>(1);
+
+  /** 스크롤에 따라 배경 색상 변경 */
+  const changeBgColor = useCallback(
+    (event: React.UIEvent<HTMLElement, UIEvent>) => {
+      const first = skillListSectionPos[0] * 960;
+      const second = skillListSectionPos[1] * 960;
+      const scrollLeft = event.currentTarget.scrollLeft;
+      setSkillListSection(scrollLeft < first ? 0 : scrollLeft < second ? 1 : 2);
+    },
+    []
+  );
+  useEffect(() => {
+    if (selectedItem >= 0) {
+      setSkillListSection(
+        selectedItem <= skillListSectionPos[0]
+          ? 0
+          : selectedItem <= skillListSectionPos[1]
+          ? 1
+          : 2
+      );
+    }
+  }, [selectedItem]);
 
   return (
     <section
       id="skills-section"
-      className="relative h-recommended snap-center overflow-hidden bg-green-500"
+      className={`${"relative h-recommended snap-center overflow-hidden transition-colors duration-1000"} ${
+        skillListSection === 0
+          ? "bg-blue-500"
+          : skillListSection === 1
+          ? "bg-green-500"
+          : "bg-indigo-500"
+      }`}
       ref={ref}
     >
       {/* 배경 화면 */}
@@ -295,61 +331,67 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       <div id="skills-content-area" className="absolute h-full w-full">
         {selectedItem < 0 ? (
           /* 1. 아이템 선택 이전 화면 */
-          <div
-            id="skills-items-list"
-            className="mb-10 mt-16 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-10 pt-16 transition-all duration-500"
-            style={{
-              opacity: isFading ? "0" : "100",
-              transform: isFading ? "translateY(100%)" : "translateY(0%)",
-            }}
-            ref={sideScrollRef}
-          >
-            {skillsArray.map((skill, i) => {
-              return (
-                <button
-                  key={`skill-button-${i}`}
-                  className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
-                  onClick={(event) => skillItemClickHandler(event, i)}
-                >
-                  {`${i}`}
-                </button>
-              );
-            })}
+          <div>
+            <div
+              id="skills-items-list"
+              className="mb-10 mt-16 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-10 pt-16 transition-all duration-500 active:cursor-none"
+              style={{
+                opacity: isFading ? "0" : "100",
+                transform: isFading ? "translateY(100%)" : "translateY(0%)",
+              }}
+              ref={sideScrollRef}
+              onScroll={throttle(changeBgColor, 1000)}
+            >
+              {skillsArray.map((skill, i) => {
+                return (
+                  <button
+                    key={`skill-button-${i}`}
+                    className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
+                    onClick={(event) => skillItemClickHandler(event, i)}
+                  >
+                    {`${skillsArray[i].title}`}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         ) : (
           /* 2. 아이템 선택 후 화면 */
-          <div
-            className="mt-32 flex items-center  justify-between px-12 pb-20 opacity-100 transition-opacity"
-            style={{
-              opacity: isFading ? "0" : "100",
-            }}
-          >
-            <img
-              className="cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
-              draggable="false"
-              src={leftArrow}
-              alt="left-arrow"
-            />
-            <div className="flex flex-1 px-12">
-              <button
-                className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
-                onClick={returnToList}
-              >
-                {selectedItem}
-              </button>
-              <ul className="ml-16 flex flex-col justify-around gap-8 py-8 text-6xl font-bold text-white drop-shadow-lg">
-                <li> - 다수의 개인 프로젝트에 적용</li>
-                <li> - 다수의 개인 프로젝트에 적용</li>
-                <li> - 다수의 개인 프로젝트에 적용</li>
-                <li> - 다수의 개인 프로젝트에 적용</li>
-              </ul>
+          <div className="flex h-full flex-col">
+            <div
+              className="mt-32 flex cursor-default items-center justify-between px-12 pb-10 opacity-100 transition-opacity"
+              style={{
+                opacity: isFading ? "0" : "100",
+              }}
+            >
+              <img
+                className="w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
+                draggable="false"
+                src={leftArrow}
+                alt="left-arrow"
+              />
+              <div className="flex flex-1 px-12">
+                <button
+                  className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
+                  onClick={returnToList}
+                >
+                  {skillsArray[selectedItem].title}
+                </button>
+                <ul className="ml-16 flex flex-col justify-around gap-8 py-8 text-6xl font-bold text-white drop-shadow-lg">
+                  <li> - 다수의 개인 프로젝트에 적용</li>
+                  <li> - 다수의 개인 프로젝트에 적용</li>
+                  <li> - 다수의 개인 프로젝트에 적용</li>
+                  <li> - 다수의 개인 프로젝트에 적용</li>
+                </ul>
+              </div>
+              <img
+                className="w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
+                draggable="false"
+                src={rightArrow}
+                alt="right-arrow"
+              />
             </div>
-            <img
-              className="cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
-              draggable="false"
-              src={rightArrow}
-              alt="right-arrow"
-            />
+            <div className="h-full" onClick={returnToList} />
           </div>
         )}
       </div>

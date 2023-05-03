@@ -60,7 +60,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
         </a>
         <a
           className={`transition-all ${
-            selected === 2 ? "!border-b-green-500 !text-green-500" : "" // TBD : 섹션의 움직임에 따라 색상 변경
+            selected === 2 ? "!border-b-green-500 !text-green-500" : ""
           }`}
           onClick={scrollToSection}
           href="#skills-section"
