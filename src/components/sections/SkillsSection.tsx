@@ -115,7 +115,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
   const [isToLeft, setIsToLeft] = useState(false);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
-  const [isMouseDownForScroll, setIsMouseDownForScroll] = useState(false);
   /** 자동 스크롤, 사용자 조작에 반응해야 해서 animation이 아닌 scroll을 직접 건드림 */
   useEffect(() => {
     if (selectedItem < 0) {
@@ -124,14 +123,14 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         if (!isUserScrolling && target) {
           if (isToLeft) {
             // 왼쪽으로 자동 스크롤
-            target.scrollTo(target.scrollLeft - 1, 0);
+            target.scrollTo(target.scrollLeft - 2, 0);
             if (target.scrollLeft === 0) {
               // 방향 전환
               setIsToLeft(false);
             }
           } else {
             // 오른쪽으로  자동 스크롤
-            target.scrollTo(target.scrollLeft + 1, 0);
+            target.scrollTo(target.scrollLeft + 2, 0);
             if (
               target.clientWidth ===
               target.scrollWidth - Math.floor(target.scrollLeft)
@@ -191,6 +190,37 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
     return () => {
       target?.removeEventListener("mousedown", dragMouseDownHandler);
     };
+  }, []);
+
+  const [isFading, setIsFading] = useState(false);
+  /** Skill 아이템 클릭 시 행동 */
+  const skillItemClickHandler = useCallback(
+    (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+      selected: number
+    ) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      setIsFading(true);
+      setIsUserScrolling(true);
+      setTimeout(() => {
+        setSelectedItem(selected);
+        setIsFading(false);
+        setIsUserScrolling(false);
+      }, 500);
+    },
+    []
+  );
+
+  const returnToList = useCallback(() => {
+    setIsFading(true);
+    setTimeout(() => {
+      setSelectedItem(-1);
+      setTimeout(() => {
+        setIsFading(false);
+      }, 150);
+    }, 150);
   }, []);
 
   return (
@@ -253,7 +283,11 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           /* 1. 아이템 선택 이전 화면 */
           <div
             id="skills-items-list"
-            className="mt-32 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-20"
+            className="mt-32 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-20 transition-all duration-500"
+            style={{
+              opacity: isFading ? "0" : "100",
+              transform: isFading ? "translateY(100%)" : "translateY(0%)",
+            }}
             ref={sideScrollRef}
           >
             {skillsArray.map((skill, i) => {
@@ -261,7 +295,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 <button
                   key={`skill-button-${i}`}
                   className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
-                  onClick={() => setSelectedItem(i)}
+                  onClick={(event) => skillItemClickHandler(event, i)}
                 >
                   {`${i}`}
                 </button>
@@ -270,7 +304,12 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           </div>
         ) : (
           /* 2. 아이템 선택 후 화면 */
-          <div className="mt-32 flex  items-center justify-between px-12 pb-20">
+          <div
+            className="mt-32 flex items-center  justify-between px-12 pb-20 opacity-100 transition-opacity"
+            style={{
+              opacity: isFading ? "0" : "100",
+            }}
+          >
             <img
               className="cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
               draggable="false"
@@ -280,7 +319,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
             <div className="flex flex-1 px-12">
               <button
                 className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
-                onClick={() => setSelectedItem(-1)}
+                onClick={returnToList}
               >
                 {selectedItem}
               </button>
