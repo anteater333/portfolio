@@ -13,7 +13,11 @@ function PHeader({ selected = 0 }: { selected: number }) {
       }`;
       const section = document.querySelector(sectionId);
 
-      section!.scrollIntoView({ behavior: "smooth" });
+      // Ref. https://stackoverflow.com/a/63563437
+      const agent = window.navigator.userAgent.toLowerCase();
+      section!.scrollIntoView({
+        behavior: agent.indexOf("firefox") > -1 ? "smooth" : "auto",
+      });
 
       window.history.pushState({}, "", sectionId);
     },

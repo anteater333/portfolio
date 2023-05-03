@@ -124,7 +124,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
   const [isUserScrolling, setIsUserScrolling] = useState(false);
   /** 자동 스크롤, 사용자 조작에 반응해야 해서 animation이 아닌 scroll을 직접 건드림 */
   useEffect(() => {
-    if (selectedItem < 0) {
+    if (selectedItem < 0 && isVisible) {
       const target = sideScrollRef.current;
       const intervalId = setInterval(() => {
         if (!isUserScrolling && target) {
@@ -151,7 +151,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
       return () => clearInterval(intervalId);
     }
-  }, [isToLeft, isUserScrolling, selectedItem]);
+  }, [isToLeft, isUserScrolling, isVisible, selectedItem]);
 
   /** Drag & Drop Scrolling */
   useEffect(() => {
@@ -297,7 +297,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           /* 1. 아이템 선택 이전 화면 */
           <div
             id="skills-items-list"
-            className="mt-32 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-20 transition-all duration-500"
+            className="mb-10 mt-16 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-10 pt-16 transition-all duration-500"
             style={{
               opacity: isFading ? "0" : "100",
               transform: isFading ? "translateY(100%)" : "translateY(0%)",
