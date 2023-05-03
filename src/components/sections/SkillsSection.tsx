@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 
 import rightArrow from "../../resources/images/skills/img_s3_00_arrow_button_right.svg";
@@ -105,11 +105,93 @@ const skillsArray = [
 ];
 
 function SkillsSection({ updateLoadingProgress }: SectionProps) {
+  const sideScrollRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     updateLoadingProgress(100, 2);
   }, [updateLoadingProgress]);
 
   const [selectedItem, setSelectedItem] = useState(-1);
+
+  const [isToLeft, setIsToLeft] = useState(false);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const [isMouseDownForScroll, setIsMouseDownForScroll] = useState(false);
+  /** 자동 스크롤, 사용자 조작에 반응해야 해서 animation이 아닌 scroll을 직접 건드림 */
+  useEffect(() => {
+    if (selectedItem < 0) {
+      const target = sideScrollRef.current;
+      const intervalId = setInterval(() => {
+        if (!isUserScrolling && target) {
+          if (isToLeft) {
+            // 왼쪽으로 자동 스크롤
+            target.scrollTo(target.scrollLeft - 1, 0);
+            if (target.scrollLeft === 0) {
+              // 방향 전환
+              setIsToLeft(false);
+            }
+          } else {
+            // 오른쪽으로  자동 스크롤
+            target.scrollTo(target.scrollLeft + 1, 0);
+            if (
+              target.clientWidth ===
+              target.scrollWidth - Math.floor(target.scrollLeft)
+            ) {
+              // 방향 전환
+              setIsToLeft(true);
+            }
+          }
+        }
+      }, 10);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [isToLeft, isUserScrolling, selectedItem]);
+
+  /** Drag & Drop Scrolling */
+  useEffect(() => {
+    const target = sideScrollRef.current;
+    let pos = { left: 0, x: 0 };
+    /** - 마우스 이동하기 */
+    const dragMouseMoveHandler = (event: MouseEvent) => {
+      const dx = event.clientX - pos.x;
+      target!.scrollLeft = pos.left - dx;
+      setIsToLeft(dx > 0);
+    };
+
+    /** - 마우스 버튼 떼기 */
+    const dragMouseUpHandler = () => {
+      // cursor 다시 드러내기
+      target?.style.setProperty("cursor", "grab");
+
+      setIsUserScrolling(false);
+
+      target?.removeEventListener("mousemove", dragMouseMoveHandler);
+      target?.removeEventListener("mouseup", dragMouseUpHandler);
+    };
+
+    /** - 마우스 버튼 누르기 */
+    const dragMouseDownHandler = (event: MouseEvent) => {
+      setIsUserScrolling(true);
+
+      // 현재 위치 계산
+      pos = {
+        left: target!.scrollLeft,
+        x: event.clientX,
+      };
+
+      // cursor 숨기기
+      target?.style.setProperty("cursor", "none");
+
+      target?.addEventListener("mousemove", dragMouseMoveHandler);
+      target?.addEventListener("mouseup", dragMouseUpHandler);
+    };
+
+    target?.addEventListener("mousedown", dragMouseDownHandler);
+
+    return () => {
+      target?.removeEventListener("mousedown", dragMouseDownHandler);
+    };
+  }, []);
 
   return (
     <section
@@ -169,23 +251,26 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       <div id="skills-content-area" className="absolute h-full w-full">
         {selectedItem < 0 ? (
           /* 1. 아이템 선택 이전 화면 */
-          <div className="flex h-full items-center gap-80 overflow-y-scroll pb-20">
-            <button className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white">
-              1
-            </button>
-            <button
-              className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
-              onClick={() => setSelectedItem(1)}
-            >
-              2
-            </button>
-            <button className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white">
-              3
-            </button>
+          <div
+            id="skills-items-list"
+            className="mt-32 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-20"
+            ref={sideScrollRef}
+          >
+            {skillsArray.map((skill, i) => {
+              return (
+                <button
+                  key={`skill-button-${i}`}
+                  className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
+                  onClick={() => setSelectedItem(i)}
+                >
+                  {`${i}`}
+                </button>
+              );
+            })}
           </div>
         ) : (
           /* 2. 아이템 선택 후 화면 */
-          <div className="flex h-full items-center justify-between px-12 pb-20">
+          <div className="mt-32 flex  items-center justify-between px-12 pb-20">
             <img
               className="cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
               draggable="false"
@@ -197,7 +282,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
                 onClick={() => setSelectedItem(-1)}
               >
-                selected
+                {selectedItem}
               </button>
               <ul className="ml-16 flex flex-col justify-around gap-8 py-8 text-6xl font-bold text-white drop-shadow-lg">
                 <li> - 다수의 개인 프로젝트에 적용</li>

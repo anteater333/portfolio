@@ -12,13 +12,15 @@
 
 #app-main-screen,
 html,
-section {
+section,
+#skills-items-list {
   scrollbar-width: none;
 }
 
 #app-main-screen::-webkit-scrollbar,
 ::-webkit-scrollbar,
-section::-webkit-scrollbar {
+section::-webkit-scrollbar,
+#skills-items-list::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
