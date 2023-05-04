@@ -1,11 +1,23 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 
+import useIntersection from "../../hooks/useIntersection";
+import throttle from "../../utils/throttle";
+
 import rightArrow from "../../resources/images/skills/img_s3_00_arrow_button_right.svg";
 import leftArrow from "../../resources/images/skills/img_s3_01_arrow_button_left.svg";
 
-import useIntersection from "../../hooks/useIntersection";
-import throttle from "../../utils/throttle";
+import imgSkill00 from "../../resources/images/skills/img_s3_02_skill_node.png";
+import imgSkill01 from "../../resources/images/skills/img_s3_03_skill_deno.png";
+import imgSkill02 from "../../resources/images/skills/img_s3_04_skill_db.png";
+import imgSkill03 from "../../resources/images/skills/img_s3_05_skill_js.png";
+import imgSkill04 from "../../resources/images/skills/img_s3_06_skill_react.png";
+import imgSkill05 from "../../resources/images/skills/img_s3_07_skill_vue.png";
+import imgSkill06 from "../../resources/images/skills/img_s3_08_skill_html_css.png";
+import imgSkill07 from "../../resources/images/skills/img_s3_09_skill_python.png";
+import imgSkill08 from "../../resources/images/skills/img_s3_10_skill_infra.png";
+import imgSkill09 from "../../resources/images/skills/img_s3_11_skill_idea.png";
+import { useImageLoader } from "../../hooks/useImageLoader";
 
 const bgBannerTextArray = [
   [
@@ -114,6 +126,82 @@ const skillsArray: {
 const skillListSectionPos = [2, 6];
 
 function SkillsSection({ updateLoadingProgress }: SectionProps) {
+  const ImgSkill00 = useImageLoader(imgSkill00);
+  const ImgSkill01 = useImageLoader(imgSkill01);
+  const ImgSkill02 = useImageLoader(imgSkill02);
+  const ImgSkill03 = useImageLoader(imgSkill03);
+  const ImgSkill04 = useImageLoader(imgSkill04);
+  const ImgSkill05 = useImageLoader(imgSkill05);
+  const ImgSkill06 = useImageLoader(imgSkill06);
+  const ImgSkill07 = useImageLoader(imgSkill07);
+  const ImgSkill08 = useImageLoader(imgSkill08);
+  const ImgSkill09 = useImageLoader(imgSkill09);
+
+  /** 이미지 배열 */
+  const SkillImageByIndex = useCallback(
+    (index: number) => {
+      const SkillImages = [
+        ImgSkill00.ImageComponent,
+        ImgSkill01.ImageComponent,
+        ImgSkill02.ImageComponent,
+        ImgSkill03.ImageComponent,
+        ImgSkill04.ImageComponent,
+        ImgSkill05.ImageComponent,
+        ImgSkill06.ImageComponent,
+        ImgSkill07.ImageComponent,
+        ImgSkill08.ImageComponent,
+        ImgSkill09.ImageComponent,
+      ];
+
+      const Selected = SkillImages[index];
+
+      return <Selected draggable="false" alt={skillsArray[index].title} />;
+    },
+    [
+      ImgSkill00.ImageComponent,
+      ImgSkill01.ImageComponent,
+      ImgSkill02.ImageComponent,
+      ImgSkill03.ImageComponent,
+      ImgSkill04.ImageComponent,
+      ImgSkill05.ImageComponent,
+      ImgSkill06.ImageComponent,
+      ImgSkill07.ImageComponent,
+      ImgSkill08.ImageComponent,
+      ImgSkill09.ImageComponent,
+    ]
+  );
+
+  /**
+   * 이 섹션에 포함된 이미지들의 로딩 진행률을 계산해 부모에게 전달함.
+   */
+  useEffect(() => {
+    const total =
+      ImgSkill00.progress +
+      ImgSkill01.progress +
+      ImgSkill02.progress +
+      ImgSkill03.progress +
+      ImgSkill04.progress +
+      ImgSkill05.progress +
+      ImgSkill06.progress +
+      ImgSkill07.progress +
+      ImgSkill08.progress +
+      ImgSkill09.progress;
+    const length = 10;
+    updateLoadingProgress(total / length, 2);
+  }, [
+    ImgSkill00.progress,
+    ImgSkill01.progress,
+    ImgSkill02.progress,
+    ImgSkill03.progress,
+    ImgSkill04.progress,
+    ImgSkill05.progress,
+    ImgSkill06.progress,
+    ImgSkill07.progress,
+    ImgSkill08.progress,
+    ImgSkill09.progress,
+    updateLoadingProgress,
+  ]);
+
   /** Intersection Observer 사용 */
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersection(ref, {});
@@ -346,10 +434,10 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 return (
                   <button
                     key={`skill-button-${i}`}
-                    className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
+                    className="custom-skill-button flex h-[40rem] w-[40rem] flex-shrink-0 items-center justify-center rounded-[4rem] bg-white"
                     onClick={(event) => skillItemClickHandler(event, i)}
                   >
-                    {`${skillsArray[i].title}`}
+                    {SkillImageByIndex(i)}
                   </button>
                 );
               })}
@@ -375,7 +463,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                   className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
                   onClick={returnToList}
                 >
-                  {skillsArray[selectedItem].title}
+                  {SkillImageByIndex(selectedItem)}
                 </button>
                 <ul className="ml-16 flex flex-col justify-around gap-8 py-8 text-6xl font-bold text-white drop-shadow-lg">
                   <li> - 다수의 개인 프로젝트에 적용</li>
