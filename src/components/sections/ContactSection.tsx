@@ -18,9 +18,31 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
   const ImgContactsInstagram = useImageLoader(imgContacts04Instagram);
   const ImgContactsBlog = useImageLoader(imgContacts05Blog);
   const ImgContactsBMC = useImageLoader(imgContacts06BMC);
+
+  /**
+   * 이 섹션에 포함된 이미지들의 로딩 진행률을 계산해 부모에게 전달함.
+   */
   useEffect(() => {
-    updateLoadingProgress(100, 4);
-  }, [updateLoadingProgress]);
+    const total =
+      ImgContactsEmail.progress +
+      ImgContactsPhone.progress +
+      ImgContactsGithub.progress +
+      ImgContactsTalk.progress +
+      ImgContactsInstagram.progress +
+      ImgContactsBlog.progress +
+      ImgContactsBMC.progress;
+    const length = 7;
+    updateLoadingProgress(total / length, 4);
+  }, [
+    ImgContactsBMC.progress,
+    ImgContactsBlog.progress,
+    ImgContactsEmail.progress,
+    ImgContactsGithub.progress,
+    ImgContactsInstagram.progress,
+    ImgContactsPhone.progress,
+    ImgContactsTalk.progress,
+    updateLoadingProgress,
+  ]);
 
   return (
     <section
