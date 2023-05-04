@@ -12,13 +12,15 @@
 
 #app-main-screen,
 html,
-section {
+section,
+#skills-items-list {
   scrollbar-width: none;
 }
 
 #app-main-screen::-webkit-scrollbar,
 ::-webkit-scrollbar,
-section::-webkit-scrollbar {
+section::-webkit-scrollbar,
+#skills-items-list::-webkit-scrollbar {
   width: 0;
   background: transparent;
 }
@@ -32,4 +34,48 @@ particle {
   pointer-events: none;
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+/** Custom animation for banner text in Section 03: Skills**/
+@keyframes bannermove-main {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes bannermove-sub {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/** Custom button style in Section 03: Skills**/
+.custom-skill-button {
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  will-change: box-shadow, transform;
+  box-shadow: -8px 0px 16px rgba(0, 0, 0, 0.25),
+    8px 0px 16px rgba(0, 0, 0, 0.25), 0px 8px 4px rgba(34, 34, 34, 0.5);
+  color: #36395a;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+
+  border-bottom: 12px solid #9ca3af;
+}
+.custom-skill-button:hover {
+  box-shadow: -8px 16px 32px rgba(0, 0, 0, 0.25),
+    8px 16px 32px rgba(0, 0, 0, 0.25), 0px -4px 16px rgba(34, 34, 34, 0.5);
+  transform: translateY(-2px);
+}
+.custom-skill-button:active {
+  box-shadow: inset 0px 3px 7px #d6d6e7;
+  transform: translateY(2px);
+  border-bottom: none;
 }

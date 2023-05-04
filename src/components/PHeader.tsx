@@ -13,7 +13,11 @@ function PHeader({ selected = 0 }: { selected: number }) {
       }`;
       const section = document.querySelector(sectionId);
 
-      section!.scrollIntoView({ behavior: "smooth" });
+      // Ref. https://stackoverflow.com/a/63563437
+      const agent = window.navigator.userAgent.toLowerCase();
+      section!.scrollIntoView({
+        behavior: agent.indexOf("firefox") > -1 ? "smooth" : "auto",
+      });
 
       window.history.pushState({}, "", sectionId);
     },
@@ -56,7 +60,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
         </a>
         <a
           className={`transition-all ${
-            selected === 2 ? "!border-b-green-500 !text-green-500" : "" // TBD : 섹션의 움직임에 따라 색상 변경
+            selected === 2 ? "!border-b-green-500 !text-green-500" : ""
           }`}
           onClick={scrollToSection}
           href="#skills-section"

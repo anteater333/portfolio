@@ -202,7 +202,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   /** 이 섹션이 화면에 표시될 때의 행동 */
   useEffect(() => {
     if (!isVisible) {
-      ref.current?.scrollTo({ top: 0 });
+      // ref.current?.scrollTo({ top: 0 }); // Bug. Chrome 브라우저에서 버그 유발. Nav-bar의 스크롤을 뺏어감.
       setIsDisappeared(false);
     } else {
       let timeoutId = setTimeout(() => {
