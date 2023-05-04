@@ -279,10 +279,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
   const sideScrollRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    updateLoadingProgress(100, 2);
-  }, [updateLoadingProgress]);
-
   const [selectedItem, setSelectedItem] = useState(-1);
 
   const [isToLeft, setIsToLeft] = useState(false);
