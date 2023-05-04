@@ -19,7 +19,7 @@ type LoadingIndicatorContextType = {
 };
 
 const LoadingIndicatorContext = createContext<LoadingIndicatorContextType>({
-  isLoading: false,
+  isLoading: true,
   setIsLoading: () => {
     throw new Error("Function not implemented.");
   },
@@ -34,8 +34,22 @@ export function LoadingIndicatorProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isFading, setIsFading] = useState(false);
+  const [isDone, setIsDone] = useState(false);
   const [percentage, setPercentage] = useState<number>(0);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setIsFading(true);
+
+      setTimeout(() => {
+        setIsDone(true);
+      }, 1000);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {});
 
   return (
     <LoadingIndicatorContext.Provider
@@ -48,6 +62,15 @@ export function LoadingIndicatorProvider({
     >
       {children}
       {isLoading ? <PLoadingIndicator percentage={percentage} /> : null}
+
+      {isDone ? undefined : (
+        <div
+          className="absolute z-[75] h-screen w-screen bg-black transition-opacity duration-[1000ms]"
+          style={{
+            opacity: isFading ? "0" : "100",
+          }}
+        ></div>
+      )}
     </LoadingIndicatorContext.Provider>
   );
 }
