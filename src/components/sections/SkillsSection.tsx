@@ -457,6 +457,12 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 draggable="false"
                 src={leftArrow}
                 alt="left-arrow"
+                onClick={() => {
+                  setSelectedItem(
+                    (prev) =>
+                      (prev - 1 + skillsArray.length) % skillsArray.length
+                  );
+                }}
               />
               <div className="flex flex-1 px-12">
                 <button
@@ -477,6 +483,9 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 draggable="false"
                 src={rightArrow}
                 alt="right-arrow"
+                onClick={() => {
+                  setSelectedItem((prev) => (prev + 1) % skillsArray.length);
+                }}
               />
             </div>
             <div className="h-full" onClick={returnToList} />
