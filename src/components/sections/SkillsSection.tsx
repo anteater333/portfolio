@@ -110,16 +110,86 @@ const skillsArray: {
   title: string;
   description: string[];
 }[] = [
-  { title: "Node", description: [] },
-  { title: "Deno", description: [] },
-  { title: "Database", description: [] },
-  { title: "Javascript", description: [] },
-  { title: "React", description: [] },
-  { title: "Vue", description: [] },
-  { title: "HTML/CSS", description: [] },
-  { title: "Python", description: [] },
-  { title: "IT Infra/Linux", description: [] },
-  { title: "서비스 기획", description: [] },
+  {
+    title: "Node",
+    description: [
+      "Express, NestJS 프레임워크 사용 API 서버 개발",
+      "멀티 프로세싱 구현 및 IPC 구현",
+      "대규모 File IO 처리 에이전트 프로그램 개발",
+    ],
+  },
+  {
+    title: "Deno",
+    description: [
+      "개인 프로젝트 용도 메일 인증 서버 프로그램 개발",
+      "크롤링 프로그램 개발",
+      "소규모 토이 프로젝트에 적용",
+    ],
+  },
+  {
+    title: "Database",
+    description: [
+      "MongoDB 사용 경험 다수",
+      "구축된 RDBMS에 대한 SQL 질의 사용 가능",
+    ],
+  },
+  {
+    title: "Javascript",
+    description: [
+      "주력 프로그래밍 언어",
+      "Node.js, Deno, Web Browser 등 다양한 실행 환경에서 사용 가능",
+      "React, Vue, NestJS 등 다수의 프레임워크 사용 경험",
+      "Typescript 사용",
+    ],
+  },
+  {
+    title: "React",
+    description: [
+      "다수의 개인 프로젝트에 사용",
+      "포트폴리오 사이트 제작",
+      "React Native 사용 경험",
+      "Next.js 적용 프로젝트 진행 중",
+    ],
+  },
+  {
+    title: "Vue",
+    description: [
+      "개인 프로젝트 및 팀 프로젝트에 사용",
+      "유지 보수 및 신규 기능 개발 경력",
+      "차트 라이브러리 ApexChart.js 적용 경험",
+    ],
+  },
+  {
+    title: "HTML/CSS",
+    description: [
+      "Jekyll 정적 사이트 생성기 사용 개인 블로그 운영 및 개발",
+      "HTML/CSS 코드 작성 및 분석 가능",
+      "Tailwind CSS 사용 경험",
+    ],
+  },
+  {
+    title: "Python",
+    description: [
+      "Pandas, numpy 활용 정형 데이터 분석 에이전트 개발",
+      "업무 자동화 스크립트 작성",
+      "Flask API 서버 개발 경험",
+    ],
+  },
+  {
+    title: "IT Infra/Linux",
+    description: [
+      "AWS, GCP 등 클라우드 인스턴스 사용 경험",
+      "Firebase 활용 백엔드 구축 경험",
+      "WSL 및 Docker 사용 개발 환경 구축 가능",
+    ],
+  },
+  {
+    title: "서비스 기획",
+    description: [
+      "Notion 및 Markdown 문법 활용 문서 작성",
+      "Figma 활용 제품 프로토타이핑",
+    ],
+  },
 ];
 
 /** 내부적으로 Skills는 3 영역으로 구분됨 */
@@ -471,11 +541,17 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 >
                   {SkillImageByIndex(selectedItem)}
                 </button>
-                <ul className="ml-16 flex flex-col justify-around gap-8 py-8 text-6xl font-bold text-white drop-shadow-lg">
-                  <li> - 다수의 개인 프로젝트에 적용</li>
-                  <li> - 다수의 개인 프로젝트에 적용</li>
-                  <li> - 다수의 개인 프로젝트에 적용</li>
-                  <li> - 다수의 개인 프로젝트에 적용</li>
+                <ul className="ml-32 flex flex-col justify-evenly gap-8 pb-8 text-6xl font-bold text-white drop-shadow-lg">
+                  {skillsArray[selectedItem].description.map((desc, index) => {
+                    return (
+                      <li
+                        className="list-disc break-keep leading-tight"
+                        key={`skills-description-list-${index}`}
+                      >
+                        {desc}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
               <img
