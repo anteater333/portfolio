@@ -460,7 +460,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
               />
               <div className="flex flex-1 px-12">
                 <button
-                  className="custom-skill-button h-[40rem] w-[40rem] flex-shrink-0 rounded-[4rem] bg-white"
+                  className="custom-skill-button flex h-[40rem] w-[40rem] flex-shrink-0 items-center justify-center rounded-[4rem] bg-white"
                   onClick={returnToList}
                 >
                   {SkillImageByIndex(selectedItem)}
