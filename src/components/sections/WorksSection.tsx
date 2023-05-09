@@ -1,15 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 
-import { Canvas, GroupProps, Vector3 } from "@react-three/fiber";
-import {
-  useGLTF,
-  useProgress,
-  PerspectiveCamera,
-  OrbitControls,
-} from "@react-three/drei";
+import { Canvas, GroupProps } from "@react-three/fiber";
+import { useGLTF, useProgress, PerspectiveCamera } from "@react-three/drei";
 import { deg2RadXYZ } from "../../utils/mathUtils";
-import { Mesh } from "three";
+
+import PHill from "../../resources/images/works/PHill.png";
+import PHill2 from "../../resources/images/works/placeholder2.png";
+import ICOGithub from "../../resources/images/common/github.png";
 
 const modelsArray = [
   { title: "AIQA", url: "/3d/AIQA.glb" },
@@ -51,18 +49,109 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
 
   useEffect(() => {}, []);
 
+  const [selectedItem, setSelectedItem] = useState(0);
+  const [isFading, setIsFading] = useState(true);
+
   return (
     <section
       id="works-section"
-      className="relative h-recommended snap-center overflow-hidden bg-slate-900" // 배경색상 임시
+      className="relative h-recommended snap-center overflow-hidden"
     >
-      <div className="absolute bottom-10 left-16 z-50 rounded-3xl bg-white p-5 opacity-80">
+      <div
+        className="absolute bottom-10 left-16 z-50 rounded-3xl bg-white p-5 opacity-80"
+        style={{
+          background: isFading ? "transparent" : undefined,
+        }}
+      >
         <h1 className="border-b-[1rem] border-b-indigo-500 text-10xl font-bold leading-[10rem] text-indigo-500">
           Works
         </h1>
       </div>
 
-      <div className="h-full w-full">
+      {selectedItem < 0 ? undefined : (
+        <div
+          className="absolute z-10 flex h-full w-full bg-white bg-opacity-95 pl-16 pr-32 pt-36 transition-opacity"
+          style={{
+            opacity: isFading ? "100" : "0",
+          }}
+          onClick={() => {
+            setIsFading(false);
+            setTimeout(() => {
+              setSelectedItem(-1);
+            }, 150);
+          }}
+        >
+          <div id="works-description-left">
+            <img src={PHill} alt="placeholder" />
+          </div>
+          <div
+            id="works-description-right"
+            className="flex flex-grow flex-col pl-32"
+          >
+            <div id="works-description-right-top" className="flex">
+              <div>
+                <span className="text-8xl font-bold">{"오늘 할 일"}</span>
+                <span className="text-3xl">{"(2018)"}</span>
+              </div>
+              <div className="flex flex-grow flex-col items-end gap-2 text-5xl">
+                <span>{"Windows Application"}</span>
+                <span>
+                  <img className="h-10" src={ICOGithub} alt="gh" />
+                </span>
+              </div>
+            </div>
+            <div
+              id="works-description-right-middle"
+              className="mb-12 mt-2 text-5xl"
+            >
+              {"일상적 / 할 일 / 리마인더"}
+            </div>
+            <div
+              id="works-description-right-bottom"
+              className="flex justify-between"
+            >
+              <div className="flex flex-col gap-10">
+                <div>
+                  <h2 className="mb-4 text-4xl">주요 기능</h2>
+                  <ul className="h-40 list-disc pl-8 text-3xl">
+                    <li>날짜 포맷 파싱</li>
+                    <li>시작 시 실행</li>
+                    <li>...</li>
+                    <li>...</li>
+                  </ul>
+                </div>
+                <div>
+                  <h2 className="mb-4 text-4xl">기술 스택</h2>
+                  <ul className="list-disc pl-8 text-3xl">
+                    <li>C# Windows Programming</li>
+                    <li>...</li>
+                    <li>...</li>
+                    <li>...</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="flex flex-col items-center gap-12">
+                <div className="inline w-[600px] text-2xl">
+                  {
+                    "오늘 할 일은... 어쩌구 저쩌구 장황한 설명. 2018년에 시작하여, 이 프로그램을 공유하지 않으면 당신은 저주받게 되고, 총 5명의 사람에게 이 메세지를 전달하지 않으면 이러쿵 저러쿵.."
+                  }
+                </div>
+                <div>
+                  <img src={PHill2} alt="placeholder" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div
+        className="relative z-0 h-full w-full"
+        onClick={() => {
+          setSelectedItem(0);
+          setIsFading(true);
+        }}
+      >
         <Canvas shadows>
           <PerspectiveCamera
             makeDefault
