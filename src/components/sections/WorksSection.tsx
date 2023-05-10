@@ -5,7 +5,6 @@ import {
   Canvas,
   GroupProps,
   RootState,
-  SpotLightProps,
   useFrame,
   useThree,
 } from "@react-three/fiber";
@@ -16,14 +15,20 @@ import {
   SpotLight,
   useDepthBuffer,
 } from "@react-three/drei";
-import { Vector3, SpotLight as TSpotLight, PointLight, Color } from "three";
+import {
+  Vector3,
+  SpotLight as TSpotLight,
+  PointLight,
+  Color,
+  Camera,
+  PerspectiveCamera as TPerspectiveCamera,
+} from "three";
 
 import { deg2RadXYZ } from "../../utils/mathUtils";
 
 import PHill from "../../resources/images/works/PHill.png";
 import PHill2 from "../../resources/images/works/placeholder2.png";
 import ICOGithub from "../../resources/images/common/github.png";
-import throttle from "../../utils/throttle";
 import useIntersection from "../../hooks/useIntersection";
 
 const modelsArray = [
@@ -74,8 +79,6 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
   const [selectedItem, setSelectedItem] = useState(-1);
   const [isFading, setIsFading] = useState(false);
 
-  const [tB, setTb] = useState(true);
-
   return (
     <section
       ref={ref}
@@ -88,10 +91,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
           background: isFading ? "transparent" : undefined,
         }}
       >
-        <h1
-          className="border-b-[1rem] border-b-indigo-500 text-10xl font-bold leading-[10rem] text-indigo-500"
-          onClick={() => setTb(!tB)}
-        >
+        <h1 className="border-b-[1rem] border-b-indigo-500 text-10xl font-bold leading-[10rem] text-indigo-500">
           Works
         </h1>
       </div>
@@ -188,11 +188,8 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
         }}
       >
         <Canvas shadows>
-          <PerspectiveCamera
-            makeDefault
-            position={[0, 2.5, 0.5]}
-            rotation={deg2RadXYZ(-80, 0, 0)}
-          />
+          <PCamera initialState={!isVisible} />
+
           <PLight showLight={selectedItem < 0} initialState={!isVisible} />
 
           <mesh rotation={deg2RadXYZ(-90, 0, 0)} receiveShadow>
@@ -253,12 +250,42 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
   );
 }
 
+function PCamera({ vec = new Vector3(), initialState = true }) {
+  const camera = useRef<TPerspectiveCamera>(null!);
+  const viewport = useThree((state) => state.viewport);
+
+  const frameHandler = useCallback(
+    (state: RootState) => {
+      if (initialState) {
+        camera.current?.position.lerp(vec.set(0, 5, 2), 0.05);
+      } else {
+        camera.current?.position.lerp(
+          vec.set(-0 + state.mouse.x / 2, 2.5, 0.5 - state.mouse.y / 2),
+          0.1
+        );
+        camera.current?.rotation.set(...deg2RadXYZ(-80 + state.mouse.x, 0, 0));
+      }
+
+      console.log(state.mouse.x, state.mouse.y);
+
+      camera.current?.updateMatrixWorld();
+    },
+    [initialState, vec]
+  );
+  useFrame(frameHandler);
+
+  return (
+    <>
+      <PerspectiveCamera ref={camera} makeDefault />
+    </>
+  );
+}
+
 function PLight({ showLight = true, initialState = true }) {
   const depthBuffer = useDepthBuffer({ frames: 1 });
   const globalLight = useRef<PointLight>(null!);
 
   useFrame(() => {
-    console.log(initialState, showLight);
     if (initialState) globalLight.current.color.lerp(new Color("#000000"), 0.1);
     else if (showLight)
       globalLight.current.color.lerp(new Color("#ffffff"), 0.01);
@@ -268,7 +295,7 @@ function PLight({ showLight = true, initialState = true }) {
 
   return (
     <>
-      <pointLight ref={globalLight} position={[0, 5, 0]} intensity={0.33} />
+      <pointLight ref={globalLight} position={[0, 5, 0]} intensity={0.5} />
 
       <MovingSpot
         depthBuffer={depthBuffer}
@@ -312,7 +339,7 @@ function MovingSpot({
       );
       light.current?.target.updateMatrixWorld();
     },
-    [showLight, vec, viewport.height, viewport.width]
+    [color, initialState, showLight, vec, viewport.height, viewport.width]
   );
   useFrame(frameHandler);
 
@@ -335,7 +362,7 @@ function MovingSpot({
       angle={0.3}
       attenuation={5}
       anglePower={4}
-      intensity={1}
+      intensity={2.5}
       {...props}
     />
   );
