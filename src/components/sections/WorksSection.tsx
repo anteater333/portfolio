@@ -1,13 +1,30 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 
-import { Canvas, GroupProps } from "@react-three/fiber";
-import { useGLTF, useProgress, PerspectiveCamera } from "@react-three/drei";
+import {
+  Canvas,
+  GroupProps,
+  RootState,
+  SpotLightProps,
+  useFrame,
+  useThree,
+} from "@react-three/fiber";
+import {
+  useGLTF,
+  useProgress,
+  PerspectiveCamera,
+  SpotLight,
+  useDepthBuffer,
+} from "@react-three/drei";
+import { Vector3, SpotLight as TSpotLight, PointLight, Color } from "three";
+
 import { deg2RadXYZ } from "../../utils/mathUtils";
 
 import PHill from "../../resources/images/works/PHill.png";
 import PHill2 from "../../resources/images/works/placeholder2.png";
 import ICOGithub from "../../resources/images/common/github.png";
+import throttle from "../../utils/throttle";
+import useIntersection from "../../hooks/useIntersection";
 
 const modelsArray = [
   { title: "AIQA", url: "/3d/AIQA.glb" },
@@ -41,6 +58,11 @@ const Model = (props: GroupProps & { index: number }) => {
 };
 
 function WorksSection({ updateLoadingProgress }: SectionProps) {
+  /** Intersection Observer 사용 */
+  const ref = useRef<HTMLDivElement | null>(null);
+  const entry = useIntersection(ref, {});
+  const isVisible = !!entry?.isIntersecting;
+
   const { progress } = useProgress();
 
   useEffect(() => {
@@ -49,11 +71,14 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
 
   useEffect(() => {}, []);
 
-  const [selectedItem, setSelectedItem] = useState(0);
-  const [isFading, setIsFading] = useState(true);
+  const [selectedItem, setSelectedItem] = useState(-1);
+  const [isFading, setIsFading] = useState(false);
+
+  const [tB, setTb] = useState(true);
 
   return (
     <section
+      ref={ref}
       id="works-section"
       className="relative h-recommended snap-center overflow-hidden"
     >
@@ -63,7 +88,10 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
           background: isFading ? "transparent" : undefined,
         }}
       >
-        <h1 className="border-b-[1rem] border-b-indigo-500 text-10xl font-bold leading-[10rem] text-indigo-500">
+        <h1
+          className="border-b-[1rem] border-b-indigo-500 text-10xl font-bold leading-[10rem] text-indigo-500"
+          onClick={() => setTb(!tB)}
+        >
           Works
         </h1>
       </div>
@@ -95,9 +123,16 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               </div>
               <div className="flex flex-grow flex-col items-end gap-2 text-5xl">
                 <span>{"Windows Application"}</span>
-                <span>
+                <a
+                  href="http://github.com"
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                >
                   <img className="h-10" src={ICOGithub} alt="gh" />
-                </span>
+                </a>
               </div>
             </div>
             <div
@@ -155,21 +190,14 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
         <Canvas shadows>
           <PerspectiveCamera
             makeDefault
-            position={[0, 2.5, 0]}
-            rotation={deg2RadXYZ(-90, 0, 0)}
+            position={[0, 2.5, 0.5]}
+            rotation={deg2RadXYZ(-80, 0, 0)}
           />
-          <pointLight position={[0, 2, 0]} intensity={0.3} />
-          <spotLight
-            intensity={0.5}
-            position={[6, 4, -5]}
-            angle={0.3}
-            penumbra={1}
-            castShadow
-          />
+          <PLight showLight={selectedItem < 0} initialState={!isVisible} />
 
           <mesh rotation={deg2RadXYZ(-90, 0, 0)} receiveShadow>
             <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
-            <meshLambertMaterial attach="material" color="#f2f2f2" />
+            <meshLambertMaterial attach="material" color="#6366f1" />
           </mesh>
           <Model
             // AIQA
@@ -224,4 +252,93 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     </section>
   );
 }
+
+function PLight({ showLight = true, initialState = true }) {
+  const depthBuffer = useDepthBuffer({ frames: 1 });
+  const globalLight = useRef<PointLight>(null!);
+
+  useFrame(() => {
+    console.log(initialState, showLight);
+    if (initialState) globalLight.current.color.lerp(new Color("#000000"), 0.1);
+    else if (showLight)
+      globalLight.current.color.lerp(new Color("#ffffff"), 0.01);
+    else globalLight.current.color.lerp(new Color("#999999"), 0.1);
+    globalLight.current?.updateMatrixWorld();
+  });
+
+  return (
+    <>
+      <pointLight ref={globalLight} position={[0, 5, 0]} intensity={0.33} />
+
+      <MovingSpot
+        depthBuffer={depthBuffer}
+        showLight={showLight}
+        initialState={initialState}
+        position={[0.5, 5, 0]}
+      />
+      <MovingSpot
+        depthBuffer={depthBuffer}
+        showLight={showLight}
+        initialState={initialState}
+        position={[0.5, 5, 0]}
+      />
+    </>
+  );
+}
+
+function MovingSpot({
+  vec = new Vector3(),
+  showLight = false,
+  initialState = true,
+  color = "#ffffff",
+  ...props
+}) {
+  const light = useRef<TSpotLight>(null);
+  const viewport = useThree((state) => state.viewport);
+
+  const frameHandler = useCallback(
+    (state: RootState) => {
+      if (showLight && !initialState)
+        light.current?.color.lerp(new Color(color), 0.05);
+      else light.current?.color.lerp(new Color("#000000"), 0.1);
+
+      light.current?.target.position.lerp(
+        vec.set(
+          (state.mouse.x * viewport.width) / 2,
+          0,
+          -(state.mouse.y * viewport.height) / 2
+        ),
+        0.1
+      );
+      light.current?.target.updateMatrixWorld();
+    },
+    [showLight, vec, viewport.height, viewport.width]
+  );
+  useFrame(frameHandler);
+
+  return (
+    <SpotLight
+      shadowCameraFov={undefined}
+      shadowCameraLeft={undefined}
+      shadowCameraRight={undefined}
+      shadowCameraTop={undefined}
+      shadowCameraBottom={undefined}
+      shadowCameraNear={undefined}
+      shadowCameraFar={undefined}
+      shadowBias={undefined}
+      shadowMapWidth={undefined}
+      shadowMapHeight={undefined}
+      castShadow
+      ref={light}
+      penumbra={1}
+      distance={8}
+      angle={0.3}
+      attenuation={5}
+      anglePower={4}
+      intensity={1}
+      {...props}
+    />
+  );
+}
+
 export default WorksSection;
