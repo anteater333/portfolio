@@ -14,6 +14,8 @@ import {
   PerspectiveCamera,
   SpotLight,
   useDepthBuffer,
+  OrbitControls,
+  RoundedBox,
 } from "@react-three/drei";
 import {
   Vector3,
@@ -190,10 +192,8 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
 
           <PLight showLight={selectedItem < 0} initialState={!isVisible} />
 
-          <mesh rotation={deg2RadXYZ(-90, 0, 0)} receiveShadow>
-            <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
-            <meshLambertMaterial attach="material" color="#6366f1" />
-          </mesh>
+          <PWorld />
+
           <Model
             // AIQA
             index={0}
@@ -256,6 +256,97 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
   );
 }
 
+function PWorld() {
+  return (
+    <>
+      {/* Floor */}
+      <mesh rotation={deg2RadXYZ(-90, 0, 0)} receiveShadow>
+        <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
+        <meshLambertMaterial attach="material" color="#6366f1" />
+      </mesh>
+      {/* Decorations */}
+      <group receiveShadow>
+        <RoundedBox
+          position={[2, 0.15, -1.3]}
+          rotation={deg2RadXYZ(0, 45, 0)}
+          args={[0.33, 0.33, 0.33]}
+        >
+          <meshPhongMaterial color="#ffb048" />
+        </RoundedBox>
+
+        <RoundedBox
+          position={[1.6, 0.15, -1.4]}
+          rotation={deg2RadXYZ(0, -25, 0)}
+          args={[0.2, 0.2, 0.2]}
+        >
+          <meshPhongMaterial color="#a9ff59" />
+        </RoundedBox>
+
+        <mesh position={[1.7, 0.15, -1.1]} rotation={deg2RadXYZ(0, 0, 0)}>
+          <sphereBufferGeometry attach="geometry" args={[0.15, 32, 32]} />
+          <meshLambertMaterial attach="material" color="#59ffe9" />
+        </mesh>
+        <mesh position={[-1, 0.15, -1.2]} rotation={deg2RadXYZ(0, 0, 0)}>
+          <sphereBufferGeometry attach="geometry" args={[0.12, 32, 32]} />
+          <meshLambertMaterial attach="material" color="#ff8fbe" />
+        </mesh>
+
+        <RoundedBox
+          position={[-1.8, 0.15, -1.3]}
+          rotation={deg2RadXYZ(0, 12, 0)}
+          args={[0.33, 0.33, 0.33]}
+        >
+          <meshPhongMaterial color="#fbff2a" />
+        </RoundedBox>
+
+        <mesh position={[-1.25, 0.15, -1.1]} rotation={deg2RadXYZ(0, -25, 0)}>
+          <cylinderBufferGeometry attach="geometry" args={[0.1, 0.1, 0.2]} />
+          <meshLambertMaterial attach="material" color="#00d32e" />
+        </mesh>
+
+        <RoundedBox
+          position={[-1.4, 0.15, -1.4]}
+          rotation={deg2RadXYZ(0, 26, 0)}
+          args={[0.22, 0.22, 0.22]}
+        >
+          <meshPhongMaterial color="#0370ff" />
+        </RoundedBox>
+
+        <mesh position={[0.1, 0.15, -1.4]} rotation={deg2RadXYZ(90, 0, 78)}>
+          <cylinderBufferGeometry attach="geometry" args={[0.11, 0.11, 0.5]} />
+          <meshLambertMaterial attach="material" color="#e96f1d" />
+        </mesh>
+        <mesh position={[0.7, 0.15, -1.5]} rotation={deg2RadXYZ(0, 0, 0)}>
+          <sphereBufferGeometry attach="geometry" args={[0.25, 32, 32]} />
+          <meshLambertMaterial attach="material" color="#67ff2b" />
+        </mesh>
+
+        <RoundedBox
+          position={[-2.1, 0.15, -0.6]}
+          rotation={deg2RadXYZ(90, 0, 12)}
+          args={[0.15, 0.5, 0.15]}
+        >
+          <meshPhongMaterial color="#da3636" />
+        </RoundedBox>
+        <RoundedBox
+          position={[2.1, 0.15, -0.9]}
+          rotation={deg2RadXYZ(90, 0, 12)}
+          args={[0.2, 0.2, 0.15]}
+        >
+          <meshPhongMaterial color="#9036da" />
+        </RoundedBox>
+        <RoundedBox
+          position={[2.3, 0.15, 0.2]}
+          rotation={deg2RadXYZ(90, 0, 52)}
+          args={[0.15, 0.3, 0.15]}
+        >
+          <meshPhongMaterial color="#63d81f" />
+        </RoundedBox>
+      </group>
+    </>
+  );
+}
+
 function PCamera({ vec = new Vector3(), initialState = true }) {
   const camera = useRef<TPerspectiveCamera>(null!);
 
@@ -298,7 +389,7 @@ function PLight({ showLight = true, initialState = true }) {
 
   return (
     <>
-      <pointLight ref={globalLight} position={[0, 5, 0]} intensity={0.5} />
+      <pointLight ref={globalLight} position={[0, 5, 0]} intensity={0.75} />
 
       <MovingSpot
         depthBuffer={depthBuffer}
