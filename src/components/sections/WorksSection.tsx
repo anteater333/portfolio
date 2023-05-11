@@ -14,7 +14,6 @@ import {
   PerspectiveCamera,
   SpotLight,
   useDepthBuffer,
-  OrbitControls,
   RoundedBox,
 } from "@react-three/drei";
 import {
@@ -22,9 +21,10 @@ import {
   SpotLight as TSpotLight,
   PointLight,
   Color,
-  Camera,
   PerspectiveCamera as TPerspectiveCamera,
 } from "three";
+
+import SimpleImageSlider from "react-simple-image-slider";
 
 import { deg2RadXYZ } from "../../utils/mathUtils";
 
@@ -85,6 +85,8 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     setIsFading(true);
   }, []);
 
+  const [showImgSlider, setShowImgSlider] = useState(false);
+
   return (
     <section
       ref={ref}
@@ -92,7 +94,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       className="relative h-recommended snap-center overflow-hidden"
     >
       <div
-        className="absolute bottom-10 left-16 z-50 rounded-3xl bg-white p-5 opacity-80"
+        className="absolute bottom-10 left-16 z-30 rounded-3xl bg-white p-5 opacity-80"
         style={{
           background: isFading ? "transparent" : undefined,
         }}
@@ -103,82 +105,115 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       </div>
 
       {selectedItem < 0 ? undefined : (
-        <div
-          className="absolute z-10 flex h-full w-full bg-white bg-opacity-95 pl-16 pr-32 pt-36 transition-opacity"
-          style={{
-            opacity: isFading ? "100" : "0",
-          }}
-          onClick={() => {
-            setIsFading(false);
-            setTimeout(() => {
-              setSelectedItem(-1);
-            }, 150);
-          }}
-        >
-          <div id="works-description-left">
-            <img src={PHill} alt="placeholder" />
-          </div>
+        <div className="h-full w-full">
+          {showImgSlider ? (
+            <div
+              className="absolute z-40 flex h-full w-full items-center justify-center bg-black bg-opacity-80"
+              onClick={(event) => {
+                setShowImgSlider(false);
+              }}
+            >
+              <div
+                className="rsis-parent h-4/5 w-3/5 shadow-2xl"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <SimpleImageSlider
+                  width={"50%"}
+                  height={"80%"}
+                  images={[PHill]}
+                  showNavs={true}
+                  showBullets={true}
+                  bgColor="#222222"
+                />
+              </div>
+            </div>
+          ) : undefined}
           <div
-            id="works-description-right"
-            className="flex flex-grow flex-col pl-32"
+            className="absolute z-10 flex h-full w-full bg-white bg-opacity-95 pl-16 pr-32 pt-36 transition-opacity"
+            style={{
+              opacity: isFading ? "100" : "0",
+            }}
+            onClick={() => {
+              setIsFading(false);
+              setTimeout(() => {
+                setSelectedItem(-1);
+              }, 150);
+            }}
           >
-            <div id="works-description-right-top" className="flex">
-              <div>
-                <span className="text-8xl font-bold">{"오늘 할 일"}</span>
-                <span className="text-3xl">{"(2018)"}</span>
-              </div>
-              <div className="flex flex-grow flex-col items-end gap-2 text-5xl">
-                <span>{"Windows Application"}</span>
-                <a
-                  href="http://github.com"
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                >
-                  <img className="h-10" src={ICOGithub} alt="gh" />
-                </a>
-              </div>
+            <div id="works-description-left">
+              <button>
+                <img src={PHill} alt="placeholder" />
+              </button>
             </div>
             <div
-              id="works-description-right-middle"
-              className="mb-12 mt-2 text-5xl"
+              id="works-description-right"
+              className="flex flex-grow flex-col pl-32"
             >
-              {"일상적 / 할 일 / 리마인더"}
-            </div>
-            <div
-              id="works-description-right-bottom"
-              className="flex justify-between"
-            >
-              <div className="flex flex-col gap-10">
+              <div id="works-description-right-top" className="flex">
                 <div>
-                  <h2 className="mb-4 text-4xl">주요 기능</h2>
-                  <ul className="h-40 list-disc pl-8 text-3xl">
-                    <li>날짜 포맷 파싱</li>
-                    <li>시작 시 실행</li>
-                    <li>...</li>
-                    <li>...</li>
-                  </ul>
+                  <span className="text-8xl font-bold">{"오늘 할 일"}</span>
+                  <span className="text-3xl">{"(2018)"}</span>
                 </div>
-                <div>
-                  <h2 className="mb-4 text-4xl">기술 스택</h2>
-                  <ul className="list-disc pl-8 text-3xl">
-                    <li>C# Windows Programming</li>
-                    <li>...</li>
-                    <li>...</li>
-                    <li>...</li>
-                  </ul>
+                <div className="flex flex-grow flex-col items-end gap-2 text-5xl">
+                  <span>{"Windows Application"}</span>
+                  <a
+                    href="http://github.com"
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <img className="h-10" src={ICOGithub} alt="gh" />
+                  </a>
                 </div>
               </div>
-              <div className="flex flex-col items-center gap-12">
-                <div className="inline w-[600px] text-2xl">
-                  {
-                    "오늘 할 일은... 어쩌구 저쩌구 장황한 설명. 2018년에 시작하여, 이 프로그램을 공유하지 않으면 당신은 저주받게 되고, 총 5명의 사람에게 이 메세지를 전달하지 않으면 이러쿵 저러쿵.."
-                  }
+              <div
+                id="works-description-right-middle"
+                className="mb-12 mt-2 text-5xl"
+              >
+                {"일상적 / 할 일 / 리마인더"}
+              </div>
+              <div
+                id="works-description-right-bottom"
+                className="flex justify-between"
+              >
+                <div className="flex flex-col gap-10">
+                  <div>
+                    <h2 className="mb-4 text-4xl">주요 기능</h2>
+                    <ul className="h-40 list-disc pl-8 text-3xl">
+                      <li>날짜 포맷 파싱</li>
+                      <li>시작 시 실행</li>
+                      <li>...</li>
+                      <li>...</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h2 className="mb-4 text-4xl">기술 스택</h2>
+                    <ul className="list-disc pl-8 text-3xl">
+                      <li>C# Windows Programming</li>
+                      <li>...</li>
+                      <li>...</li>
+                      <li>...</li>
+                    </ul>
+                  </div>
                 </div>
-                <div>
-                  <img src={PHill2} alt="placeholder" />
+                <div className="flex flex-col items-center gap-12">
+                  <div className="inline w-[600px] text-2xl">
+                    {
+                      "오늘 할 일은... 어쩌구 저쩌구 장황한 설명. 2018년에 시작하여, 이 프로그램을 공유하지 않으면 당신은 저주받게 되고, 총 5명의 사람에게 이 메세지를 전달하지 않으면 이러쿵 저러쿵.."
+                    }
+                  </div>
+                  <div>
+                    <button
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        setShowImgSlider(true);
+                      }}
+                    >
+                      <img src={PHill2} alt="placeholder" />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -380,7 +415,7 @@ function PLight({ showLight = true, initialState = true }) {
   const globalLight = useRef<PointLight>(null!);
 
   useFrame(() => {
-    if (initialState) globalLight.current.color.lerp(new Color("#000000"), 0.1);
+    if (initialState) globalLight.current.color.lerp(new Color("#000000"), 0.2);
     else if (showLight)
       globalLight.current.color.lerp(new Color("#ffffff"), 0.01);
     else globalLight.current.color.lerp(new Color("#999999"), 0.1);
@@ -421,7 +456,7 @@ function MovingSpot({
     (state: RootState) => {
       if (showLight && !initialState)
         light.current?.color.lerp(new Color(color), 0.05);
-      else light.current?.color.lerp(new Color("#000000"), 0.1);
+      else light.current?.color.lerp(new Color("#000000"), 0.5);
 
       light.current?.target.position.lerp(
         vec.set(
