@@ -47,8 +47,6 @@ const Model = (props: GroupProps & { index: number }) => {
 
   return (
     <group
-      {...props}
-      onClick={() => {}}
       onPointerEnter={() => {
         document.body.style.setProperty("cursor", "pointer");
       }}
@@ -56,6 +54,7 @@ const Model = (props: GroupProps & { index: number }) => {
         document.body.style.setProperty("cursor", "default");
       }}
       castShadow
+      {...props}
     >
       <primitive object={scene} />
     </group>
@@ -78,6 +77,11 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
 
   const [selectedItem, setSelectedItem] = useState(-1);
   const [isFading, setIsFading] = useState(false);
+
+  const handleWorkItemClicked = useCallback((index: number) => {
+    setSelectedItem(index);
+    setIsFading(true);
+  }, []);
 
   return (
     <section
@@ -180,13 +184,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
         </div>
       )}
 
-      <div
-        className="relative z-0 h-full w-full"
-        onClick={() => {
-          setSelectedItem(0);
-          setIsFading(true);
-        }}
-      >
+      <div className="relative z-0 h-full w-full" onClick={() => {}}>
         <Canvas shadows>
           <PCamera initialState={!isVisible} />
 
@@ -201,48 +199,56 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
             index={0}
             position={[0.7, 0, 0.25]}
             rotation={deg2RadXYZ(0, 15, 0)}
+            onClick={() => handleWorkItemClicked(0)}
           />
           <Model
             // DeZipper
             index={1}
             position={[-1.1, 0, -0.5]}
             rotation={deg2RadXYZ(0, 21, 0)}
+            onClick={() => handleWorkItemClicked(1)}
           />
           <Model
             // Ill
             index={2}
             position={[-1.7, 0, 0.15]}
             rotation={deg2RadXYZ(0, -36, 0)}
+            onClick={() => handleWorkItemClicked(2)}
           />
           <Model
             // Lab
             index={3}
             position={[-0.35, 0, 0.7]}
             rotation={deg2RadXYZ(0, -54, 0)}
+            onClick={() => handleWorkItemClicked(3)}
           />
           <Model
             // Monallog
             index={4}
             position={[1.7, 0, -0.3]}
             rotation={deg2RadXYZ(0, -32, 0)}
+            onClick={() => handleWorkItemClicked(4)}
           />
           <Model
             // QUE
             index={5}
             position={[0.3, 0, -0.6]}
             rotation={deg2RadXYZ(0, -25, 0)}
+            onClick={() => handleWorkItemClicked(5)}
           />
           <Model
             // Soup
             index={6}
             position={[-0.3, 0, -0.1]}
             rotation={deg2RadXYZ(0, 19, 0)}
+            onClick={() => handleWorkItemClicked(6)}
           />
           <Model
             // theWhiteboard
             index={7}
             position={[1.25, 0, 0.7]}
             rotation={deg2RadXYZ(0, 25, 0)}
+            onClick={() => handleWorkItemClicked(7)}
           />
         </Canvas>
       </div>
@@ -252,7 +258,6 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
 
 function PCamera({ vec = new Vector3(), initialState = true }) {
   const camera = useRef<TPerspectiveCamera>(null!);
-  const viewport = useThree((state) => state.viewport);
 
   const frameHandler = useCallback(
     (state: RootState) => {
@@ -265,8 +270,6 @@ function PCamera({ vec = new Vector3(), initialState = true }) {
         );
         camera.current?.rotation.set(...deg2RadXYZ(-80 + state.mouse.x, 0, 0));
       }
-
-      console.log(state.mouse.x, state.mouse.y);
 
       camera.current?.updateMatrixWorld();
     },
@@ -335,7 +338,7 @@ function MovingSpot({
           0,
           -(state.mouse.y * viewport.height) / 2
         ),
-        0.1
+        0.05
       );
       light.current?.target.updateMatrixWorld();
     },
