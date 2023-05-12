@@ -31,21 +31,158 @@ import { deg2RadXYZ } from "../../utils/mathUtils";
 import PHill from "../../resources/images/works/PHill.png";
 import PHill2 from "../../resources/images/works/placeholder2.png";
 import ICOGithub from "../../resources/images/common/github.png";
-import useIntersection from "../../hooks/useIntersection";
 
-const modelsArray = [
-  { title: "AIQA", url: "/3d/AIQA.glb" },
-  { title: "DeZipper", url: "/3d/DeZipper.glb" },
-  { title: "Ill", url: "/3d/Ill.glb" },
-  { title: "Lab", url: "/3d/Lab.glb" },
-  { title: "Monallog", url: "/3d/Monallog.glb" },
-  { title: "QUE", url: "/3d/QUE.glb" },
-  { title: "Soup", url: "/3d/Soup.glb" },
-  { title: "theWhiteboard", url: "/3d/theWhiteboard.glb" },
+import imgWorks00 from "../../resources/images/works/img_s4_00_logo_AIQA.png";
+import imgWorks01 from "../../resources/images/works/img_s4_01_logo_DeZipper.png";
+import imgWorks02 from "../../resources/images/works/img_s4_02_logo_Ill.png";
+import imgWorks03 from "../../resources/images/works/img_s4_03_logo_Lab.png";
+import imgWorks04 from "../../resources/images/works/img_s4_04_logo_Monallog.png";
+import imgWorks05 from "../../resources/images/works/img_s4_05_logo_QUE.png";
+import imgWorks06 from "../../resources/images/works/img_s4_06_logo_Soup.png";
+import imgWorks07 from "../../resources/images/works/img_s4_07_logo_theWhiteboard.png";
+
+import useIntersection from "../../hooks/useIntersection";
+import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
+
+const worksArray: {
+  workId: string;
+  url: string;
+  logoImg: ImgComponentType;
+  screenshots: ImgComponentType[];
+  title: string;
+  year: string;
+  summary: string;
+  platform: string;
+  repoUrl?: string;
+  site?: string;
+  description: string;
+  features: string[];
+  techStack: string[];
+}[] = [
+  {
+    workId: "AIQA",
+    url: "/3d/AIQA.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "",
+    description: "",
+    year: "",
+    platform: "",
+    summary: "",
+    features: [],
+    techStack: [],
+    repoUrl: "",
+    site: "",
+  },
+  {
+    workId: "DeZipper",
+    url: "/3d/DeZipper.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "",
+    description: "",
+    year: "",
+    platform: "",
+    summary: "",
+    features: [],
+    techStack: [],
+    repoUrl: "",
+    site: "",
+  },
+  {
+    workId: "Ill",
+    url: "/3d/Ill.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "",
+    description: "",
+    year: "",
+    platform: "",
+    summary: "",
+    features: [],
+    techStack: [],
+    repoUrl: "",
+    site: "",
+  },
+  {
+    workId: "Lab",
+    url: "/3d/Lab.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "",
+    description: "",
+    year: "",
+    platform: "",
+    summary: "",
+    features: [],
+    techStack: [],
+    repoUrl: "",
+    site: "",
+  },
+  {
+    workId: "Monallog",
+    url: "/3d/Monallog.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "",
+    description: "",
+    year: "",
+    platform: "",
+    summary: "",
+    features: [],
+    techStack: [],
+    repoUrl: "",
+    site: "",
+  },
+  {
+    workId: "QUE",
+    url: "/3d/QUE.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "",
+    description: "",
+    year: "",
+    platform: "",
+    summary: "",
+    features: [],
+    techStack: [],
+    repoUrl: "",
+    site: "",
+  },
+  {
+    workId: "Soup",
+    url: "/3d/Soup.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "",
+    description: "",
+    year: "",
+    platform: "",
+    summary: "",
+    features: [],
+    techStack: [],
+    repoUrl: "",
+    site: "",
+  },
+  {
+    workId: "theWhiteboard",
+    url: "/3d/theWhiteboard.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "",
+    description: "",
+    year: "",
+    platform: "",
+    summary: "",
+    features: [],
+    techStack: [],
+    repoUrl: "",
+    site: "",
+  },
 ];
 
 const Model = (props: GroupProps & { index: number }) => {
-  const { scene } = useGLTF(modelsArray[props.index].url);
+  const { scene } = useGLTF(worksArray[props.index].url);
 
   return (
     <group
@@ -64,26 +201,85 @@ const Model = (props: GroupProps & { index: number }) => {
 };
 
 function WorksSection({ updateLoadingProgress }: SectionProps) {
+  const ImgWorks00 = useImageLoader(imgWorks00);
+  const ImgWorks01 = useImageLoader(imgWorks01);
+  const ImgWorks02 = useImageLoader(imgWorks02);
+  const ImgWorks03 = useImageLoader(imgWorks03);
+  const ImgWorks04 = useImageLoader(imgWorks04);
+  const ImgWorks05 = useImageLoader(imgWorks05);
+  const ImgWorks06 = useImageLoader(imgWorks06);
+  const ImgWorks07 = useImageLoader(imgWorks07);
+
   /** Intersection Observer 사용 */
   const ref = useRef<HTMLDivElement | null>(null);
   const entry = useIntersection(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
-  const { progress } = useProgress();
+  const { progress: threeProgress } = useProgress();
 
   useEffect(() => {
-    updateLoadingProgress(progress, 3);
-  }, [updateLoadingProgress, progress]);
+    const total =
+      ImgWorks00.progress +
+      ImgWorks01.progress +
+      ImgWorks02.progress +
+      ImgWorks03.progress +
+      ImgWorks04.progress +
+      ImgWorks05.progress +
+      ImgWorks06.progress +
+      ImgWorks07.progress +
+      threeProgress;
+    const length = 9;
+    updateLoadingProgress(total / length, 3);
+  }, [
+    updateLoadingProgress,
+    threeProgress,
+    ImgWorks00.progress,
+    ImgWorks01.progress,
+    ImgWorks02.progress,
+    ImgWorks03.progress,
+    ImgWorks04.progress,
+    ImgWorks05.progress,
+    ImgWorks06.progress,
+    ImgWorks07.progress,
+  ]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    worksArray[0].logoImg = ImgWorks00.ImageComponent;
+    worksArray[1].logoImg = ImgWorks01.ImageComponent;
+    worksArray[2].logoImg = ImgWorks02.ImageComponent;
+    worksArray[3].logoImg = ImgWorks03.ImageComponent;
+    worksArray[4].logoImg = ImgWorks04.ImageComponent;
+    worksArray[5].logoImg = ImgWorks05.ImageComponent;
+    worksArray[6].logoImg = ImgWorks06.ImageComponent;
+    worksArray[7].logoImg = ImgWorks07.ImageComponent;
+  }, [
+    ImgWorks00.ImageComponent,
+    ImgWorks01.ImageComponent,
+    ImgWorks02.ImageComponent,
+    ImgWorks03.ImageComponent,
+    ImgWorks04.ImageComponent,
+    ImgWorks05.ImageComponent,
+    ImgWorks06.ImageComponent,
+    ImgWorks07.ImageComponent,
+  ]);
 
-  const [selectedItem, setSelectedItem] = useState(-1);
+  const [selectedItem, setSelectedItem] = useState(worksArray[0]);
+  const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
   const [isFading, setIsFading] = useState(false);
 
   const handleWorkItemClicked = useCallback((index: number) => {
-    setSelectedItem(index);
-    setIsFading(true);
+    setSelectedItemIndex(index);
+    setTimeout(() => {
+      setIsFading(true);
+    }, 50);
   }, []);
+
+  /** 사용자가 선택한 아이템의 Index에 따라 State 변경 */
+  useEffect(() => {
+    if (selectedItemIndex >= 0) {
+      setSelectedItem(worksArray[selectedItemIndex]);
+    }
+  }, [selectedItemIndex]);
 
   const [showImgSlider, setShowImgSlider] = useState(false);
 
@@ -104,7 +300,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
         </h1>
       </div>
 
-      {selectedItem < 0 ? undefined : (
+      {selectedItemIndex < 0 ? undefined : (
         <div className="h-full w-full">
           {showImgSlider ? (
             <div
@@ -136,18 +332,19 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
             onClick={() => {
               setIsFading(false);
               setTimeout(() => {
-                setSelectedItem(-1);
+                setSelectedItemIndex(-1);
               }, 150);
             }}
           >
-            <div id="works-description-left">
-              <button>
-                <img src={PHill} alt="placeholder" />
-              </button>
+            <div id="works-description-left" className="pt-20">
+              <selectedItem.logoImg
+                className="h-[440px] w-[520px] object-contain"
+                alt={selectedItem.workId}
+              />
             </div>
             <div
               id="works-description-right"
-              className="flex flex-grow flex-col pl-32"
+              className="flex flex-grow flex-col pl-28"
             >
               <div id="works-description-right-top" className="flex">
                 <div>
@@ -160,8 +357,8 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                     href="http://github.com"
                     target="_blank"
                     rel="noreferrer"
-                    onClick={(e) => {
-                      e.stopPropagation();
+                    onClick={(event) => {
+                      event.stopPropagation();
                     }}
                   >
                     <img className="h-10" src={ICOGithub} alt="gh" />
@@ -225,7 +422,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
         <Canvas shadows>
           <PCamera initialState={!isVisible} />
 
-          <PLight showLight={selectedItem < 0} initialState={!isVisible} />
+          <PLight showLight={selectedItemIndex < 0} initialState={!isVisible} />
 
           <PWorld />
 
