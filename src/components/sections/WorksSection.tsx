@@ -64,15 +64,24 @@ const worksArray: {
     url: "/3d/AIQA.glb",
     screenshots: [],
     logoImg: () => <></>,
-    title: "",
-    description: "",
-    year: "",
-    platform: "",
-    summary: "",
-    features: [],
-    techStack: [],
-    repoUrl: "",
-    site: "",
+    title: "AIQA",
+    description:
+      "AIQA는 인공지능 학습에 사용될 데이터셋의 품질을 관리하는 솔루션입니다. [제 12기 소프트웨어 마에스트로 팀 프로젝트]",
+    year: "2021",
+    platform: "Web Service",
+    summary: "인공지능 데이터 품질 관리 솔루션",
+    features: [
+      "대규모 File IO 처리",
+      "데이터셋 품질에 대한 시각적 인사이트 제공",
+      "이미지 데이터셋 유사도 측정",
+    ],
+    techStack: [
+      "팀 프로젝트 (에이전트 개발 담당)",
+      "Vue & NestJS",
+      "Node.js IPC",
+      "Pandas & numpy",
+    ],
+    repoUrl: "https://github.com/anteater333/aiqa-agent",
   },
   {
     workId: "DeZipper",
@@ -344,32 +353,51 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
             </div>
             <div
               id="works-description-right"
-              className="flex flex-grow flex-col pl-28"
+              className="flex flex-grow flex-col pl-12"
             >
               <div id="works-description-right-top" className="flex">
                 <div>
-                  <span className="text-8xl font-bold">{"오늘 할 일"}</span>
-                  <span className="text-3xl">{"(2018)"}</span>
+                  <span className="text-8xl font-bold">
+                    {selectedItem.title}
+                  </span>
+                  <span className="text-3xl">({selectedItem.year})</span>
                 </div>
                 <div className="flex flex-grow flex-col items-end gap-2 text-5xl">
                   <span>{"Windows Application"}</span>
-                  <a
-                    href="http://github.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={(event) => {
-                      event.stopPropagation();
-                    }}
-                  >
-                    <img className="h-10" src={ICOGithub} alt="gh" />
-                  </a>
+
+                  <div className="flex gap-4">
+                    {selectedItem.repoUrl ? (
+                      <a
+                        href={selectedItem.repoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
+                        <img className="h-10" src={ICOGithub} alt="gh" />
+                      </a>
+                    ) : undefined}
+                    {selectedItem.site ? (
+                      <a
+                        href={selectedItem.site}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
+                        <img className="h-10" src={ICOGithub} alt="gh" />
+                      </a>
+                    ) : undefined}
+                  </div>
                 </div>
               </div>
               <div
                 id="works-description-right-middle"
                 className="mb-12 mt-2 text-5xl"
               >
-                {"일상적 / 할 일 / 리마인더"}
+                {selectedItem.summary}
               </div>
               <div
                 id="works-description-right-bottom"
@@ -378,28 +406,24 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                 <div className="flex flex-col gap-10">
                   <div>
                     <h2 className="mb-4 text-4xl">주요 기능</h2>
-                    <ul className="h-40 list-disc pl-8 text-3xl">
-                      <li>날짜 포맷 파싱</li>
-                      <li>시작 시 실행</li>
-                      <li>...</li>
-                      <li>...</li>
+                    <ul className="h-40 max-w-md list-disc break-keep pl-8 text-3xl [&>li]:mb-2">
+                      {selectedItem.features.map((feat) => (
+                        <li>{feat}</li>
+                      ))}
                     </ul>
                   </div>
                   <div>
-                    <h2 className="mb-4 text-4xl">기술 스택</h2>
-                    <ul className="list-disc pl-8 text-3xl">
-                      <li>C# Windows Programming</li>
-                      <li>...</li>
-                      <li>...</li>
-                      <li>...</li>
+                    <h2 className="mb-4 text-4xl">역할 및 기술 스택</h2>
+                    <ul className="h-40 max-w-md list-disc break-keep pl-8 text-3xl [&>li]:mb-2">
+                      {selectedItem.techStack.map((tech) => (
+                        <li>{tech}</li>
+                      ))}
                     </ul>
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-12">
-                  <div className="inline w-[600px] text-2xl">
-                    {
-                      "오늘 할 일은... 어쩌구 저쩌구 장황한 설명. 2018년에 시작하여, 이 프로그램을 공유하지 않으면 당신은 저주받게 되고, 총 5명의 사람에게 이 메세지를 전달하지 않으면 이러쿵 저러쿵.."
-                    }
+                  <div className="inline h-24 w-[600px] text-2xl">
+                    {selectedItem.description}
                   </div>
                   <div>
                     <button
