@@ -50,6 +50,7 @@ const worksArray: {
   logoImg: ImgComponentType;
   screenshots: ImgComponentType[];
   title: string;
+  smallTitle?: boolean;
   year: string;
   summary: string;
   platform: string;
@@ -72,7 +73,7 @@ const worksArray: {
     summary: "인공지능 데이터 품질 관리 솔루션",
     features: [
       "대규모 File IO 처리",
-      "데이터셋 품질에 대한 시각적 인사이트 제공",
+      "데이터셋 품질에 대한 대시보드 제공",
       "이미지 데이터셋 유사도 측정",
     ],
     techStack: [
@@ -88,14 +89,15 @@ const worksArray: {
     url: "/3d/DeZipper.glb",
     screenshots: [],
     logoImg: () => <></>,
-    title: "",
-    description: "",
-    year: "",
-    platform: "",
-    summary: "",
-    features: [],
-    techStack: [],
-    repoUrl: "",
+    title: "DeZipper",
+    description:
+      "DeZipper는 압축 파일의 구조를 해석한 다음 목표 폴더를 지정해 압축 파일에서 나온 파일을 삭제하는 프로그램입니다. 여러 압축 파일이 한 폴더 내부에 혼재되어 있을 경우 효과적입니다.",
+    year: "2017",
+    platform: "Windows Application",
+    summary: "되-짚어, 압축 파일 삭제 프로그램",
+    features: ["Zip 파일 구조 해석", "CLI, GUI 지원", "휴지통으로 보내기"],
+    techStack: ["개인 프로젝트", "C#", ".NET Windows Forms"],
+    repoUrl: "https://github.com/anteater333/DeZipper",
     site: "",
   },
   {
@@ -103,14 +105,15 @@ const worksArray: {
     url: "/3d/Ill.glb",
     screenshots: [],
     logoImg: () => <></>,
-    title: "",
-    description: "",
-    year: "",
-    platform: "",
-    summary: "",
-    features: [],
-    techStack: [],
-    repoUrl: "",
+    title: "오늘 할 일",
+    description:
+      "오늘 할 일은 2018년 사회복무요원으로 복무하면서 처음 배정받은 업무들을 관리하고 기억하기 위해 개발한 프로그램 입니다. 원격 서버로부터 텍스트 파일을 읽어 오늘 하기로 한 일이 무엇이었는지 확인할 수 있습니다.",
+    year: "2018",
+    platform: "Windows Application",
+    summary: "일상적 할 일 리마인더",
+    features: ["텍스트 파일 파싱", "시작 프로그램 설정"],
+    techStack: ["개인 프로젝트", "C#", ".NET Windows Forms"],
+    repoUrl: "https://github.com/anteater333/Oneul-Hal-Il",
     site: "",
   },
   {
@@ -118,29 +121,32 @@ const worksArray: {
     url: "/3d/Lab.glb",
     screenshots: [],
     logoImg: () => <></>,
-    title: "",
-    description: "",
-    year: "",
-    platform: "",
-    summary: "",
-    features: [],
-    techStack: [],
-    repoUrl: "",
-    site: "",
+    title: "Anteater's laboratory",
+    smallTitle: true,
+    description:
+      "Jekyll로 구축한 개인 기술 블로그입니다. 개발 중 해결했던 자잘한 해결책들, 독후감, 특정 용어에 대한 고찰 등 다양한 주제의 글을 작성하고 있습니다.",
+    year: "2021",
+    platform: "Web Service",
+    summary: "기술 블로그",
+    features: ["ToC 자동생성", "댓글", "Reading Progressbar"],
+    techStack: ["Jekyll", "Sass", "Vanilla JS"],
+    repoUrl: "https://github.com/anteater333/anteater333.github.io",
+    site: "https://blog.anteater-lab.link/",
   },
   {
     workId: "Monallog",
     url: "/3d/Monallog.glb",
     screenshots: [],
     logoImg: () => <></>,
-    title: "",
-    description: "",
-    year: "",
-    platform: "",
-    summary: "",
-    features: [],
-    techStack: [],
-    repoUrl: "",
+    title: "Monallog",
+    description:
+      'Monallog는 휘발되는 메시지를 주고받는 SNS라는 기획으로 개발을 시작한 프로젝트입니다. 사용자가 "채널"에서 실시간으로 떠다니는 메시지를 캡처할 수 있도록 만드는 것이 목표였으나 최종적으로 프로젝트가 드롭되었습니다.',
+    year: "2019",
+    platform: "Web Service",
+    summary: "집단적 독백",
+    features: ["실시간 메시지 교환", "휘발성 메시지"],
+    techStack: ["개인 프로젝트 (풀스택 개발)", "Vue", "Express", "Socket.IO"],
+    repoUrl: "https://github.com/anteater333?tab=repositories&q=monallog",
     site: "",
   },
   {
@@ -148,43 +154,51 @@ const worksArray: {
     url: "/3d/QUE.glb",
     screenshots: [],
     logoImg: () => <></>,
-    title: "",
-    description: "",
-    year: "",
-    platform: "",
-    summary: "",
-    features: [],
-    techStack: [],
-    repoUrl: "",
-    site: "",
+    title: "QUE",
+    description:
+      "QUE는 노래에 특화된 유튜브를 만들어보자는 아이디어에서 시작한 프로젝트입니다. 노래를 부르는 영상을 업로드하고 평가받을 수 있는 플랫폼을 만드는 것이 목표입니다.",
+    year: "2022",
+    platform: "Cross-platform Application",
+    summary: '"당신의 콘서트를 시작하세요"',
+    features: [
+      "영상 업로드",
+      "영상 내 타임라인 좋아요",
+      "이메일 인증",
+      "소셜 로그인",
+    ],
+    techStack: ["개인 프로젝트", "React Native", "Firebase", "Deno"],
+    repoUrl: "https://github.com/anteater333?tab=repositories&q=que",
+    site: "https://que-web.vercel.app/",
   },
   {
     workId: "Soup",
     url: "/3d/Soup.glb",
     screenshots: [],
     logoImg: () => <></>,
-    title: "",
-    description: "",
-    year: "",
-    platform: "",
-    summary: "",
-    features: [],
-    techStack: [],
-    repoUrl: "",
-    site: "",
+    title: "숲Soup",
+    description:
+      "숲은 2022년 어느날 혼자서 진행했던 해커톤에서 시작한 프로젝트입니다. '이 검색어가 왜 실검에 있지?'란 의문을 자주 하는 사람들을 위한 서비스입니다.",
+    year: "2022",
+    platform: "Web Service",
+    summary: '"가끔은 나무 대신 숲을 봐야 할 때도 있습니다."',
+    features: ["나무위키 실시간 검색어 크롤링", "인스턴트 메모"],
+    techStack: ["개인 프로젝트", "React", "Express"],
+    repoUrl: "https://github.com/anteater333/namu-soup",
+    site: "https://soup.anteater-lab.link",
   },
   {
     workId: "theWhiteboard",
     url: "/3d/theWhiteboard.glb",
     screenshots: [],
     logoImg: () => <></>,
-    title: "",
-    description: "",
-    year: "",
-    platform: "",
-    summary: "",
-    features: [],
-    techStack: [],
+    title: "Whiteboard",
+    description:
+      "Whiteboard는 칠판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 2023년 기준 개발 중인 프로젝트입니다.",
+    year: "2023",
+    platform: "Web Service",
+    summary: "평범한 커뮤니티 사이트",
+    features: ["개발 중입니다."],
+    techStack: ["Next.js"],
     repoUrl: "",
     site: "",
   },
@@ -356,14 +370,30 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               className="flex flex-grow flex-col pl-12"
             >
               <div id="works-description-right-top" className="flex">
-                <div>
-                  <span className="text-8xl font-bold">
+                <div
+                  className={
+                    selectedItem.smallTitle ? "flex h-28 flex-col" : ""
+                  }
+                >
+                  <span
+                    className={`${"font-bold"} ${
+                      selectedItem.smallTitle ? "text-6xl" : "text-8xl"
+                    }`}
+                  >
                     {selectedItem.title}
                   </span>
-                  <span className="text-3xl">({selectedItem.year})</span>
+                  <span
+                    className={`${"text-3xl"} ${
+                      selectedItem.smallTitle
+                        ? "h-[3.25rem] leading-relaxed"
+                        : ""
+                    }`}
+                  >
+                    ({selectedItem.year})
+                  </span>
                 </div>
                 <div className="flex flex-grow flex-col items-end gap-2 text-5xl">
-                  <span>{"Windows Application"}</span>
+                  <span>{selectedItem.platform}</span>
 
                   <div className="flex gap-4">
                     {selectedItem.repoUrl ? (
@@ -403,10 +433,10 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                 id="works-description-right-bottom"
                 className="flex justify-between"
               >
-                <div className="flex flex-col gap-10">
+                <div className="flex flex-col gap-20">
                   <div>
                     <h2 className="mb-4 text-4xl">주요 기능</h2>
-                    <ul className="h-40 max-w-md list-disc break-keep pl-8 text-3xl [&>li]:mb-2">
+                    <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
                       {selectedItem.features.map((feat) => (
                         <li>{feat}</li>
                       ))}
@@ -414,7 +444,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                   </div>
                   <div>
                     <h2 className="mb-4 text-4xl">역할 및 기술 스택</h2>
-                    <ul className="h-40 max-w-md list-disc break-keep pl-8 text-3xl [&>li]:mb-2">
+                    <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
                       {selectedItem.techStack.map((tech) => (
                         <li>{tech}</li>
                       ))}
