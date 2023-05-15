@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 
 import {
@@ -40,8 +40,9 @@ import imgWorks05 from "../../resources/images/works/img_s4_05_logo_QUE.png";
 import imgWorks06 from "../../resources/images/works/img_s4_06_logo_Soup.png";
 import imgWorks07 from "../../resources/images/works/img_s4_07_logo_theWhiteboard.png";
 
-import imgWorks00SS00 from "../../resources/images/works/screenshots/Ill00.png";
-import imgWorks00SS01 from "../../resources/images/works/screenshots/Ill01.png";
+import imgWorks01SS00 from "../../resources/images/works/screenshots/DeZipper00.png";
+import imgWorks02SS00 from "../../resources/images/works/screenshots/Ill00.png";
+import imgWorks02SS01 from "../../resources/images/works/screenshots/Ill01.png";
 
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
@@ -65,7 +66,7 @@ const worksArray: {
   {
     workId: "AIQA",
     url: "/3d/AIQA.glb",
-    screenshots: [imgWorks00SS00, imgWorks00SS01],
+    screenshots: [],
     logoImg: () => <></>,
     title: "AIQA",
     description:
@@ -89,9 +90,8 @@ const worksArray: {
   {
     workId: "DeZipper",
     url: "/3d/DeZipper.glb",
-    screenshots: [],
+    screenshots: [imgWorks01SS00],
     logoImg: () => <></>,
-
     title: "DeZipper",
     description:
       "DeZipper는 압축 파일의 구조를 해석한 다음 목표 폴더를 지정해 압축 파일에서 나온 파일을 삭제하는 프로그램입니다. 여러 압축 파일이 한 폴더 내부에 혼재되어 있을 경우 효과적입니다.",
@@ -106,9 +106,8 @@ const worksArray: {
   {
     workId: "Ill",
     url: "/3d/Ill.glb",
-    screenshots: [],
+    screenshots: [imgWorks02SS00, imgWorks02SS01],
     logoImg: () => <></>,
-
     title: "오늘 할 일",
     description:
       "오늘 할 일은 2018년 사회복무요원으로 복무하면서 처음 배정받은 업무들을 관리하고 기억하기 위해 개발한 프로그램 입니다. 원격 서버로부터 텍스트 파일을 읽어 오늘 하기로 한 일이 무엇이었는지 확인할 수 있습니다.",
@@ -125,7 +124,6 @@ const worksArray: {
     url: "/3d/Lab.glb",
     screenshots: [],
     logoImg: () => <></>,
-
     title: "Anteater's laboratory",
     smallTitle: true,
     description:
@@ -143,7 +141,6 @@ const worksArray: {
     url: "/3d/Monallog.glb",
     screenshots: [],
     logoImg: () => <></>,
-
     title: "Monallog",
     description:
       'Monallog는 휘발되는 메시지를 주고받는 SNS라는 기획으로 개발을 시작한 프로젝트입니다. 사용자가 "채널"에서 실시간으로 떠다니는 메시지를 캡처할 수 있도록 만드는 것이 목표였으나 최종적으로 프로젝트가 드롭되었습니다.',
@@ -160,7 +157,6 @@ const worksArray: {
     url: "/3d/QUE.glb",
     screenshots: [],
     logoImg: () => <></>,
-
     title: "QUE",
     description:
       "QUE는 노래에 특화된 유튜브를 만들어보자는 아이디어에서 시작한 프로젝트입니다. 노래를 부르는 영상을 업로드하고 평가받을 수 있는 플랫폼을 만드는 것이 목표입니다.",
@@ -182,7 +178,6 @@ const worksArray: {
     url: "/3d/Soup.glb",
     screenshots: [],
     logoImg: () => <></>,
-
     title: "숲Soup",
     description:
       "숲은 2022년 어느날 혼자서 진행했던 해커톤에서 시작한 프로젝트입니다. '이 검색어가 왜 실검에 있지?'란 의문을 자주 하는 사람들을 위한 서비스입니다.",
@@ -199,7 +194,6 @@ const worksArray: {
     url: "/3d/theWhiteboard.glb",
     screenshots: [],
     logoImg: () => <></>,
-
     title: "Whiteboard",
     description:
       "Whiteboard는 칠판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 2023년 기준 개발 중인 프로젝트입니다.",
@@ -314,6 +308,26 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       setSelectedItem(worksArray[selectedItemIndex]);
     }
   }, [selectedItemIndex]);
+
+  const MemoedSlider = useMemo(() => {
+    return () => (
+      <SimpleImageSlider
+        width={"600px"}
+        height={"400px"}
+        images={selectedItem.screenshots}
+        showNavs={false}
+        showBullets={false}
+        autoPlay={selectedItem.screenshots.length > 1}
+        autoPlayDelay={5}
+        slideDuration={1.5}
+        bgColor="#f2f2f2"
+      />
+    );
+  }, [selectedItem.screenshots]);
+
+  useEffect(() => {
+    console.log(selectedItem.screenshots);
+  }, [selectedItem]);
 
   const [showImgSlider, setShowImgSlider] = useState(false);
 
@@ -474,17 +488,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                           setShowImgSlider(true);
                         }}
                       >
-                        <SimpleImageSlider
-                          width={"600px"}
-                          height={"400px"}
-                          images={selectedItem.screenshots}
-                          showNavs={false}
-                          showBullets={false}
-                          autoPlay={true}
-                          autoPlayDelay={5}
-                          slideDuration={1.5}
-                          bgColor="#f2f2f2"
-                        />
+                        <MemoedSlider />
                       </button>
                     ) : undefined}
                   </div>
