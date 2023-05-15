@@ -40,9 +40,26 @@ import imgWorks05 from "../../resources/images/works/img_s4_05_logo_QUE.png";
 import imgWorks06 from "../../resources/images/works/img_s4_06_logo_Soup.png";
 import imgWorks07 from "../../resources/images/works/img_s4_07_logo_theWhiteboard.png";
 
+import imgWorks00SS00 from "../../resources/images/works/screenshots/AIQA00.png";
+import imgWorks00SS01 from "../../resources/images/works/screenshots/AIQA01.gif";
+import imgWorks00SS02 from "../../resources/images/works/screenshots/AIQA02.png";
+import imgWorks00SS03 from "../../resources/images/works/screenshots/AIQA03.png";
 import imgWorks01SS00 from "../../resources/images/works/screenshots/DeZipper00.png";
 import imgWorks02SS00 from "../../resources/images/works/screenshots/Ill00.png";
 import imgWorks02SS01 from "../../resources/images/works/screenshots/Ill01.png";
+import imgWorks03SS00 from "../../resources/images/works/screenshots/Lab00.png";
+import imgWorks03SS01 from "../../resources/images/works/screenshots/Lab01.png";
+import imgWorks03SS02 from "../../resources/images/works/screenshots/Lab02.png";
+import imgWorks04SS00 from "../../resources/images/works/screenshots/Monallog00.gif";
+import imgWorks05SS00 from "../../resources/images/works/screenshots/QUE00.png";
+import imgWorks05SS01 from "../../resources/images/works/screenshots/QUE01.png";
+import imgWorks05SS02 from "../../resources/images/works/screenshots/QUE02.png";
+import imgWorks05SS03 from "../../resources/images/works/screenshots/QUE03.png";
+import imgWorks05SS04 from "../../resources/images/works/screenshots/QUE04.png";
+import imgWorks06SS00 from "../../resources/images/works/screenshots/Soup00.png";
+import imgWorks06SS01 from "../../resources/images/works/screenshots/Soup01.png";
+import imgWorks06SS02 from "../../resources/images/works/screenshots/Soup02.png";
+import imgWorks07SS00 from "../../resources/images/works/screenshots/theWhiteboard00.gif";
 
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
@@ -66,7 +83,12 @@ const worksArray: {
   {
     workId: "AIQA",
     url: "/3d/AIQA.glb",
-    screenshots: [],
+    screenshots: [
+      imgWorks00SS00,
+      imgWorks00SS01,
+      imgWorks00SS02,
+      imgWorks00SS03,
+    ],
     logoImg: () => <></>,
     title: "AIQA",
     description:
@@ -122,7 +144,7 @@ const worksArray: {
   {
     workId: "Lab",
     url: "/3d/Lab.glb",
-    screenshots: [],
+    screenshots: [imgWorks03SS00, imgWorks03SS01, imgWorks03SS02],
     logoImg: () => <></>,
     title: "Anteater's laboratory",
     smallTitle: true,
@@ -139,7 +161,7 @@ const worksArray: {
   {
     workId: "Monallog",
     url: "/3d/Monallog.glb",
-    screenshots: [],
+    screenshots: [imgWorks04SS00],
     logoImg: () => <></>,
     title: "Monallog",
     description:
@@ -147,7 +169,11 @@ const worksArray: {
     year: "2019",
     platform: "Web Service",
     summary: "집단적 독백",
-    features: ["실시간 메시지 교환", "휘발성 메시지"],
+    features: [
+      "실시간 메시지 교환",
+      "휘발성 메시지",
+      "감성적인 음악과 배경사진",
+    ],
     techStack: ["개인 프로젝트 (풀스택 개발)", "Vue", "Express", "Socket.IO"],
     repoUrl: "https://github.com/anteater333?tab=repositories&q=monallog",
     site: "",
@@ -155,7 +181,13 @@ const worksArray: {
   {
     workId: "QUE",
     url: "/3d/QUE.glb",
-    screenshots: [],
+    screenshots: [
+      imgWorks05SS00,
+      imgWorks05SS01,
+      imgWorks05SS02,
+      imgWorks05SS03,
+      imgWorks05SS04,
+    ],
     logoImg: () => <></>,
     title: "QUE",
     description:
@@ -176,7 +208,7 @@ const worksArray: {
   {
     workId: "Soup",
     url: "/3d/Soup.glb",
-    screenshots: [],
+    screenshots: [imgWorks06SS00, imgWorks06SS01, imgWorks06SS02],
     logoImg: () => <></>,
     title: "숲Soup",
     description:
@@ -192,11 +224,11 @@ const worksArray: {
   {
     workId: "theWhiteboard",
     url: "/3d/theWhiteboard.glb",
-    screenshots: [],
+    screenshots: [imgWorks07SS00],
     logoImg: () => <></>,
     title: "Whiteboard",
     description:
-      "Whiteboard는 칠판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 2023년 기준 개발 중인 프로젝트입니다.",
+      "Whiteboard는 칠판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 2023년 기준 개발 진행 중인 프로젝트입니다.",
     year: "2023",
     platform: "Web Service",
     summary: "평범한 커뮤니티 사이트",
@@ -311,23 +343,21 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
 
   const MemoedSlider = useMemo(() => {
     return () => (
-      <SimpleImageSlider
-        width={"600px"}
-        height={"400px"}
-        images={selectedItem.screenshots}
-        showNavs={false}
-        showBullets={false}
-        autoPlay={selectedItem.screenshots.length > 1}
-        autoPlayDelay={5}
-        slideDuration={1.5}
-        bgColor="#f2f2f2"
-      />
+      <div className="shadow-xl">
+        <SimpleImageSlider
+          width={"600px"}
+          height={"400px"}
+          images={selectedItem.screenshots}
+          showNavs={false}
+          showBullets={false}
+          autoPlay={selectedItem.screenshots.length > 1}
+          autoPlayDelay={5}
+          slideDuration={1.5}
+          bgColor="#ffffff"
+        />
+      </div>
     );
   }, [selectedItem.screenshots]);
-
-  useEffect(() => {
-    console.log(selectedItem.screenshots);
-  }, [selectedItem]);
 
   const [showImgSlider, setShowImgSlider] = useState(false);
 
@@ -365,8 +395,8 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                   width={"50%"}
                   height={"80%"}
                   images={selectedItem.screenshots}
-                  showNavs={true}
-                  showBullets={true}
+                  showNavs={selectedItem.screenshots.length > 1}
+                  showBullets={selectedItem.screenshots.length > 1}
                   bgColor="#222222"
                 />
               </div>
@@ -384,9 +414,9 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               }, 150);
             }}
           >
-            <div id="works-description-left" className="pt-20">
+            <div id="works-description-left" className="pr-10 pt-20">
               <selectedItem.logoImg
-                className="h-[440px] w-[520px] object-contain"
+                className="h-[440px] w-[480px] rounded-3xl object-contain p-8 shadow-xl"
                 alt={selectedItem.workId}
               />
             </div>
