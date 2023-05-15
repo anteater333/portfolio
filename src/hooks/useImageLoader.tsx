@@ -59,3 +59,11 @@ export const useImageLoader = (imageURL: string) => {
     isLoaded,
   };
 };
+
+export type ImgComponentType = (
+  props: JSX.IntrinsicAttributes &
+    ClassAttributes<HTMLImageElement> &
+    ImgHTMLAttributes<HTMLImageElement> & {
+      alt: string;
+    }
+) => JSX.Element;

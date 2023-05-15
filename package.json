@@ -28,11 +28,15 @@
     ]
   },
   "dependencies": {
+    "@react-three/drei": "^9.66.6",
+    "@react-three/fiber": "^8.13.0",
     "@types/matter-js": "^0.18.3",
     "matter-js": "^0.19.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-simple-image-slider": "^2.4.1",
+    "three": "^0.152.2",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
@@ -43,6 +47,7 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.5.0",
+    "@types/three": "^0.152.0",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.14",
     "identity-obj-proxy": "^3.0.0",

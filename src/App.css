@@ -79,3 +79,22 @@ particle {
   transform: translateY(2px);
   border-bottom: none;
 }
+
+/* Style for react-simple-image-slider */
+.rsis-parent > div {
+  border-radius: 24px;
+  width: 100% !important;
+  height: 100% !important;
+}
+.rsis-parent > div > div {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.rsis-image,
+.rsis-image + div {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain !important;
+}
