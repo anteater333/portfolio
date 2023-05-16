@@ -20,7 +20,10 @@ const transitionSequence = [
   "transition-{opacity} delay-[500ms] duration-[500ms]",
 ];
 
-function ProfileSection({ updateLoadingProgress }: SectionProps) {
+function ProfileSection({
+  updateLoadingProgress,
+  isAllSectionLoaded,
+}: SectionProps & { isAllSectionLoaded: boolean }) {
   const {
     isLoaded: imgMeCharacterLoaded,
     progress: prgMeCharacter,
@@ -99,10 +102,8 @@ function ProfileSection({ updateLoadingProgress }: SectionProps) {
    * 전체 이미지가 준비되었음을 체크. 트랜지션의 시작점.
    */
   useEffect(() => {
-    setIsAllImgReady(
-      isVisible && imgMeCharacterLoaded && imgMeIRLLoaded && imgBackgroundLoaded
-    );
-  }, [imgMeIRLLoaded, imgMeCharacterLoaded, imgBackgroundLoaded, isVisible]);
+    setIsAllImgReady(isAllSectionLoaded && isVisible);
+  }, [isAllSectionLoaded, isVisible]);
 
   return (
     <section

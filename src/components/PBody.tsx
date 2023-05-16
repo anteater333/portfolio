@@ -7,6 +7,8 @@ import ContactsSection from "./sections/ContactSection";
 import { useLoadingIndicator } from "../hooks/useLoadingIndicator";
 
 function PBody() {
+  const [isAllSectionLoaded, setIsAllSectionLoaded] = useState(false);
+
   const { hideLoading, setPercentage, showLoading } = useLoadingIndicator(0);
 
   const [sectionProgressList, setSectionProgressList] = useState<number[]>(
@@ -29,6 +31,7 @@ function PBody() {
 
     if (totalProgress >= 100) {
       hideLoading();
+      setIsAllSectionLoaded(true);
     }
   }, [hideLoading, sectionProgressList, setPercentage]);
 
@@ -46,7 +49,10 @@ function PBody() {
 
   return (
     <main className={`w-recommended bg-white`}>
-      <ProfileSection updateLoadingProgress={updateSectionProgress} />
+      <ProfileSection
+        updateLoadingProgress={updateSectionProgress}
+        isAllSectionLoaded={isAllSectionLoaded}
+      />
       <RecordsSection updateLoadingProgress={updateSectionProgress} />
       <SkillsSection updateLoadingProgress={updateSectionProgress} />
       <WorksSection updateLoadingProgress={updateSectionProgress} />
