@@ -8,6 +8,10 @@ import imgContacts03Talk from "../../resources/images/contacts/img_s5_03_Talk.pn
 import imgContacts04Instagram from "../../resources/images/contacts/img_s5_04_Instagram.png";
 import imgContacts05Blog from "../../resources/images/contacts/img_s5_05_blog.png";
 import imgContacts06BMC from "../../resources/images/contacts/img_s5_06_BMC.png";
+import imgContacts07React from "../../resources/images/contacts/img_s5_07_React.png";
+import imgContacts08Tailwind from "../../resources/images/contacts/img_s5_08_Tailwind.png";
+import imgContacts09Vite from "../../resources/images/contacts/img_s5_09_Vite.png";
+
 import { useImageLoader } from "../../hooks/useImageLoader";
 import PMatter from "../PMatter";
 import useIntersection from "../../hooks/useIntersection";
@@ -20,6 +24,9 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
   const ImgContactsInstagram = useImageLoader(imgContacts04Instagram);
   const ImgContactsBlog = useImageLoader(imgContacts05Blog);
   const ImgContactsBMC = useImageLoader(imgContacts06BMC);
+  const ImgContactsReact = useImageLoader(imgContacts07React);
+  const ImgContactsTailwind = useImageLoader(imgContacts08Tailwind);
+  const ImgContactsVite = useImageLoader(imgContacts09Vite);
 
   /**
    * 이 섹션에 포함된 이미지들의 로딩 진행률을 계산해 부모에게 전달함.
@@ -32,8 +39,11 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
       ImgContactsTalk.progress +
       ImgContactsInstagram.progress +
       ImgContactsBlog.progress +
-      ImgContactsBMC.progress;
-    const length = 7;
+      ImgContactsBMC.progress +
+      ImgContactsReact.progress +
+      ImgContactsTailwind.progress +
+      ImgContactsVite.progress;
+    const length = 10;
     updateLoadingProgress(total / length, 4);
   }, [
     ImgContactsBMC.progress,
@@ -42,14 +52,24 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
     ImgContactsGithub.progress,
     ImgContactsInstagram.progress,
     ImgContactsPhone.progress,
+    ImgContactsReact.progress,
+    ImgContactsTailwind.progress,
     ImgContactsTalk.progress,
+    ImgContactsVite.progress,
     updateLoadingProgress,
   ]);
 
   const ref = useRef<HTMLDivElement | null>(null);
-  const entry = useIntersection(ref, { freezeOnceVisible: true });
+  const entry = useIntersection(ref, { freezeOnceVisible: false });
   const isVisible = !!entry?.isIntersecting;
   const [showEgg, setShowEgg] = useState(false);
+
+  useEffect(() => {
+    if (!isVisible) {
+      ref.current?.scrollTo({ top: 0, behavior: "smooth" });
+      setShowEgg(false);
+    }
+  }, [isVisible]);
 
   return (
     <section
@@ -63,20 +83,22 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
             Contacts
           </h1>
 
-          <button
-            className="h-32 w-32"
-            disabled={showEgg}
+          <div
+            className={`${"mb-24 mt-32 flex flex-col items-center"} ${
+              showEgg ? "cursor-open" : "cursor-closed"
+            }`}
             onClick={() => setShowEgg(true)}
-          ></button>
-          <h2 className="text-8xl font-bold">이지훈</h2>
-          <h3 className="mt-2 text-6xl font-bold">Lee Ji-hoon, Anteater</h3>
-          <h4 className="mt-8 text-4xl">
-            a SW Developer, a FE Engineer, a Programmer
-          </h4>
+          >
+            <h2 className="text-8xl font-bold">이지훈</h2>
+            <h3 className="mt-2 text-6xl font-bold">Lee Ji-hoon, Anteater</h3>
+            <h4 className="mt-8 text-4xl">
+              a SW Developer, a FE Engineer, a Programmer
+            </h4>
+          </div>
           {/* 연락처 리스트 */}
           <div
             id="contacts-list-container"
-            className="mt-40 flex w-1/2 flex-col justify-center gap-16"
+            className="mt-4 flex w-1/2 flex-col justify-center gap-16"
           >
             <div id="contacts-email" className="flex items-center">
               <ImgContactsEmail.ImageComponent
@@ -172,7 +194,7 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
               />
             </a>
           </div>
-          <div className="mb-40 mt-24">
+          <div className="mb-24 mt-24">
             <a
               href="https://blog.anteater-lab.link"
               target="_blank"
@@ -180,6 +202,37 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
             >
               <ImgContactsBlog.ImageComponent alt="blog" />
             </a>
+          </div>
+          <div className="mb-32  flex flex-col items-center gap-4 font-galmuri7">
+            <div className="text-xl">powered by</div>
+            <div className="mb-12 flex gap-12">
+              <a href="https://react.dev/" target="_blank" rel="noreferrer">
+                <ImgContactsReact.ImageComponent
+                  className="object-contain"
+                  alt="react"
+                />
+              </a>
+
+              <a
+                className="flex justify-center"
+                href="https://tailwindcss.com/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ImgContactsTailwind.ImageComponent
+                  className="object-contain"
+                  alt="tailwind"
+                />
+              </a>
+
+              <a href="https://vitejs.dev/" target="_blank" rel="noreferrer">
+                <ImgContactsVite.ImageComponent
+                  className="object-contain"
+                  alt="vite"
+                />
+              </a>
+            </div>
+            <div className="text-4xl">Thank you for visiting me!</div>
           </div>
         </div>
 
