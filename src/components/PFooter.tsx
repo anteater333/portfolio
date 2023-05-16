@@ -12,7 +12,7 @@ function PFooter() {
         </a>{" "}
         All rights reserved.
       </div>
-      <div className="mb-4">정보 갱신일 : {"2023-04-00"}</div>
+      <div className="mb-4">정보 갱신일 : {"2023-05-16"}</div>
     </footer>
   );
 }
