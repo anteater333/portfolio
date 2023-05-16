@@ -82,7 +82,7 @@ const worksArray: {
 }[] = [
   {
     workId: "AIQA",
-    url: "/3d/AIQA.glb",
+    url: "./3d/AIQA.glb",
     screenshots: [
       imgWorks00SS00,
       imgWorks00SS01,
@@ -111,7 +111,7 @@ const worksArray: {
   },
   {
     workId: "DeZipper",
-    url: "/3d/DeZipper.glb",
+    url: "./3d/DeZipper.glb",
     screenshots: [imgWorks01SS00],
     logoImg: () => <></>,
     title: "DeZipper",
@@ -127,7 +127,7 @@ const worksArray: {
   },
   {
     workId: "Ill",
-    url: "/3d/Ill.glb",
+    url: "./3d/Ill.glb",
     screenshots: [imgWorks02SS00, imgWorks02SS01],
     logoImg: () => <></>,
     title: "오늘 할 일",
@@ -143,7 +143,7 @@ const worksArray: {
   },
   {
     workId: "Lab",
-    url: "/3d/Lab.glb",
+    url: "./3d/Lab.glb",
     screenshots: [imgWorks03SS00, imgWorks03SS01, imgWorks03SS02],
     logoImg: () => <></>,
     title: "Anteater's laboratory",
@@ -160,7 +160,7 @@ const worksArray: {
   },
   {
     workId: "Monallog",
-    url: "/3d/Monallog.glb",
+    url: "./3d/Monallog.glb",
     screenshots: [imgWorks04SS00],
     logoImg: () => <></>,
     title: "Monallog",
@@ -180,7 +180,7 @@ const worksArray: {
   },
   {
     workId: "QUE",
-    url: "/3d/QUE.glb",
+    url: "./3d/QUE.glb",
     screenshots: [
       imgWorks05SS00,
       imgWorks05SS01,
@@ -207,7 +207,7 @@ const worksArray: {
   },
   {
     workId: "Soup",
-    url: "/3d/Soup.glb",
+    url: "./3d/Soup.glb",
     screenshots: [imgWorks06SS00, imgWorks06SS01, imgWorks06SS02],
     logoImg: () => <></>,
     title: "숲Soup",
@@ -223,7 +223,7 @@ const worksArray: {
   },
   {
     workId: "theWhiteboard",
-    url: "/3d/theWhiteboard.glb",
+    url: "./3d/theWhiteboard.glb",
     screenshots: [imgWorks07SS00],
     logoImg: () => <></>,
     title: "Whiteboard",
