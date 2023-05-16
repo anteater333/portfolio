@@ -59,7 +59,6 @@ particle {
 .custom-skill-button {
   outline: 0;
   border: 0;
-  cursor: pointer;
   transition: box-shadow 0.15s ease, transform 0.15s ease;
   will-change: box-shadow, transform;
   box-shadow: -8px 0px 16px rgba(0, 0, 0, 0.25),
@@ -97,4 +96,29 @@ particle {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain !important;
+}
+
+/* Style for Global Fancy Cursor */
+body {
+  cursor: url(./resources/cursor/default.png), default;
+}
+
+a,
+a *,
+button,
+button *,
+.cursor-pointer {
+  cursor: url(./resources/cursor/pointer.png), pointer;
+}
+
+.cursor-grab {
+  cursor: url(./resources/cursor/grab.png), grab;
+}
+
+.cursor-open {
+  cursor: url(./resources/cursor/open.png), default;
+}
+
+.cursor-closed {
+  cursor: url(./resources/cursor/closed.png), pointer;
 }

@@ -245,10 +245,10 @@ const Model = (props: GroupProps & { index: number }) => {
   return (
     <group
       onPointerEnter={() => {
-        document.body.style.setProperty("cursor", "pointer");
+        document.body.classList.add("cursor-pointer");
       }}
       onPointerLeave={() => {
-        document.body.style.setProperty("cursor", "default");
+        document.body.classList.remove("cursor-pointer");
       }}
       castShadow
       {...props}

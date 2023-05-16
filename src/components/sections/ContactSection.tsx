@@ -70,20 +70,22 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
             Contacts
           </h1>
 
-          <button
-            className="h-32 w-32"
-            disabled={showEgg}
+          <div
+            className={`${"mb-24 mt-32 flex flex-col items-center"} ${
+              showEgg ? "cursor-open" : "cursor-closed"
+            }`}
             onClick={() => setShowEgg(true)}
-          ></button>
-          <h2 className="text-8xl font-bold">이지훈</h2>
-          <h3 className="mt-2 text-6xl font-bold">Lee Ji-hoon, Anteater</h3>
-          <h4 className="mt-8 text-4xl">
-            a SW Developer, a FE Engineer, a Programmer
-          </h4>
+          >
+            <h2 className="text-8xl font-bold">이지훈</h2>
+            <h3 className="mt-2 text-6xl font-bold">Lee Ji-hoon, Anteater</h3>
+            <h4 className="mt-8 text-4xl">
+              a SW Developer, a FE Engineer, a Programmer
+            </h4>
+          </div>
           {/* 연락처 리스트 */}
           <div
             id="contacts-list-container"
-            className="mt-40 flex w-1/2 flex-col justify-center gap-16"
+            className="mt-4 flex w-1/2 flex-col justify-center gap-16"
           >
             <div id="contacts-email" className="flex items-center">
               <ImgContactsEmail.ImageComponent
