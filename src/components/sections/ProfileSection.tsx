@@ -7,6 +7,8 @@ import { useImageLoader } from "../../hooks/useImageLoader";
 import throttle from "../../utils/throttle";
 import useIntersection from "../../hooks/useIntersection";
 
+import imgGHLogo from "../../resources/images/common/githubWhite.png";
+
 /**
  * 트랜지션 시퀀스 정의 TailwindCSS 클래스 배열.
  */
@@ -24,21 +26,12 @@ function ProfileSection({
   updateLoadingProgress,
   isAllSectionLoaded,
 }: SectionProps & { isAllSectionLoaded: boolean }) {
-  const {
-    isLoaded: imgMeCharacterLoaded,
-    progress: prgMeCharacter,
-    ImageComponent: ImgMeCharacter,
-  } = useImageLoader(imgMeCharacter);
-  const {
-    isLoaded: imgMeIRLLoaded,
-    progress: prgMeIRL,
-    ImageComponent: ImgMeIRL,
-  } = useImageLoader(imgMeIRL);
-  const {
-    isLoaded: imgBackgroundLoaded,
-    progress: prgBackground,
-    ImageComponent: ImgBackground,
-  } = useImageLoader(imgBackground);
+  const { progress: prgMeCharacter, ImageComponent: ImgMeCharacter } =
+    useImageLoader(imgMeCharacter);
+  const { progress: prgMeIRL, ImageComponent: ImgMeIRL } =
+    useImageLoader(imgMeIRL);
+  const { progress: prgBackground, ImageComponent: ImgBackground } =
+    useImageLoader(imgBackground);
 
   const [isAllImgReady, setIsAllImgReady] = useState(false);
 
@@ -158,7 +151,17 @@ function ProfileSection({
             }`}
           >
             <h1 className="text-9xl font-bold">이지훈 Lee Ji-hoon</h1>
-            <h3 className="text-5xl font-bold">anteater1056@gmail.com</h3>
+            <h3 className="flex justify-between pr-10 text-5xl font-bold">
+              <span>anteater1056@gmail.com</span>
+              <a
+                className="flex items-center"
+                href="https://github.com/anteater333"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <img className="h-10 w-10" src={imgGHLogo} alt="gh" />
+              </a>
+            </h3>
             <h3 className="mt-8 text-5xl font-bold">
               is a SW developer, a front-end engineer,
               <br />a programmer and
