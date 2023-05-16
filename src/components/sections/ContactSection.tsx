@@ -47,9 +47,16 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
   ]);
 
   const ref = useRef<HTMLDivElement | null>(null);
-  const entry = useIntersection(ref, { freezeOnceVisible: true });
+  const entry = useIntersection(ref, { freezeOnceVisible: false });
   const isVisible = !!entry?.isIntersecting;
   const [showEgg, setShowEgg] = useState(false);
+
+  useEffect(() => {
+    if (!isVisible) {
+      ref.current?.scrollTo({ top: 0, behavior: "smooth" });
+      setShowEgg(false);
+    }
+  }, [isVisible]);
 
   return (
     <section
