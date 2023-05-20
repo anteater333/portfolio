@@ -45,7 +45,7 @@ export function LoadingIndicatorProvider({
 
       setTimeout(() => {
         setIsDone(true);
-      }, 1000);
+      }, 2000);
     }
   }, [isLoading]);
 
@@ -65,11 +65,15 @@ export function LoadingIndicatorProvider({
 
       {isDone ? undefined : (
         <div
-          className="absolute z-[75] h-screen w-screen bg-black transition-opacity duration-[1000ms]"
+          className="absolute z-[75] flex h-screen w-screen justify-center bg-black transition-opacity duration-[2000ms]"
           style={{
             opacity: isFading ? "0" : "100",
           }}
-        ></div>
+        >
+          <div className="absolute left-auto top-[440px] pb-[4.5rem] text-xl text-white">
+            이 사이트는 1920x1200 해상도에 최적화 되어있습니다.
+          </div>
+        </div>
       )}
     </LoadingIndicatorContext.Provider>
   );

@@ -12,7 +12,10 @@ function PFooter() {
         </a>{" "}
         All rights reserved.
       </div>
-      <div className="mb-4">정보 갱신일 : {"2023-05-16"}</div>
+      <div>정보 갱신일 : {"2023-05-16"}</div>
+      <div className="mb-4">
+        이 사이트는 1920x1200 해상도에 최적화 되어있습니다.
+      </div>
     </footer>
   );
 }

@@ -38,8 +38,11 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
     >
       <div
         id="global-loading-indicator"
-        className="relative h-recommended w-recommended bg-black"
+        className="relative flex h-recommended w-recommended justify-center bg-black"
       >
+        <div className="absolute left-auto top-[440px] pb-20 text-xl text-white">
+          이 사이트는 1920x1200 해상도에 최적화 되어있습니다.
+        </div>
         <div
           id="loading-text-area"
           className="absolute bottom-16 right-16 flex select-none font-galmuri9 text-9xl"
