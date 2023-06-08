@@ -513,7 +513,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           /* 2. 아이템 선택 후 화면 */
           <div className="flex h-full flex-col">
             <div
-              className="mt-32 flex cursor-default items-center justify-between px-12 pb-10 opacity-100 transition-opacity"
+              className="mt-32 flex items-center justify-between px-12 pb-10 opacity-100 transition-opacity"
               style={{
                 opacity: isFading ? "0" : "100",
               }}
