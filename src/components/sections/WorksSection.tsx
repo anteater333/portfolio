@@ -60,6 +60,8 @@ import imgWorks06SS00 from "../../resources/images/works/screenshots/Soup00.png"
 import imgWorks06SS01 from "../../resources/images/works/screenshots/Soup01.png";
 import imgWorks06SS02 from "../../resources/images/works/screenshots/Soup02.png";
 import imgWorks07SS00 from "../../resources/images/works/screenshots/theWhiteboard00.gif";
+import imgWorks07SS01 from "../../resources/images/works/screenshots/theWhiteboard01.png";
+import imgWorks07SS02 from "../../resources/images/works/screenshots/theWhiteboard02.png";
 
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
@@ -224,18 +226,18 @@ const worksArray: {
   {
     workId: "theWhiteboard",
     url: "./3d/theWhiteboard.glb",
-    screenshots: [imgWorks07SS00],
+    screenshots: [imgWorks07SS00, imgWorks07SS01, imgWorks07SS02],
     logoImg: () => <></>,
     title: "Whiteboard",
     description:
-      "Whiteboard는 칠판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 2023년 기준 개발 진행 중인 프로젝트입니다.",
+      "Whiteboard는 메모판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 2023년 기준 개발 진행 중 프로젝트.",
     year: "2023",
     platform: "Web Service",
-    summary: "평범한 커뮤니티 사이트",
-    features: ["개발 중입니다."],
+    summary: "Post-it!",
+    features: ["메모 위치 선택", "컴포넌트 확대/축소/이동"],
     techStack: ["Next.js"],
-    repoUrl: "",
-    site: "",
+    repoUrl: "https://github.com/anteater333/whiteboard",
+    site: "https://whiteboard-puce.vercel.app/",
   },
 ];
 
