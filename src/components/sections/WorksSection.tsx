@@ -95,13 +95,14 @@ const worksArray: {
     title: "AIQA",
     description:
       "AIQA는 인공지능 학습에 사용될 데이터셋의 품질을 관리하는 솔루션입니다. 제 12기 소프트웨어 마에스트로 팀 프로젝트였습니다.",
-    year: "2021",
+    year: "2021-2023",
     platform: "Web Service",
     summary: "인공지능 데이터 품질 관리 솔루션",
     features: [
       "대규모 File IO 처리",
       "데이터셋 품질에 대한 대시보드 제공",
       "이미지 데이터셋 유사도 측정",
+      "데이터셋 검사 보고서 자동 생성",
     ],
     techStack: [
       "팀 프로젝트 (에이전트 개발 담당)",
