@@ -231,7 +231,7 @@ const worksArray: {
     logoImg: () => <></>,
     title: "Whiteboard",
     description:
-      "Whiteboard는 메모판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 2023년 기준 개발 진행 중 프로젝트.",
+      "Whiteboard는 메모판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다.",
     year: "2023",
     platform: "Web Service",
     summary: "Post-it!",
@@ -239,6 +239,21 @@ const worksArray: {
     techStack: ["Next.js"],
     repoUrl: "https://github.com/anteater333/whiteboard",
     site: "https://whiteboard-puce.vercel.app/",
+  },
+  {
+    workId: "domado",
+    url: "./3d/domado.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "domado",
+    description: "domado 뽀모도로 타이머, 웹에서 동작합니다.",
+    year: "2024",
+    platform: "Web Service",
+    summary: "뽀모도로 타이머",
+    features: [""],
+    techStack: ["React", "PWA"],
+    repoUrl: "https://github.com/anteater333/domado",
+    site: "https://domado.vercel.app/",
   },
 ];
 
@@ -564,7 +579,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
           <Model
             // Lab
             index={3}
-            position={[-0.35, 0, 0.7]}
+            position={[-0.2, 0, 0.8]}
             rotation={deg2RadXYZ(0, -54, 0)}
             onClick={() => handleWorkItemClicked(3)}
           />
@@ -595,6 +610,14 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
             position={[1.25, 0, 0.7]}
             rotation={deg2RadXYZ(0, 25, 0)}
             onClick={() => handleWorkItemClicked(7)}
+          />
+          <Model
+            // domado
+            index={8}
+            position={[-1, 0, 0.6]}
+            rotation={deg2RadXYZ(0, 25, 0)}
+            scale={[0.001, 0.001, 0.001]}
+            onClick={() => handleWorkItemClicked(8)}
           />
         </Canvas>
       </div>
