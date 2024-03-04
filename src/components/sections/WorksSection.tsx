@@ -534,7 +534,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-12">
-                  <div className="inline h-24 w-[600px] text-2xl">
+                  <div className="inline h-24 w-[600px] border-l-4 border-indigo-500 pl-4 text-2xl">
                     {selectedItem.description}
                   </div>
                   <div className="mt-4 w-[600px]">
