@@ -39,6 +39,7 @@ import imgWorks04 from "../../resources/images/works/img_s4_04_logo_Monallog.png
 import imgWorks05 from "../../resources/images/works/img_s4_05_logo_QUE.png";
 import imgWorks06 from "../../resources/images/works/img_s4_06_logo_Soup.png";
 import imgWorks07 from "../../resources/images/works/img_s4_07_logo_theWhiteboard.png";
+import imgWorks08 from "../../resources/images/works/img_s4_08_logo_domado.png";
 
 import imgWorks00SS00 from "../../resources/images/works/screenshots/AIQA00.png";
 import imgWorks00SS01 from "../../resources/images/works/screenshots/AIQA01.gif";
@@ -285,6 +286,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
   const ImgWorks05 = useImageLoader(imgWorks05);
   const ImgWorks06 = useImageLoader(imgWorks06);
   const ImgWorks07 = useImageLoader(imgWorks07);
+  const ImgWorks08 = useImageLoader(imgWorks08);
 
   /** Intersection Observer 사용 */
   const ref = useRef<HTMLDivElement | null>(null);
@@ -304,8 +306,9 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       ImgWorks05.progress +
       ImgWorks06.progress +
       ImgWorks07.progress +
+      ImgWorks08.progress +
       threeProgress;
-    const length = 9;
+    const length = 10;
     updateLoadingProgress(total / length, 3);
   }, [
     updateLoadingProgress,
@@ -318,6 +321,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     ImgWorks05.progress,
     ImgWorks06.progress,
     ImgWorks07.progress,
+    ImgWorks08.progress,
   ]);
 
   useEffect(() => {
@@ -330,6 +334,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     worksArray[5].logoImg = ImgWorks05.ImageComponent;
     worksArray[6].logoImg = ImgWorks06.ImageComponent;
     worksArray[7].logoImg = ImgWorks07.ImageComponent;
+    worksArray[8].logoImg = ImgWorks08.ImageComponent;
   }, [
     ImgWorks00.ImageComponent,
     ImgWorks01.ImageComponent,
@@ -339,6 +344,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     ImgWorks05.ImageComponent,
     ImgWorks06.ImageComponent,
     ImgWorks07.ImageComponent,
+    ImgWorks08.ImageComponent,
   ]);
 
   const [selectedItem, setSelectedItem] = useState(worksArray[0]);
