@@ -100,13 +100,13 @@ const worksArray: {
     logoImg: () => <></>,
     title: "AIQA",
     description:
-      "AIQA는 인공지능 학습에 사용될 데이터셋의 품질을 관리하는 솔루션입니다. 제 12기 소프트웨어 마에스트로 팀 프로젝트였습니다.",
+      "AIQA는 인공지능 학습에 사용될 데이터셋의 품질을 관리하는 솔루션입니다. NIPA AI 모델 개발 및 실증 사업 및 NIA 인공지능 학습용 데이터 구축 사업 지원 컨소시엄에 2년간('22~'23) 참여해 다수의 데이터셋 검수를 진행한 바가 있습니다.",
     year: "2021-2023",
     platform: "Web Service",
     summary: "인공지능 데이터 품질 관리 솔루션",
     features: [
       "대규모 File IO 처리",
-      "데이터셋 품질에 대한 대시보드 제공",
+      "데이터 품질에 대한 온라인 대시보드 제공",
       "이미지 데이터셋 유사도 측정",
       "데이터셋 검사 보고서 자동 생성",
     ],
@@ -114,9 +114,11 @@ const worksArray: {
       "팀 프로젝트 (에이전트 개발 담당)",
       "Vue & NestJS",
       "Node.js IPC",
+      "ApexCharts.js",
       "Pandas & numpy",
     ],
-    repoUrl: "https://github.com/anteater333/aiqa-agent",
+    site: "https://aiqa-demo.vercel.app/demo",
+    reviewUrl: "https://blog.imqa.io/public_safety_ai_testing_2/",
   },
   {
     workId: "DeZipper",
