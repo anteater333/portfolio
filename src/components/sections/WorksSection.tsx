@@ -63,6 +63,9 @@ import imgWorks06SS02 from "../../resources/images/works/screenshots/Soup02.png"
 import imgWorks07SS00 from "../../resources/images/works/screenshots/theWhiteboard00.gif";
 import imgWorks07SS01 from "../../resources/images/works/screenshots/theWhiteboard01.png";
 import imgWorks07SS02 from "../../resources/images/works/screenshots/theWhiteboard02.png";
+import imgWorks08SS00 from "../../resources/images/works/screenshots/domado01.png";
+import imgWorks08SS01 from "../../resources/images/works/screenshots/domado02.png";
+import imgWorks08SS02 from "../../resources/images/works/screenshots/domado03.png";
 
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
@@ -244,7 +247,7 @@ const worksArray: {
   {
     workId: "domado",
     url: "./3d/domado.glb",
-    screenshots: [],
+    screenshots: [imgWorks08SS00, imgWorks08SS01, imgWorks08SS02],
     logoImg: () => <></>,
     title: "domado",
     description: "domado 뽀모도로 타이머, 웹에서 동작합니다.",
