@@ -517,7 +517,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               >
                 <div className="flex flex-col gap-20">
                   <div>
-                    <h2 className="mb-4 text-4xl">주요 기능</h2>
+                    <h2 className="mb-4 text-4xl font-bold">Features</h2>
                     <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
                       {selectedItem.features.map((feat) => (
                         <li>{feat}</li>
@@ -525,7 +525,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                     </ul>
                   </div>
                   <div>
-                    <h2 className="mb-4 text-4xl">역할 및 기술 스택</h2>
+                    <h2 className="mb-4 text-4xl font-bold">Tech Stack</h2>
                     <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
                       {selectedItem.techStack.map((tech) => (
                         <li>{tech}</li>
