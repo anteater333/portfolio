@@ -64,6 +64,7 @@ import imgWorks06SS02 from "../../resources/images/works/screenshots/Soup02.png"
 import imgWorks07SS00 from "../../resources/images/works/screenshots/theWhiteboard00.gif";
 import imgWorks07SS01 from "../../resources/images/works/screenshots/theWhiteboard01.png";
 import imgWorks07SS02 from "../../resources/images/works/screenshots/theWhiteboard02.png";
+import imgWorks07SS03 from "../../resources/images/works/screenshots/theWhiteboard03.png";
 import imgWorks08SS00 from "../../resources/images/works/screenshots/domado01.png";
 import imgWorks08SS01 from "../../resources/images/works/screenshots/domado02.png";
 import imgWorks08SS02 from "../../resources/images/works/screenshots/domado03.png";
@@ -132,9 +133,9 @@ const worksArray: {
     platform: "Windows Application",
     summary: "되-짚어, 압축 파일 삭제 프로그램",
     features: ["Zip 파일 구조 해석", "CLI, GUI 지원", "휴지통으로 보내기"],
-    techStack: ["개인 프로젝트", "C#", ".NET Windows Forms"],
+    techStack: ["C#", ".NET Windows Forms"],
     repoUrl: "https://github.com/anteater333/DeZipper",
-    site: "",
+    site: "https://github.com/anteater333/DeZipper/raw/master/dezipper-0.2.zip",
   },
   {
     workId: "Ill",
@@ -147,10 +148,14 @@ const worksArray: {
     year: "2018",
     platform: "Windows Application",
     summary: "일상적 할 일 리마인더",
-    features: ["텍스트 파일 파싱", "시작 프로그램 설정"],
-    techStack: ["개인 프로젝트", "C#", ".NET Windows Forms"],
+    features: [
+      "요일별 일과 리마인드",
+      "텍스트 파일 파싱",
+      "시작 프로그램 설정",
+    ],
+    techStack: ["C#", ".NET Windows Forms"],
     repoUrl: "https://github.com/anteater333/Oneul-Hal-Il",
-    site: "",
+    site: "https://github.com/anteater333/Oneul-Hal-Il/raw/master/%EC%98%A4%EB%8A%98%ED%95%A0%EC%9D%BC-v1.3.zip",
   },
   {
     workId: "Lab",
@@ -160,11 +165,16 @@ const worksArray: {
     title: "Anteater's laboratory",
     smallTitle: true,
     description:
-      "Jekyll로 구축한 개인 기술 블로그입니다. 개발 중 해결했던 자잘한 해결책들, 독후감, 특정 용어에 대한 고찰 등 다양한 주제의 글을 작성하고 있습니다.",
+      "Jekyll로 구축한 개인 기술 블로그입니다. 개발 중 사용했던 자잘한 해결책들, 독후감, 특정 용어에 대한 고찰, 프로젝트 회고 등 다양한 주제의 글을 작성하고 있습니다.",
     year: "2021",
     platform: "Web Service",
-    summary: "개인 블로그",
-    features: ["ToC 자동생성", "댓글", "Reading Progressbar"],
+    summary: "기술 블로그",
+    features: [
+      "자잘한 도움말💡",
+      "독후감📘",
+      "Hack the terms🪓",
+      "프로젝트 회고록 저장소🗃️",
+    ],
     techStack: ["Jekyll", "Sass", "Vanilla JS"],
     repoUrl: "https://github.com/anteater333/anteater333.github.io",
     site: "https://blog.anteater-lab.link/",
@@ -185,7 +195,7 @@ const worksArray: {
       "휘발성 메시지",
       "감성적인 음악과 배경사진",
     ],
-    techStack: ["개인 프로젝트 (풀스택 개발)", "Vue", "Express", "Socket.IO"],
+    techStack: ["Vue", "Express", "Socket.IO"],
     repoUrl: "https://github.com/anteater333?tab=repositories&q=monallog",
     site: "",
   },
@@ -212,7 +222,7 @@ const worksArray: {
       "이메일 인증",
       "소셜 로그인",
     ],
-    techStack: ["개인 프로젝트", "React Native", "Firebase", "Deno"],
+    techStack: ["Figma", "React Native", "Firebase", "Deno (메일 인증 서버)"],
     repoUrl: "https://github.com/anteater333?tab=repositories&q=que",
     site: "https://que-web.vercel.app/",
   },
@@ -227,8 +237,11 @@ const worksArray: {
     year: "2022",
     platform: "Web Service",
     summary: '"가끔은 나무 대신 숲을 봐야 할 때도 있습니다."',
-    features: ["나무위키 실시간 검색어 크롤링", "인스턴트 메모"],
-    techStack: ["React", "Express"],
+    features: [
+      "나무위키 실시간 인기 검색어 크롤링",
+      "검색어에 대한 인스턴트 메모",
+    ],
+    techStack: ["React", "Express", "Deno (크롤링 에이전트)", "Docker"],
     repoUrl: "https://github.com/anteater333/namu-soup",
     reviewUrl:
       "https://blog.anteater-lab.link/memoir/2023/09/09/memoir-soup-1.html",
@@ -237,16 +250,26 @@ const worksArray: {
   {
     workId: "theWhiteboard",
     url: "./3d/theWhiteboard.glb",
-    screenshots: [imgWorks07SS00, imgWorks07SS01, imgWorks07SS02],
+    screenshots: [
+      imgWorks07SS00,
+      imgWorks07SS01,
+      imgWorks07SS02,
+      imgWorks07SS03,
+    ],
     logoImg: () => <></>,
     title: "Whiteboard",
     description:
-      "Whiteboard는 메모판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다.",
+      "메모판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 각종 SNS의 타임라인을 메모 게시판 형태로 제공하면 어떨까 하는 아이디어를 프로토타이핑한 사이트입니다.",
     year: "2023",
     platform: "Web Service",
     summary: "Post-it!",
-    features: ["메모 위치 선택", "컴포넌트 확대/축소/이동"],
-    techStack: ["Next.js"],
+    features: [
+      "메모 작성",
+      "컴포넌트 위치 선택",
+      "컴포넌트 확대/축소/이동",
+      "소셜 로그인",
+    ],
+    techStack: ["Next.js", "TailwindCSS", "PostgreSQL"],
     repoUrl: "https://github.com/anteater333/whiteboard",
     site: "https://whiteboard-puce.vercel.app/",
   },
@@ -531,7 +554,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               </div>
               <div
                 id="works-description-right-middle"
-                className="mb-12 mt-2 text-5xl"
+                className="mb-12 mt-2 text-4xl"
               >
                 {selectedItem.summary}
               </div>
