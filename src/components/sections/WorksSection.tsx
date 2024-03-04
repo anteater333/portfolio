@@ -30,6 +30,7 @@ import { deg2RadXYZ } from "../../utils/mathUtils";
 
 import ICOGithub from "../../resources/images/common/github.png";
 import ICOHome from "../../resources/images/common/home.png";
+import ICOBlog from "../../resources/images/common/blog.png";
 
 import imgWorks00 from "../../resources/images/works/img_s4_00_logo_AIQA.png";
 import imgWorks01 from "../../resources/images/works/img_s4_01_logo_DeZipper.png";
@@ -39,6 +40,7 @@ import imgWorks04 from "../../resources/images/works/img_s4_04_logo_Monallog.png
 import imgWorks05 from "../../resources/images/works/img_s4_05_logo_QUE.png";
 import imgWorks06 from "../../resources/images/works/img_s4_06_logo_Soup.png";
 import imgWorks07 from "../../resources/images/works/img_s4_07_logo_theWhiteboard.png";
+import imgWorks08 from "../../resources/images/works/img_s4_08_logo_domado.png";
 
 import imgWorks00SS00 from "../../resources/images/works/screenshots/AIQA00.png";
 import imgWorks00SS01 from "../../resources/images/works/screenshots/AIQA01.gif";
@@ -62,6 +64,10 @@ import imgWorks06SS02 from "../../resources/images/works/screenshots/Soup02.png"
 import imgWorks07SS00 from "../../resources/images/works/screenshots/theWhiteboard00.gif";
 import imgWorks07SS01 from "../../resources/images/works/screenshots/theWhiteboard01.png";
 import imgWorks07SS02 from "../../resources/images/works/screenshots/theWhiteboard02.png";
+import imgWorks07SS03 from "../../resources/images/works/screenshots/theWhiteboard03.png";
+import imgWorks08SS00 from "../../resources/images/works/screenshots/domado01.png";
+import imgWorks08SS01 from "../../resources/images/works/screenshots/domado02.png";
+import imgWorks08SS02 from "../../resources/images/works/screenshots/domado03.png";
 
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
@@ -77,6 +83,7 @@ const worksArray: {
   summary: string;
   platform: string;
   repoUrl?: string;
+  reviewUrl?: string;
   site?: string;
   description: string;
   features: string[];
@@ -94,13 +101,13 @@ const worksArray: {
     logoImg: () => <></>,
     title: "AIQA",
     description:
-      "AIQA는 인공지능 학습에 사용될 데이터셋의 품질을 관리하는 솔루션입니다. 제 12기 소프트웨어 마에스트로 팀 프로젝트였습니다.",
+      "AIQA는 인공지능 학습에 사용될 데이터셋의 품질을 관리하는 솔루션입니다. NIPA AI 모델 개발 및 실증 사업 및 NIA 인공지능 학습용 데이터 구축 사업 지원 컨소시엄에 2년간('22~'23) 참여해 다수의 데이터셋 검수를 진행한 바가 있습니다.",
     year: "2021-2023",
     platform: "Web Service",
     summary: "인공지능 데이터 품질 관리 솔루션",
     features: [
       "대규모 File IO 처리",
-      "데이터셋 품질에 대한 대시보드 제공",
+      "데이터 품질에 대한 온라인 대시보드 제공",
       "이미지 데이터셋 유사도 측정",
       "데이터셋 검사 보고서 자동 생성",
     ],
@@ -108,9 +115,11 @@ const worksArray: {
       "팀 프로젝트 (에이전트 개발 담당)",
       "Vue & NestJS",
       "Node.js IPC",
+      "ApexCharts.js",
       "Pandas & numpy",
     ],
-    repoUrl: "https://github.com/anteater333/aiqa-agent",
+    site: "https://aiqa-demo.vercel.app/demo",
+    reviewUrl: "https://blog.imqa.io/public_safety_ai_testing_2/",
   },
   {
     workId: "DeZipper",
@@ -124,9 +133,9 @@ const worksArray: {
     platform: "Windows Application",
     summary: "되-짚어, 압축 파일 삭제 프로그램",
     features: ["Zip 파일 구조 해석", "CLI, GUI 지원", "휴지통으로 보내기"],
-    techStack: ["개인 프로젝트", "C#", ".NET Windows Forms"],
+    techStack: ["C#", ".NET Windows Forms"],
     repoUrl: "https://github.com/anteater333/DeZipper",
-    site: "",
+    site: "https://github.com/anteater333/DeZipper/raw/master/dezipper-0.2.zip",
   },
   {
     workId: "Ill",
@@ -139,10 +148,14 @@ const worksArray: {
     year: "2018",
     platform: "Windows Application",
     summary: "일상적 할 일 리마인더",
-    features: ["텍스트 파일 파싱", "시작 프로그램 설정"],
-    techStack: ["개인 프로젝트", "C#", ".NET Windows Forms"],
+    features: [
+      "요일별 일과 리마인드",
+      "텍스트 파일 파싱",
+      "시작 프로그램 설정",
+    ],
+    techStack: ["C#", ".NET Windows Forms"],
     repoUrl: "https://github.com/anteater333/Oneul-Hal-Il",
-    site: "",
+    site: "https://github.com/anteater333/Oneul-Hal-Il/raw/master/%EC%98%A4%EB%8A%98%ED%95%A0%EC%9D%BC-v1.3.zip",
   },
   {
     workId: "Lab",
@@ -152,11 +165,16 @@ const worksArray: {
     title: "Anteater's laboratory",
     smallTitle: true,
     description:
-      "Jekyll로 구축한 개인 기술 블로그입니다. 개발 중 해결했던 자잘한 해결책들, 독후감, 특정 용어에 대한 고찰 등 다양한 주제의 글을 작성하고 있습니다.",
+      "Jekyll로 구축한 개인 기술 블로그입니다. 개발 중 사용했던 자잘한 해결책들, 독후감, 특정 용어에 대한 고찰, 프로젝트 회고 등 다양한 주제의 글을 작성하고 있습니다.",
     year: "2021",
     platform: "Web Service",
-    summary: "개인 블로그",
-    features: ["ToC 자동생성", "댓글", "Reading Progressbar"],
+    summary: "기술 블로그",
+    features: [
+      "자잘한 도움말💡",
+      "독후감📘",
+      "Hack the terms🪓",
+      "프로젝트 회고록 저장소🗃️",
+    ],
     techStack: ["Jekyll", "Sass", "Vanilla JS"],
     repoUrl: "https://github.com/anteater333/anteater333.github.io",
     site: "https://blog.anteater-lab.link/",
@@ -177,7 +195,7 @@ const worksArray: {
       "휘발성 메시지",
       "감성적인 음악과 배경사진",
     ],
-    techStack: ["개인 프로젝트 (풀스택 개발)", "Vue", "Express", "Socket.IO"],
+    techStack: ["Vue", "Express", "Socket.IO"],
     repoUrl: "https://github.com/anteater333?tab=repositories&q=monallog",
     site: "",
   },
@@ -204,7 +222,7 @@ const worksArray: {
       "이메일 인증",
       "소셜 로그인",
     ],
-    techStack: ["개인 프로젝트", "React Native", "Firebase", "Deno"],
+    techStack: ["Figma", "React Native", "Firebase", "Deno (메일 인증 서버)"],
     repoUrl: "https://github.com/anteater333?tab=repositories&q=que",
     site: "https://que-web.vercel.app/",
   },
@@ -219,26 +237,62 @@ const worksArray: {
     year: "2022",
     platform: "Web Service",
     summary: '"가끔은 나무 대신 숲을 봐야 할 때도 있습니다."',
-    features: ["나무위키 실시간 검색어 크롤링", "인스턴트 메모"],
-    techStack: ["개인 프로젝트", "React", "Express"],
+    features: [
+      "나무위키 실시간 인기 검색어 크롤링",
+      "검색어에 대한 인스턴트 메모",
+    ],
+    techStack: ["React", "Express", "Deno (크롤링 에이전트)", "Docker"],
     repoUrl: "https://github.com/anteater333/namu-soup",
+    reviewUrl:
+      "https://blog.anteater-lab.link/memoir/2023/09/09/memoir-soup-1.html",
     site: "https://soup.anteater-lab.link",
   },
   {
     workId: "theWhiteboard",
     url: "./3d/theWhiteboard.glb",
-    screenshots: [imgWorks07SS00, imgWorks07SS01, imgWorks07SS02],
+    screenshots: [
+      imgWorks07SS00,
+      imgWorks07SS01,
+      imgWorks07SS02,
+      imgWorks07SS03,
+    ],
     logoImg: () => <></>,
     title: "Whiteboard",
     description:
-      "Whiteboard는 메모판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 2023년 기준 개발 진행 중 프로젝트.",
+      "메모판과 메모 형태로 포스팅을 기록하는 웹 사이트입니다. 각종 SNS의 타임라인을 메모 게시판 형태로 제공하면 어떨까 하는 아이디어를 프로토타이핑한 사이트입니다.",
     year: "2023",
     platform: "Web Service",
     summary: "Post-it!",
-    features: ["메모 위치 선택", "컴포넌트 확대/축소/이동"],
-    techStack: ["Next.js"],
+    features: [
+      "메모 작성",
+      "컴포넌트 위치 선택",
+      "컴포넌트 확대/축소/이동",
+      "소셜 로그인",
+    ],
+    techStack: ["Next.js", "TailwindCSS", "PostgreSQL"],
     repoUrl: "https://github.com/anteater333/whiteboard",
     site: "https://whiteboard-puce.vercel.app/",
+  },
+  {
+    workId: "domado",
+    url: "./3d/domado.glb",
+    screenshots: [imgWorks08SS00, imgWorks08SS01, imgWorks08SS02],
+    logoImg: () => <></>,
+    title: "domado",
+    description:
+      "웹에서 동작합니다. 쉽고 빠르게 사용할 수 있습니다. 사용하던 상용 뽀모도로 타이머가 갑작스럽게 결제를 요구하길래 차라리 직접 만들어보겠다는 생각으로 시작한 프로젝트입니다.",
+    year: "2024",
+    platform: "Web Service",
+    summary: "도마도 뽀모도로 타이머",
+    features: ["3가지 타이머 제공", "다양한 타이머 관련 설정", "PWA 설치 가능"],
+    techStack: [
+      "React",
+      "TailwindCSS",
+      "Vercel 자동 배포",
+      "PWA (디바이스 조작, Notification)",
+    ],
+    repoUrl: "https://github.com/anteater333/domado",
+    site: "https://domado.vercel.app/",
   },
 ];
 
@@ -270,6 +324,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
   const ImgWorks05 = useImageLoader(imgWorks05);
   const ImgWorks06 = useImageLoader(imgWorks06);
   const ImgWorks07 = useImageLoader(imgWorks07);
+  const ImgWorks08 = useImageLoader(imgWorks08);
 
   /** Intersection Observer 사용 */
   const ref = useRef<HTMLDivElement | null>(null);
@@ -289,8 +344,9 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       ImgWorks05.progress +
       ImgWorks06.progress +
       ImgWorks07.progress +
+      ImgWorks08.progress +
       threeProgress;
-    const length = 9;
+    const length = 10;
     updateLoadingProgress(total / length, 3);
   }, [
     updateLoadingProgress,
@@ -303,6 +359,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     ImgWorks05.progress,
     ImgWorks06.progress,
     ImgWorks07.progress,
+    ImgWorks08.progress,
   ]);
 
   useEffect(() => {
@@ -315,6 +372,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     worksArray[5].logoImg = ImgWorks05.ImageComponent;
     worksArray[6].logoImg = ImgWorks06.ImageComponent;
     worksArray[7].logoImg = ImgWorks07.ImageComponent;
+    worksArray[8].logoImg = ImgWorks08.ImageComponent;
   }, [
     ImgWorks00.ImageComponent,
     ImgWorks01.ImageComponent,
@@ -324,6 +382,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     ImgWorks05.ImageComponent,
     ImgWorks06.ImageComponent,
     ImgWorks07.ImageComponent,
+    ImgWorks08.ImageComponent,
   ]);
 
   const [selectedItem, setSelectedItem] = useState(worksArray[0]);
@@ -478,12 +537,24 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                         <img className="h-10" src={ICOGithub} alt="gh" />
                       </a>
                     ) : undefined}
+                    {selectedItem.reviewUrl ? (
+                      <a
+                        href={selectedItem.reviewUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
+                        <img className="h-10" src={ICOBlog} alt="review" />
+                      </a>
+                    ) : undefined}
                   </div>
                 </div>
               </div>
               <div
                 id="works-description-right-middle"
-                className="mb-12 mt-2 text-5xl"
+                className="mb-12 mt-2 text-4xl"
               >
                 {selectedItem.summary}
               </div>
@@ -493,7 +564,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               >
                 <div className="flex flex-col gap-20">
                   <div>
-                    <h2 className="mb-4 text-4xl">주요 기능</h2>
+                    <h2 className="mb-4 text-4xl font-bold">Features</h2>
                     <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
                       {selectedItem.features.map((feat) => (
                         <li>{feat}</li>
@@ -501,7 +572,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                     </ul>
                   </div>
                   <div>
-                    <h2 className="mb-4 text-4xl">역할 및 기술 스택</h2>
+                    <h2 className="mb-4 text-4xl font-bold">Tech Stack</h2>
                     <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
                       {selectedItem.techStack.map((tech) => (
                         <li>{tech}</li>
@@ -510,7 +581,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                   </div>
                 </div>
                 <div className="flex flex-col items-center gap-12">
-                  <div className="inline h-24 w-[600px] text-2xl">
+                  <div className="inline h-24 w-[600px] border-l-4 border-indigo-500 pl-4 text-2xl">
                     {selectedItem.description}
                   </div>
                   <div className="mt-4 w-[600px]">
@@ -564,7 +635,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
           <Model
             // Lab
             index={3}
-            position={[-0.35, 0, 0.7]}
+            position={[-0.2, 0, 0.8]}
             rotation={deg2RadXYZ(0, -54, 0)}
             onClick={() => handleWorkItemClicked(3)}
           />
@@ -595,6 +666,14 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
             position={[1.25, 0, 0.7]}
             rotation={deg2RadXYZ(0, 25, 0)}
             onClick={() => handleWorkItemClicked(7)}
+          />
+          <Model
+            // domado
+            index={8}
+            position={[-1, 0, 0.6]}
+            rotation={deg2RadXYZ(0, 25, 0)}
+            scale={[0.001, 0.001, 0.001]}
+            onClick={() => handleWorkItemClicked(8)}
           />
         </Canvas>
       </div>
