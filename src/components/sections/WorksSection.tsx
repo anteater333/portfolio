@@ -30,6 +30,7 @@ import { deg2RadXYZ } from "../../utils/mathUtils";
 
 import ICOGithub from "../../resources/images/common/github.png";
 import ICOHome from "../../resources/images/common/home.png";
+import ICOBlog from "../../resources/images/common/blog.png";
 
 import imgWorks00 from "../../resources/images/works/img_s4_00_logo_AIQA.png";
 import imgWorks01 from "../../resources/images/works/img_s4_01_logo_DeZipper.png";
@@ -81,6 +82,7 @@ const worksArray: {
   summary: string;
   platform: string;
   repoUrl?: string;
+  reviewUrl?: string;
   site?: string;
   description: string;
   features: string[];
@@ -224,8 +226,10 @@ const worksArray: {
     platform: "Web Service",
     summary: '"가끔은 나무 대신 숲을 봐야 할 때도 있습니다."',
     features: ["나무위키 실시간 검색어 크롤링", "인스턴트 메모"],
-    techStack: ["개인 프로젝트", "React", "Express"],
+    techStack: ["React", "Express"],
     repoUrl: "https://github.com/anteater333/namu-soup",
+    reviewUrl:
+      "https://blog.anteater-lab.link/memoir/2023/09/09/memoir-soup-1.html",
     site: "https://soup.anteater-lab.link",
   },
   {
@@ -500,6 +504,18 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                         }}
                       >
                         <img className="h-10" src={ICOGithub} alt="gh" />
+                      </a>
+                    ) : undefined}
+                    {selectedItem.reviewUrl ? (
+                      <a
+                        href={selectedItem.reviewUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(event) => {
+                          event.stopPropagation();
+                        }}
+                      >
+                        <img className="h-10" src={ICOBlog} alt="review" />
                       </a>
                     ) : undefined}
                   </div>
