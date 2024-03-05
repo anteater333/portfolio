@@ -41,6 +41,7 @@ import imgWorks05 from "../../resources/images/works/img_s4_05_logo_QUE.png";
 import imgWorks06 from "../../resources/images/works/img_s4_06_logo_Soup.png";
 import imgWorks07 from "../../resources/images/works/img_s4_07_logo_theWhiteboard.png";
 import imgWorks08 from "../../resources/images/works/img_s4_08_logo_domado.png";
+import imgWorks09 from "../../resources/images/works/img_s4_09_logo_portfolio.png";
 
 import imgWorks00SS00 from "../../resources/images/works/screenshots/AIQA00.png";
 import imgWorks00SS01 from "../../resources/images/works/screenshots/AIQA01.gif";
@@ -289,10 +290,31 @@ const worksArray: {
       "React",
       "TailwindCSS",
       "Vercel 자동 배포",
+      "Recoil",
       "PWA (디바이스 조작, Notification)",
     ],
     repoUrl: "https://github.com/anteater333/domado",
     site: "https://domado.vercel.app/",
+  },
+  {
+    workId: "portfolio",
+    url: "./3d/portfolio.glb",
+    screenshots: [],
+    logoImg: () => <></>,
+    title: "포트폴리오",
+    description:
+      "포트폴리오를 위해 만든 웹 사이트입니다. 페이지에서 다양한 상호작용을 경험해볼 수 있도록 디자인했습니다. 2023년 사이트 제작 이후 비정기적으로 내용을 업데이트하고 있습니다.",
+    year: "2023-",
+    platform: "Web Service",
+    summary: "지금 바로 여기",
+    features: [
+      "자기소개",
+      "다양한 상호작용",
+      "사이트에 숨겨진 버튼을 찾아보세요.",
+    ],
+    techStack: ["React", "TailwindCSS", "Three.js"],
+    repoUrl: "https://github.com/anteater333/portfolio",
+    site: "https://blog.anteater-lab.link/portfolio/",
   },
 ];
 
@@ -325,6 +347,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
   const ImgWorks06 = useImageLoader(imgWorks06);
   const ImgWorks07 = useImageLoader(imgWorks07);
   const ImgWorks08 = useImageLoader(imgWorks08);
+  const ImgWorks09 = useImageLoader(imgWorks09);
 
   /** Intersection Observer 사용 */
   const ref = useRef<HTMLDivElement | null>(null);
@@ -345,6 +368,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       ImgWorks06.progress +
       ImgWorks07.progress +
       ImgWorks08.progress +
+      ImgWorks09.progress +
       threeProgress;
     const length = 10;
     updateLoadingProgress(total / length, 3);
@@ -360,6 +384,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     ImgWorks06.progress,
     ImgWorks07.progress,
     ImgWorks08.progress,
+    ImgWorks09.progress,
   ]);
 
   useEffect(() => {
@@ -373,6 +398,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     worksArray[6].logoImg = ImgWorks06.ImageComponent;
     worksArray[7].logoImg = ImgWorks07.ImageComponent;
     worksArray[8].logoImg = ImgWorks08.ImageComponent;
+    worksArray[9].logoImg = ImgWorks09.ImageComponent;
   }, [
     ImgWorks00.ImageComponent,
     ImgWorks01.ImageComponent,
@@ -383,6 +409,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     ImgWorks06.ImageComponent,
     ImgWorks07.ImageComponent,
     ImgWorks08.ImageComponent,
+    ImgWorks09.ImageComponent,
   ]);
 
   const [selectedItem, setSelectedItem] = useState(worksArray[0]);
@@ -671,9 +698,17 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
             // domado
             index={8}
             position={[-1, 0, 0.6]}
-            rotation={deg2RadXYZ(0, 25, 0)}
+            rotation={deg2RadXYZ(0, 10, 0)}
             scale={[0.001, 0.001, 0.001]}
             onClick={() => handleWorkItemClicked(8)}
+          />
+          <Model
+            // portfolio
+            index={9}
+            position={[-0.1, 0, 0.45]}
+            rotation={deg2RadXYZ(0, -35, 0)}
+            scale={[0.00075, 0.001, 0.00075]}
+            onClick={() => handleWorkItemClicked(9)}
           />
         </Canvas>
       </div>
