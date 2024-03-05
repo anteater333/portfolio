@@ -370,7 +370,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       ImgWorks08.progress +
       ImgWorks09.progress +
       threeProgress;
-    const length = 10;
+    const length = 11;
     updateLoadingProgress(total / length, 3);
   }, [
     updateLoadingProgress,
