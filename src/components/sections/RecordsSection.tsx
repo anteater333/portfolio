@@ -11,6 +11,7 @@ import imgMe02 from "../../resources/images/records/img_s2_05_me_02.png";
 import imgMe03 from "../../resources/images/records/img_s2_06_me_03.png";
 import imgMe04 from "../../resources/images/records/img_s2_07_me_04.png";
 import imgMe05 from "../../resources/images/records/img_s2_08_me_05.png";
+import imgMe06 from "../../resources/images/records/img_s2_09_me_06.png";
 
 import useIntersection from "../../hooks/useIntersection";
 
@@ -166,6 +167,24 @@ const recordsArray: {
       ],
     ],
   },
+  {
+    year: 2023,
+    title: "프리랜서 생활",
+    lines: [
+      [
+        RecordSpecItem({
+          text: "AIHub 데이터 구축사업 참여",
+          emoji: "🛠️",
+        }),
+      ],
+      [
+        RecordSpecItem({
+          text: "다수의 개인 프로젝트 배포",
+          emoji: "🍅",
+        }),
+      ],
+    ],
+  },
   { year: "현재", title: "일할 곳을 찾는 중", lines: [] },
   { year: "And", title: "Anteater will return...", lines: [] },
 ];
@@ -188,6 +207,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   const ImgMe03 = useImageLoader(imgMe03);
   const ImgMe04 = useImageLoader(imgMe04);
   const ImgMe05 = useImageLoader(imgMe05);
+  const ImgMe06 = useImageLoader(imgMe06);
 
   const [recordScroll, setRecordScroll] = useState(0);
   const [calcedRecordScroll, setCalcedRecordScroll] = useState(
@@ -224,8 +244,9 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
       ImgMe02.progress +
       ImgMe03.progress +
       ImgMe04.progress +
-      ImgMe05.progress;
-    const length = 8;
+      ImgMe05.progress +
+      ImgMe06.progress;
+    const length = 9;
     updateLoadingProgress(total / length, 1);
   }, [
     ImgMeCharacter.progress,
@@ -236,6 +257,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     ImgMe03.progress,
     ImgMe04.progress,
     ImgMe05.progress,
+    ImgMe06.progress,
     updateLoadingProgress,
   ]);
 
@@ -331,6 +353,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
       ImgMe03.ImageComponent,
       ImgMe04.ImageComponent,
       ImgMe05.ImageComponent,
+      ImgMe06.ImageComponent,
     ];
 
     return RecordImages[currentRecord];
@@ -341,6 +364,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     ImgMe03.ImageComponent,
     ImgMe04.ImageComponent,
     ImgMe05.ImageComponent,
+    ImgMe06.ImageComponent,
     ImgMeCharacter.ImageComponent,
     currentRecord,
   ]);
@@ -354,7 +378,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
       onScroll={calcCurrentPosition}
       ref={ref}
     >
-      <div className="-scroll-pb-0 h-[22000px] -scroll-mt-6">
+      <div className="-scroll-pb-0 h-[25000px] -scroll-mt-6">
         <div className="sticky top-0 h-recommended">
           <h1 className="absolute right-16 top-40 z-50 border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500">
             Records
