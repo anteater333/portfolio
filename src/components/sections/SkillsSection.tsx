@@ -435,7 +435,9 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       {/* 배경 화면 */}
       <div
         id="skills-background-banner"
-        className="absolute top-1/2 z-0 flex -translate-y-1/2 flex-col items-center justify-center gap-8"
+        className={`${"absolute top-1/2 z-0 flex -translate-y-1/2 flex-col items-center justify-center gap-8"} ${
+          selectedItem < 0 ? "blur-[2px]" : "blur-sm"
+        }`}
       >
         {bgBannerTextArray.map((line, i) => {
           const isOdd = i % 2 === 1;
@@ -479,8 +481,15 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           );
         })}
       </div>
-      <h1 className="absolute bottom-10 right-16 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
-        {"Skills"}
+
+      <div
+        id="skills-background-overlay"
+        className="absolute h-full w-full bg-black transition-opacity duration-1000"
+        style={{
+          opacity: !isFading && selectedItem < 0 ? "0" : "50%",
+        }}
+      />
+
       <h1 className="absolute bottom-10 right-16 z-50 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
         <a
           href="https://blog.anteater-lab.link"
