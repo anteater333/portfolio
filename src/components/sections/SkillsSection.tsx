@@ -481,6 +481,14 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       </div>
       <h1 className="absolute bottom-10 right-16 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
         {"Skills"}
+      <h1 className="absolute bottom-10 right-16 z-50 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
+        <a
+          href="https://blog.anteater-lab.link"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {"Skills"}
+        </a>
       </h1>
       <div id="skills-content-area" className="absolute h-full w-full">
         {selectedItem < 0 ? (
