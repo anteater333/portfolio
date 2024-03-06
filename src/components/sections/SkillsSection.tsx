@@ -155,8 +155,8 @@ const skillsArray: {
     title: "Vue",
     description: [
       "개인 프로젝트 및 팀 프로젝트에 사용",
-      "유지 보수 및 신규 기능 개발 경력",
-      "차트 라이브러리 ApexChart.js 적용 경험",
+      "유지 보수 및 신규 기능 개발",
+      "차트 라이브러리 ApexChart.js 사용 경험",
     ],
   },
   {
@@ -435,23 +435,25 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       {/* 배경 화면 */}
       <div
         id="skills-background-banner"
-        className="absolute top-1/2 z-0 flex -translate-y-1/2 flex-col items-center justify-center gap-8"
+        className={`${"absolute top-1/2 z-0 flex -translate-y-1/2 flex-col items-center justify-center gap-8"} ${
+          selectedItem < 0 ? "blur-[2px]" : "blur-sm"
+        }`}
       >
         {bgBannerTextArray.map((line, i) => {
           const isOdd = i % 2 === 1;
           return (
             <div
               key={`skill-bg-${i}`}
-              className="relative  h-32 select-none font-galmuri7 text-9xl font-bold text-white opacity-10"
+              className="relative h-32 select-none font-galmuri7 text-9xl font-bold text-white opacity-10"
             >
               <div
-                className="absolute flex"
+                className="absolute flex whitespace-nowrap"
                 style={{
                   left: isOdd ? "0px" : "-4128px",
                 }}
               >
                 <div
-                  className="flex gap-16 px-8 "
+                  className="flex gap-16 px-8"
                   style={{
                     animation: `${
                       isOdd ? "bannermove-main" : "bannermove-sub"
@@ -479,8 +481,23 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           );
         })}
       </div>
-      <h1 className="absolute bottom-10 right-16 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
-        {"Skills"}
+
+      <div
+        id="skills-background-overlay"
+        className="absolute h-full w-full bg-black transition-opacity duration-1000"
+        style={{
+          opacity: !isFading && selectedItem < 0 ? "0" : "50%",
+        }}
+      />
+
+      <h1 className="absolute bottom-10 right-16 z-50 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
+        <a
+          href="https://blog.anteater-lab.link"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {"Skills"}
+        </a>
       </h1>
       <div id="skills-content-area" className="absolute h-full w-full">
         {selectedItem < 0 ? (
