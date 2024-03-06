@@ -444,16 +444,16 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           return (
             <div
               key={`skill-bg-${i}`}
-              className="relative  h-32 select-none font-galmuri7 text-9xl font-bold text-white opacity-10"
+              className="relative h-32 select-none font-galmuri7 text-9xl font-bold text-white opacity-10"
             >
               <div
-                className="absolute flex"
+                className="absolute flex whitespace-nowrap"
                 style={{
                   left: isOdd ? "0px" : "-4128px",
                 }}
               >
                 <div
-                  className="flex gap-16 px-8 "
+                  className="flex gap-16 px-8"
                   style={{
                     animation: `${
                       isOdd ? "bannermove-main" : "bannermove-sub"
