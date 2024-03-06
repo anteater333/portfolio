@@ -155,8 +155,8 @@ const skillsArray: {
     title: "Vue",
     description: [
       "개인 프로젝트 및 팀 프로젝트에 사용",
-      "유지 보수 및 신규 기능 개발 경력",
-      "차트 라이브러리 ApexChart.js 적용 경험",
+      "유지 보수 및 신규 기능 개발",
+      "차트 라이브러리 ApexChart.js 사용 경험",
     ],
   },
   {
