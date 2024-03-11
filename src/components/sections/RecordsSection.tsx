@@ -284,7 +284,10 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     const calculated = recordScroll % scrollPerRecord;
     setIsNoiseOn(calculated > threshold || calculated < lowerThreshold); // 일정 threshold 이상 넘어가면 노이즈 표시
     setRecordIndex(
-      Math.min(Math.floor(recordScroll / scrollPerRecord), numberOfRecords - 2)
+      Math.min(
+        Math.max(Math.floor(recordScroll / scrollPerRecord), 0),
+        numberOfRecords - 2
+      )
     );
     setCalcedRecordScroll(calculated);
   }, [recordScroll]);
