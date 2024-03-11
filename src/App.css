@@ -1,8 +1,12 @@
 @import url("https://cdn.jsdelivr.net/npm/galmuri@latest/dist/galmuri.css");
+
+html {
+  overflow: scroll;
+}
+
 #root {
   display: flex;
   flex-direction: column;
-  align-items: center;
   height: 95vh;
 }
 
