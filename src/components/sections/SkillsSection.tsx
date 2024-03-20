@@ -283,6 +283,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
   const [isToLeft, setIsToLeft] = useState(false);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
+
   /** 자동 스크롤, 사용자 조작에 반응해야 해서 animation이 아닌 scroll을 직접 건드림 */
   useEffect(() => {
     if (selectedItem < 0 && isVisible) {
@@ -291,14 +292,30 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         if (!isUserScrolling && target) {
           if (isToLeft) {
             // 왼쪽으로 자동 스크롤
+            const before = target.scrollLeft;
             target.scrollTo(target.scrollLeft - 2, 0);
+            const after = target.scrollLeft;
+
+            if (before === after) {
+              // 스크롤 재시도
+              target.scrollTo(target.scrollLeft + 4, 0);
+            }
+
             if (target.scrollLeft === 0) {
               // 방향 전환
               setIsToLeft(false);
             }
           } else {
             // 오른쪽으로  자동 스크롤
+            const before = target.scrollLeft;
             target.scrollTo(target.scrollLeft + 2, 0);
+            const after = target.scrollLeft;
+
+            if (before === after) {
+              // 스크롤 재시도
+              target.scrollTo(target.scrollLeft + 4, 0);
+            } // TBD 원인규명 및 코드 리펙토링
+
             if (
               target.clientWidth ===
               target.scrollWidth - Math.floor(target.scrollLeft)
@@ -308,7 +325,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
             }
           }
         }
-      }, 10);
+      }, 20);
 
       return () => clearInterval(intervalId);
     }

@@ -26,6 +26,7 @@ section,
 section::-webkit-scrollbar,
 #skills-items-list::-webkit-scrollbar {
   width: 0;
+  height: 0;
   background: transparent;
 }
 
