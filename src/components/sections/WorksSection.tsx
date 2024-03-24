@@ -176,7 +176,7 @@ const worksArray: {
       "Hack the terms🪓",
       "프로젝트 회고록 저장소🗃️",
     ],
-    techStack: ["Jekyll", "Sass", "Vanilla JS"],
+    techStack: ["Jekyll", "Sass", "Vanilla JS", "Docker"],
     repoUrl: "https://github.com/anteater333/anteater333.github.io",
     site: "https://blog.anteater-lab.link/",
   },
