@@ -150,7 +150,10 @@ function ProfileSection({
               transitionSequence[3]
             }`}
           >
-            <h1 className="text-9xl font-bold">이지훈 Lee Ji-hoon</h1>
+            <h1 className="flex justify-between pr-10 text-9xl font-bold">
+              <p className="-ml-2">이지훈</p>
+              <p>Lee Jihoon</p>
+            </h1>
             <h3 className="flex justify-between pr-10 text-5xl font-bold">
               <span>anteater1056@gmail.com</span>
               <a
