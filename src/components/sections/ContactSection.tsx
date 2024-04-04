@@ -90,7 +90,7 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
             onClick={() => setShowEgg(true)}
           >
             <h2 className="text-8xl font-bold">이지훈</h2>
-            <h3 className="mt-2 text-6xl font-bold">Lee Ji-hoon, Anteater</h3>
+            <h3 className="mt-2 text-6xl font-bold">Lee Jihoon, Anteater</h3>
             <h4 className="mt-8 text-4xl">
               a SW Developer, a FE Engineer, a Programmer
             </h4>
