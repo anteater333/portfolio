@@ -294,6 +294,8 @@ const worksArray: {
       "PWA (디바이스 조작, Notification)",
     ],
     repoUrl: "https://github.com/anteater333/domado",
+    reviewUrl:
+      "https://blog.anteater-lab.link/memoir/2024/03/27/memoir-domado-1.html",
     site: "https://domado.vercel.app/",
   },
   {
