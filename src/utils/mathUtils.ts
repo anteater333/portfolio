@@ -7,4 +7,15 @@ function deg2RadXYZ(
   return [x * (PI / 180), y * (PI / 180), z * (PI / 180)];
 }
 
-export { deg2RadXYZ };
+/**
+ * 중앙값에 치중된 랜덤
+ */
+function weightedRandom(max: number, bellFactor: number) {
+  var num = 0;
+  for (var i = 0; i < bellFactor; i++) {
+    num += Math.random() * (max / bellFactor);
+  }
+  return num;
+}
+
+export { deg2RadXYZ, weightedRandom };

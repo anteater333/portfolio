@@ -5,17 +5,7 @@ import {
   emojiArray,
   emojiLength,
 } from "../resources/images/contacts/emoji/emoji";
-
-/**
- * 중앙값에 치중된 랜덤
- */
-function weightedRandom(max: number, bellFactor: number) {
-  var num = 0;
-  for (var i = 0; i < bellFactor; i++) {
-    num += Math.random() * (max / bellFactor);
-  }
-  return num;
-}
+import { weightedRandom } from "../utils/mathUtils";
 
 function PMatter() {
   const scene = useRef<HTMLDivElement>(null);
