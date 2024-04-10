@@ -14,15 +14,18 @@ function PFooter() {
       </div>
       <div>정보 갱신일 : {"2024-03-04"}</div>
       <div>이 사이트는 1920x1200 해상도에 최적화 되어있습니다.</div>
-      <a
-        href="https://hits.seeyoufarm.com"
-        className="mb-4 mt-2 flex justify-center"
-      >
-        <img
-          alt="hits"
-          src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.anteater-lab.link%2Fportfolio%2F&count_bg=%23737373&title_bg=%2322C55E&icon=&icon_color=%23020202&title=thx%E2%99%A5&edge_flat=true"
-        />
-      </a>
+      <div className="mb-4 mt-2 flex justify-center">
+        {import.meta.env.DEV ? (
+          <p>DEV MODE</p>
+        ) : (
+          <a href="https://hits.seeyoufarm.com">
+            <img
+              alt="hits"
+              src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fblog.anteater-lab.link%2Fportfolio%2F&count_bg=%23737373&title_bg=%2322C55E&icon=&icon_color=%23020202&title=thx%E2%99%A5&edge_flat=true"
+            />
+          </a>
+        )}
+      </div>
     </footer>
   );
 }
