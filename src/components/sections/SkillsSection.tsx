@@ -8,15 +8,13 @@ import rightArrow from "../../resources/images/skills/img_s3_00_arrow_button_rig
 import leftArrow from "../../resources/images/skills/img_s3_01_arrow_button_left.svg";
 
 import imgSkill00 from "../../resources/images/skills/img_s3_02_skill_node.png";
-import imgSkill01 from "../../resources/images/skills/img_s3_03_skill_deno.png";
-import imgSkill02 from "../../resources/images/skills/img_s3_04_skill_db.png";
+import imgSkill01 from "../../resources/images/skills/img_s3_03_skill_db.png";
+import imgSkill02 from "../../resources/images/skills/img_s3_04_skill_html_css.png";
 import imgSkill03 from "../../resources/images/skills/img_s3_05_skill_js.png";
 import imgSkill04 from "../../resources/images/skills/img_s3_06_skill_react.png";
-import imgSkill05 from "../../resources/images/skills/img_s3_07_skill_vue.png";
-import imgSkill06 from "../../resources/images/skills/img_s3_08_skill_html_css.png";
-import imgSkill07 from "../../resources/images/skills/img_s3_09_skill_python.png";
-import imgSkill08 from "../../resources/images/skills/img_s3_10_skill_infra.png";
-import imgSkill09 from "../../resources/images/skills/img_s3_11_skill_idea.png";
+import imgSkill05 from "../../resources/images/skills/img_s3_07_skill_pm.png";
+import imgSkill06 from "../../resources/images/skills/img_s3_08_skill_infra.png";
+import imgSkill07 from "../../resources/images/skills/img_s3_09_skill_etc.png";
 import { useImageLoader } from "../../hooks/useImageLoader";
 
 const bgBannerTextArray = [
@@ -111,83 +109,89 @@ const skillsArray: {
   description: string[];
 }[] = [
   {
-    title: "Node",
+    title: "Node.js & Back-end",
     description: [
-      "Express, NestJS 프레임워크 사용 API 서버 개발",
-      "멀티 프로세싱 구현 및 IPC 구현",
-      "대규모 File IO 처리 에이전트 프로그램 개발",
-    ],
-  },
-  {
-    title: "Deno",
-    description: [
-      "개인 프로젝트 용도 메일 인증 서버 프로그램 개발",
-      "크롤링 프로그램 개발",
-      "소규모 토이 프로젝트에 적용",
+      "Node.js 기반 웹 어플리케이션 서버 및 에이전트 프로그램 개발 경험 보유",
+      "JS 기반 업무 자동화 스크립트 작성에 사용",
+      "Express.js, NestJS 프레임워크 사용 경험 보유",
+      "PM2 사용 경험 보유",
+      "Node.js IPC 기반 멀티 프로세스 구조 설계 및 개발 경험 보유",
+      "Node.js 비동기 IO 활용 에이전트 성능 향상 경험 보유",
+      "Deno 기반 에이전트, 서버 개발 경험 보유",
     ],
   },
   {
     title: "Database",
     description: [
-      "MongoDB 사용 경험 다수",
-      "구축된 RDBMS에 대한 SQL 질의 사용 가능",
+      "MongoDB 데이터베이스 설계 및 운용 경험 보유",
+      "Mongoose ODM 사용 경험 보유",
+      "구축된 데이터베이스에 대한 기초적인 SQL 질의문 작성 가능",
+    ],
+  },
+  {
+    title: "HTML/CSS",
+    description: [
+      "정적 사이트 생성기 Jekyll 블로그 운영 중\n(Liquid, SCSS 기반)",
+      "CSS media query 기반 반응형 디자인 구현 경험 보유",
+      "CSS flex 속성 기반 규격화된 보고서 형태의 웹 페이지 구현 경험 보유",
+      "TailwindCSS 사용 경험 보유",
     ],
   },
   {
     title: "Javascript",
     description: [
       "주력 프로그래밍 언어",
-      "Node.js, Deno, Web Browser 등 다양한 실행 환경에서 사용 가능",
-      "React, Vue, NestJS 등 다수의 프레임워크 사용 경험",
-      "Typescript 사용",
+      "JavaScript 기반 풀 스택 웹 서비스 개발 가능",
+      "자바스크립트 비동기 처리 주제 블로그 article 작성",
+      "JavaScript 관련 팁 블로그 article 다수 작성",
+      "Web Browser, Node.js, Deno 다양한 JS 실행 환경 경험 보유",
+      "TypeScript 적용 프로젝트 경험 보유",
     ],
   },
   {
-    title: "React",
+    title: "React & Front-end",
     description: [
-      "다수의 개인 프로젝트에 사용",
-      "포트폴리오 사이트 제작",
-      "React Native 사용 경험",
-      "Next.js 적용 프로젝트 진행 중",
+      "Functional Component 기반 컴포넌트 개발",
+      "React 웹 어플리케이션 다수 운영 및 배포 중",
+      "NPM, CRA 사용 프로젝트 진행 경험 보유",
+      "yarn, vite, eslint, prettier 기반 프로젝트 환경 사용 중",
+      "React Native 프로젝트 진행 경험 보유",
+      "react-helmet, react-router, redux, recoil 사용 경험 보유",
+      "OAuth 소셜로그인 기능 개발 경험 보유",
+      "Vue.js 2.0 웹 어플리케이션 유지보수 및 신규 기능 개발 경험 보유",
+      "데이터 시각화 라이브러리 ApexCharts.js 사용 경험 보유",
+      "웹 성능 측정 도구 Lighthouse 사용 및 성능 개선 경험 보유",
+      "URL 스키마 기반 웹 페이지의 클라이언트측 에이전트 프로그램 실행 기능 개발 경험 보유",
     ],
   },
   {
-    title: "Vue",
+    title: "Project Management",
     description: [
-      "개인 프로젝트 및 팀 프로젝트에 사용",
-      "유지 보수 및 신규 기능 개발",
-      "차트 라이브러리 ApexChart.js 사용 경험",
+      "Git 기반 프로젝트 형상 관리 경험 다수 보유",
+      "개인 및 토이 프로젝트를 모두 원격 저장소 Github Public 공개 중",
+      "컨벤션에 대한 이해 및 신규 프로젝트를 위한 컨벤션 계획 경험 보유",
+      "Jira 및 Github Projects 활용 프로젝트 일정/이슈 관리 경험 보유",
+      "프로젝트 팀장으로서 스크럼 기반 애자일 프로세스 주도 경험 보유",
     ],
   },
   {
-    title: "HTML/CSS",
+    title: "IT Infra & DevOps",
     description: [
-      "Jekyll 정적 사이트 생성기 사용 개인 블로그 운영 및 개발",
-      "HTML/CSS 코드 작성 및 분석 가능",
-      "Tailwind CSS 사용 경험",
+      "Windows/WSL 개발 환경에 대한 경험 다수 보유",
+      "WSL 관련 블로그 Article 다수 작성",
+      "macOS 환경 사용 가능",
+      "개인 도메인 보유 중 (anteater-lab.link)",
+      "Linux 기반 클라우드 인스턴스 및 Windows 홈서버 사용 다수의 서비스 운영 중",
+      "백엔드 서버 프로그램, 크롤링 에이전트 프로그램, 블로그 개발 서버 등 개인 용도 Docker 컨테이너 다수 운용 중",
+      "Firebase 활용 경험 보유",
     ],
   },
   {
-    title: "Python",
+    title: "etc.",
     description: [
-      "Pandas, numpy 활용 정형 데이터 분석 에이전트 개발",
-      "업무 자동화 스크립트 작성",
-      "Flask API 서버 개발 경험",
-    ],
-  },
-  {
-    title: "IT Infra/Linux",
-    description: [
-      "AWS, GCP 등 클라우드 인스턴스 사용 경험",
-      "Firebase 활용 백엔드 구축 경험",
-      "WSL 및 Docker 사용 개발 환경 구축 가능",
-    ],
-  },
-  {
-    title: "서비스 기획",
-    description: [
-      "Notion 및 Markdown 문법 활용 문서 작성",
-      "Figma 활용 제품 프로토타이핑",
+      "Java(ExcelParser), C#(WinForm), Python(Numpy/Pandas, 웹 크롤링) 사용 경험 보유",
+      "개인 일정 관리 및 회고를 위해 Notion 사용 중",
+      "Figma 활용 개인 프로젝트 프로토타이핑 경험 보유",
     ],
   },
 ];
@@ -204,8 +208,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
   const ImgSkill05 = useImageLoader(imgSkill05);
   const ImgSkill06 = useImageLoader(imgSkill06);
   const ImgSkill07 = useImageLoader(imgSkill07);
-  const ImgSkill08 = useImageLoader(imgSkill08);
-  const ImgSkill09 = useImageLoader(imgSkill09);
 
   /** 이미지 배열 */
   const SkillImageByIndex = useCallback(
@@ -219,8 +221,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         ImgSkill05.ImageComponent,
         ImgSkill06.ImageComponent,
         ImgSkill07.ImageComponent,
-        ImgSkill08.ImageComponent,
-        ImgSkill09.ImageComponent,
       ];
 
       const Selected = SkillImages[index];
@@ -236,8 +236,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       ImgSkill05.ImageComponent,
       ImgSkill06.ImageComponent,
       ImgSkill07.ImageComponent,
-      ImgSkill08.ImageComponent,
-      ImgSkill09.ImageComponent,
     ]
   );
 
@@ -253,10 +251,8 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       ImgSkill04.progress +
       ImgSkill05.progress +
       ImgSkill06.progress +
-      ImgSkill07.progress +
-      ImgSkill08.progress +
-      ImgSkill09.progress;
-    const length = 10;
+      ImgSkill07.progress;
+    const length = 8;
     updateLoadingProgress(total / length, 2);
   }, [
     ImgSkill00.progress,
@@ -267,8 +263,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
     ImgSkill05.progress,
     ImgSkill06.progress,
     ImgSkill07.progress,
-    ImgSkill08.progress,
-    ImgSkill09.progress,
     updateLoadingProgress,
   ]);
 
@@ -408,7 +402,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
     if (!isVisible) {
       returnToList();
       sideScrollRef.current?.scrollTo({
-        left: sideScrollRef.current?.scrollWidth / 2 - 960 * 2,
+        left: sideScrollRef.current?.scrollWidth / 2 - 960 * 1,
       });
     }
   }, [isVisible, returnToList]);
@@ -571,18 +565,25 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 >
                   {SkillImageByIndex(selectedItem)}
                 </button>
-                <ul className="ml-32 flex flex-col gap-8 pb-8 text-4xl font-bold text-white drop-shadow-lg">
-                  {skillsArray[selectedItem].description.map((desc, index) => {
-                    return (
-                      <li
-                        className="list-disc break-keep leading-tight"
-                        key={`skills-description-list-${index}`}
-                      >
-                        {desc}
-                      </li>
-                    );
-                  })}
-                </ul>
+                <div className="w-full font-bold text-white drop-shadow-lg">
+                  <div className="pb-8 text-right text-5xl">
+                    {skillsArray[selectedItem].title}
+                  </div>
+                  <ul className="flex h-[38rem] flex-col gap-8 overflow-scroll pb-8 pl-32 text-4xl">
+                    {skillsArray[selectedItem].description.map(
+                      (desc, index) => {
+                        return (
+                          <li
+                            className="list-disc whitespace-pre-line break-keep leading-tight"
+                            key={`skills-description-list-${index}`}
+                          >
+                            {desc}
+                          </li>
+                        );
+                      }
+                    )}
+                  </ul>
+                </div>
               </div>
               <img
                 className="w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
