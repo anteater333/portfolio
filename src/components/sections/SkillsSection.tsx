@@ -571,21 +571,25 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 >
                   {SkillImageByIndex(selectedItem)}
                 </button>
-                <ul className="ml-32 flex w-full flex-col gap-8 pb-8 text-4xl font-bold text-white drop-shadow-lg">
-                  <div className="text-right text-5xl">
+                <div className="w-full font-bold text-white drop-shadow-lg">
+                  <div className="pb-8 text-right text-5xl">
                     {skillsArray[selectedItem].title}
                   </div>
-                  {skillsArray[selectedItem].description.map((desc, index) => {
-                    return (
-                      <li
-                        className="list-disc whitespace-pre-line break-keep leading-tight"
-                        key={`skills-description-list-${index}`}
-                      >
-                        {desc}
-                      </li>
-                    );
-                  })}
-                </ul>
+                  <ul className="flex h-[38rem] flex-col gap-8 overflow-scroll pb-8 pl-32 text-4xl">
+                    {skillsArray[selectedItem].description.map(
+                      (desc, index) => {
+                        return (
+                          <li
+                            className="list-disc whitespace-pre-line break-keep leading-tight"
+                            key={`skills-description-list-${index}`}
+                          >
+                            {desc}
+                          </li>
+                        );
+                      }
+                    )}
+                  </ul>
+                </div>
               </div>
               <img
                 className="w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
