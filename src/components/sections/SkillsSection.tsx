@@ -571,11 +571,14 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 >
                   {SkillImageByIndex(selectedItem)}
                 </button>
-                <ul className="ml-32 flex flex-col gap-8 pb-8 text-4xl font-bold text-white drop-shadow-lg">
+                <ul className="ml-32 flex w-full flex-col gap-8 pb-8 text-4xl font-bold text-white drop-shadow-lg">
+                  <div className="text-right text-5xl">
+                    {skillsArray[selectedItem].title}
+                  </div>
                   {skillsArray[selectedItem].description.map((desc, index) => {
                     return (
                       <li
-                        className="list-disc break-keep leading-tight"
+                        className="list-disc whitespace-pre-line break-keep leading-tight"
                         key={`skills-description-list-${index}`}
                       >
                         {desc}
