@@ -8,15 +8,13 @@ import rightArrow from "../../resources/images/skills/img_s3_00_arrow_button_rig
 import leftArrow from "../../resources/images/skills/img_s3_01_arrow_button_left.svg";
 
 import imgSkill00 from "../../resources/images/skills/img_s3_02_skill_node.png";
-import imgSkill01 from "../../resources/images/skills/img_s3_03_skill_deno.png";
-import imgSkill02 from "../../resources/images/skills/img_s3_04_skill_db.png";
+import imgSkill01 from "../../resources/images/skills/img_s3_03_skill_db.png";
+import imgSkill02 from "../../resources/images/skills/img_s3_04_skill_html_css.png";
 import imgSkill03 from "../../resources/images/skills/img_s3_05_skill_js.png";
 import imgSkill04 from "../../resources/images/skills/img_s3_06_skill_react.png";
-import imgSkill05 from "../../resources/images/skills/img_s3_07_skill_vue.png";
-import imgSkill06 from "../../resources/images/skills/img_s3_08_skill_html_css.png";
-import imgSkill07 from "../../resources/images/skills/img_s3_09_skill_python.png";
-import imgSkill08 from "../../resources/images/skills/img_s3_10_skill_infra.png";
-import imgSkill09 from "../../resources/images/skills/img_s3_11_skill_idea.png";
+import imgSkill05 from "../../resources/images/skills/img_s3_07_skill_pm.png";
+import imgSkill06 from "../../resources/images/skills/img_s3_08_skill_infra.png";
+import imgSkill07 from "../../resources/images/skills/img_s3_09_skill_etc.png";
 import { useImageLoader } from "../../hooks/useImageLoader";
 
 const bgBannerTextArray = [
@@ -131,6 +129,15 @@ const skillsArray: {
     ],
   },
   {
+    title: "HTML/CSS",
+    description: [
+      "정적 사이트 생성기 Jekyll 블로그 운영 중\n(Liquid, SCSS 기반)",
+      "CSS media query 기반 반응형 디자인 구현 경험 보유",
+      "CSS flex 속성 기반 규격화된 보고서 형태의 웹 페이지 구현 경험 보유",
+      "TailwindCSS 사용 경험 보유",
+    ],
+  },
+  {
     title: "Javascript",
     description: [
       "주력 프로그래밍 언어",
@@ -155,15 +162,6 @@ const skillsArray: {
       "데이터 시각화 라이브러리 ApexCharts.js 사용 경험 보유",
       "웹 성능 측정 도구 Lighthouse 사용 및 성능 개선 경험 보유",
       "URL 스키마 기반 웹 페이지의 클라이언트측 에이전트 프로그램 실행 기능 개발 경험 보유",
-    ],
-  },
-  {
-    title: "HTML/CSS",
-    description: [
-      "정적 사이트 생성기 Jekyll 블로그 운영 중\n(Liquid, SCSS 기반)",
-      "CSS media query 기반 반응형 디자인 구현 경험 보유",
-      "CSS flex 속성 기반 규격화된 보고서 형태의 웹 페이지 구현 경험 보유",
-      "TailwindCSS 사용 경험 보유",
     ],
   },
   {
@@ -210,8 +208,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
   const ImgSkill05 = useImageLoader(imgSkill05);
   const ImgSkill06 = useImageLoader(imgSkill06);
   const ImgSkill07 = useImageLoader(imgSkill07);
-  const ImgSkill08 = useImageLoader(imgSkill08);
-  const ImgSkill09 = useImageLoader(imgSkill09);
 
   /** 이미지 배열 */
   const SkillImageByIndex = useCallback(
@@ -225,8 +221,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         ImgSkill05.ImageComponent,
         ImgSkill06.ImageComponent,
         ImgSkill07.ImageComponent,
-        ImgSkill08.ImageComponent,
-        ImgSkill09.ImageComponent,
       ];
 
       const Selected = SkillImages[index];
@@ -242,8 +236,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       ImgSkill05.ImageComponent,
       ImgSkill06.ImageComponent,
       ImgSkill07.ImageComponent,
-      ImgSkill08.ImageComponent,
-      ImgSkill09.ImageComponent,
     ]
   );
 
@@ -259,10 +251,8 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       ImgSkill04.progress +
       ImgSkill05.progress +
       ImgSkill06.progress +
-      ImgSkill07.progress +
-      ImgSkill08.progress +
-      ImgSkill09.progress;
-    const length = 10;
+      ImgSkill07.progress;
+    const length = 8;
     updateLoadingProgress(total / length, 2);
   }, [
     ImgSkill00.progress,
@@ -273,8 +263,6 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
     ImgSkill05.progress,
     ImgSkill06.progress,
     ImgSkill07.progress,
-    ImgSkill08.progress,
-    ImgSkill09.progress,
     updateLoadingProgress,
   ]);
 
@@ -414,7 +402,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
     if (!isVisible) {
       returnToList();
       sideScrollRef.current?.scrollTo({
-        left: sideScrollRef.current?.scrollWidth / 2 - 960 * 2,
+        left: sideScrollRef.current?.scrollWidth / 2 - 960 * 1,
       });
     }
   }, [isVisible, returnToList]);
