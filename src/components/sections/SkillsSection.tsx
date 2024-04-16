@@ -192,6 +192,7 @@ const skillsArray: {
       "Java(ExcelParser), C#(WinForm), Python(Numpy/Pandas, 웹 크롤링) 사용 경험 보유",
       "개인 일정 관리 및 회고를 위해 Notion 사용 중",
       "Figma 활용 개인 프로젝트 프로토타이핑 경험 보유",
+      "비개발자 대상 웹 개발 주제 스터디 진행 경험 보유",
     ],
   },
 ];
