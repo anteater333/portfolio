@@ -4,8 +4,8 @@ import SectionProps from "./SectionProps";
 import useIntersection from "../../hooks/useIntersection";
 import throttle from "../../utils/throttle";
 
-import rightArrow from "../../resources/images/skills/img_s3_00_arrow_button_right.svg";
-import leftArrow from "../../resources/images/skills/img_s3_01_arrow_button_left.svg";
+import rightArrow from "../../resources/images/skills/img_s3_00_arrow_button_right.png";
+import leftArrow from "../../resources/images/skills/img_s3_01_arrow_button_left.png";
 
 import imgSkill00 from "../../resources/images/skills/img_s3_02_skill_node.png";
 import imgSkill01 from "../../resources/images/skills/img_s3_03_skill_db.png";
