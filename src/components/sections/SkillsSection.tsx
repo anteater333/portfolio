@@ -435,7 +435,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
   return (
     <section
       id="skills-section"
-      className={`${"relative h-recommended snap-center overflow-hidden transition-colors duration-1000"} ${
+      className={`${"relative h-recommended snap-center snap-always overflow-hidden transition-colors duration-1000"} ${
         skillListSection === 0
           ? "bg-blue-500"
           : skillListSection === 1
