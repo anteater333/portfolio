@@ -45,6 +45,29 @@ function MainScreen() {
     if (isScrolling) setTimeout(() => setIsScrolling(false), 1000);
   }, [isScrolling]);
 
+  /** MainScreen 마운트 시 URL을 파싱해 URL에 ID가 포함된 섹션의 위치로 자동 스크롤 */
+  useEffect(() => {
+    const urlSection = window.location.href.split("#")[1];
+
+    switch (urlSection) {
+      case "profile-section":
+        setCurrentSection(0);
+        break;
+      case "records-section":
+        setCurrentSection(1);
+        break;
+      case "skills-section":
+        setCurrentSection(2);
+        break;
+      case "works-section":
+        setCurrentSection(3);
+        break;
+      case "contacts-section":
+        setCurrentSection(4);
+        break;
+    }
+  }, [setCurrentSection]);
+
   return (
     <>
       <div
