@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SectionProps from "./SectionProps";
 
 import imgContacts00Email from "../../resources/images/contacts/img_s5_00_Email.png";
@@ -15,6 +15,7 @@ import imgContacts09Vite from "../../resources/images/contacts/img_s5_09_Vite.pn
 import { useImageLoader } from "../../hooks/useImageLoader";
 import PMatter from "../PMatter";
 import useIntersection from "../../hooks/useIntersection";
+import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
 function ContactsSection({ updateLoadingProgress }: SectionProps) {
   const ImgContactsEmail = useImageLoader(imgContacts00Email);
@@ -71,11 +72,34 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
     }
   }, [isVisible]);
 
+  const { setIsSectionOnTop } = useSectionScrollable();
+
+  /** 화면에 현재 섹션이 표시될 때 스크롤을 통한 섹션 전환 상태 설정 */
+  useEffect(() => {
+    const el = ref.current;
+    if (isVisible && el) {
+      const scrollTop = el.scrollTop;
+
+      setIsSectionOnTop(scrollTop <= 0);
+    }
+  }, [isVisible, setIsSectionOnTop]);
+
+  /**
+   * 내부 스크롤이 최상단에 도달했을 때 상단 섹션으로 이동 가능한 상태로 설정
+   */
+  const checkSectionScroll = useCallback(
+    (event: React.UIEvent<HTMLElement, UIEvent>) => {
+      setIsSectionOnTop(event.currentTarget.scrollTop <= 0);
+    },
+    [setIsSectionOnTop]
+  );
+
   return (
     <section
       id="contacts-section"
       className="relative h-recommended snap-center snap-always overflow-scroll bg-pureBlack text-white"
       ref={ref}
+      onScroll={checkSectionScroll}
     >
       <div className="relative h-fit w-full">
         <div className="relative z-10 flex w-full flex-col items-center">

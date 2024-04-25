@@ -4,16 +4,29 @@ import PFooter from "../components/PFooter";
 import PHeader from "../components/PHeader";
 import throttle from "../utils/throttle";
 import { useCurrentSection } from "../hooks/useCurrentSection";
+import { useSectionScrollable } from "../hooks/useSectionScrollable";
 
 function MainScreen() {
   const mainScreenRef = useRef<HTMLDivElement>(null);
   const [currentSection, setCurrentSection] = useCurrentSection();
+  const {
+    isSectionOnBottom,
+    setIsSectionOnBottom,
+    isSectionOnTop,
+    setIsSectionOnTop,
+  } = useSectionScrollable();
   const [isScrolling, setIsScrolling] = useState(false);
 
   /** 사용자의 스크롤 입력을 인식해 섹션 전환 */
   const changeSectionByScroll = useCallback(
     (event: WheelEvent) => {
       if (isScrolling) return;
+
+      // 현재 섹션 내부 스크롤이 최하단에 위치하지 않으면 하단 스크롤 발동 X
+      if (event.deltaY > 0 && !isSectionOnBottom) return;
+
+      // 현재 섹션 내부 스크롤이 최상단에 위치하지 않으면 상단 스크롤 발동 X
+      if (event.deltaY < 0 && !isSectionOnTop) return;
 
       /** 스크롤 방향에 따라 계산한 다음 섹션 번호 (0 ~ 4) */
       let nextSection = Math.min(
@@ -24,8 +37,23 @@ function MainScreen() {
       setCurrentSection(nextSection);
       setIsScrolling(true);
     },
-    [currentSection, isScrolling, setCurrentSection]
+    [
+      currentSection,
+      isScrolling,
+      isSectionOnBottom,
+      isSectionOnTop,
+      setCurrentSection,
+    ]
   );
+
+  /** 0, 2, 3번 섹션은 스크롤 자유롭게 가능 */
+  useEffect(() => {
+    console.log(currentSection);
+    if (currentSection === 0 || currentSection === 2 || currentSection === 3) {
+      setIsSectionOnBottom(true);
+      setIsSectionOnTop(true);
+    }
+  }, [currentSection, setIsSectionOnBottom, setIsSectionOnTop]);
 
   /** Section에 맞게 현재 위치를 조정 */
   useEffect(() => {

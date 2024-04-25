@@ -2,13 +2,16 @@ import "./App.css";
 import { LoadingIndicatorProvider } from "./hooks/useLoadingIndicator";
 import MainScreen from "./screens/MainScreen";
 import { CurrentSectionProvider } from "./hooks/useCurrentSection";
+import { SectionScrollableProvider } from "./hooks/useSectionScrollable";
 
 function App() {
   return (
     <CurrentSectionProvider>
-      <LoadingIndicatorProvider>
-        <MainScreen />
-      </LoadingIndicatorProvider>
+      <SectionScrollableProvider>
+        <LoadingIndicatorProvider>
+          <MainScreen />
+        </LoadingIndicatorProvider>
+      </SectionScrollableProvider>
     </CurrentSectionProvider>
   );
 }

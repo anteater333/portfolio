@@ -16,6 +16,7 @@ import imgMe06 from "../../resources/images/records/img_s2_09_me_06.png";
 import useIntersection from "../../hooks/useIntersection";
 
 import { easeInBack, easeOutBack } from "../../utils/easeFunctions";
+import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
 type RecordSpecItemProp = { text: string; emoji?: string; big?: boolean };
 
@@ -261,14 +262,41 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     updateLoadingProgress,
   ]);
 
+  const { setIsSectionOnBottom, setIsSectionOnTop } = useSectionScrollable();
+
+  /** 화면에 현재 섹션이 표시될 때 스크롤을 통한 섹션 전환 상태 설정 */
+  useEffect(() => {
+    const el = ref.current;
+    if (isVisible && el) {
+      const scrollTop = el.scrollTop;
+      const scrollBottom = Math.abs(
+        el.scrollHeight - el.scrollTop - el.clientHeight
+      );
+
+      setIsSectionOnTop(scrollTop <= 0);
+      setIsSectionOnBottom(scrollBottom <= 0);
+    }
+  }, [isVisible, setIsSectionOnTop, setIsSectionOnBottom]);
+
   /**
    * 현재 섹션의 위치 계산 함수
    */
   const calcCurrentPosition = useCallback(
     (event: React.UIEvent<HTMLElement, UIEvent>) => {
-      setRecordScroll(event.currentTarget.scrollTop);
+      const el = event.currentTarget;
+
+      setRecordScroll(el.scrollTop);
+
+      // 내부 스크롤이 최상단/최하단에 도달했을 때 상단/하단 섹션으로 이동 가능한 상태로 설정
+      const scrollTop = el.scrollTop;
+      const scrollBottom = Math.abs(
+        el.scrollHeight - el.scrollTop - el.clientHeight
+      );
+
+      setIsSectionOnTop(scrollTop <= 0);
+      setIsSectionOnBottom(scrollBottom <= 0);
     },
-    []
+    [setIsSectionOnBottom, setIsSectionOnTop]
   );
 
   /**
