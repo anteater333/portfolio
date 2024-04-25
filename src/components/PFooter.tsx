@@ -12,7 +12,7 @@ function PFooter() {
         </a>{" "}
         All rights reserved.
       </div>
-      <div>정보 갱신일 : {"2024-03-04"}</div>
+      <div>정보 갱신일 : {"2024-04-25"}</div>
       <div>이 사이트는 1920x1200 해상도에 최적화 되어있습니다.</div>
       <div className="mb-4 mt-2 flex justify-center">
         {import.meta.env.DEV ? (
