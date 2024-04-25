@@ -74,7 +74,7 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
   return (
     <section
       id="contacts-section"
-      className="relative h-recommended snap-center overflow-scroll bg-pureBlack text-white"
+      className="relative h-recommended snap-center snap-always overflow-scroll bg-pureBlack text-white"
       ref={ref}
     >
       <div className="relative h-fit w-full">

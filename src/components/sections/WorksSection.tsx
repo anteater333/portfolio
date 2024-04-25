@@ -456,7 +456,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     <section
       ref={ref}
       id="works-section"
-      className="relative h-recommended snap-center overflow-hidden"
+      className="relative h-recommended snap-center snap-always overflow-hidden"
     >
       <div
         className="absolute bottom-10 left-16 z-30 rounded-3xl bg-white p-5 opacity-80"

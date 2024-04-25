@@ -222,7 +222,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   /** 이 섹션이 화면에 표시될 때의 행동 */
   useEffect(() => {
     if (!isVisible) {
-      // ref.current?.scrollTo({ top: 0 }); // Bug. Chrome 브라우저에서 버그 유발. Nav-bar의 스크롤을 뺏어감.
+      // ref.current?.scrollTo({ top: 0 });
       setIsDisappeared(false);
     } else {
       let timeoutId = setTimeout(() => {
@@ -375,7 +375,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   return (
     <section
       id="records-section"
-      className={`${"transition-{opacity} h-recommended snap-start overflow-scroll duration-[1000ms]"} ${
+      className={`${"h-recommended snap-start snap-always overflow-scroll bg-white transition-opacity duration-700"} ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
       onScroll={calcCurrentPosition}
