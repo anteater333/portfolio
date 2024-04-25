@@ -1,12 +1,15 @@
 import "./App.css";
 import { LoadingIndicatorProvider } from "./hooks/useLoadingIndicator";
 import MainScreen from "./screens/MainScreen";
+import { CurrentSectionProvider } from "./hooks/useCurrentSection";
 
 function App() {
   return (
-    <LoadingIndicatorProvider>
-      <MainScreen />
-    </LoadingIndicatorProvider>
+    <CurrentSectionProvider>
+      <LoadingIndicatorProvider>
+        <MainScreen />
+      </LoadingIndicatorProvider>
+    </CurrentSectionProvider>
   );
 }
 

@@ -1,27 +1,25 @@
 import React, { useCallback, useRef, useState } from "react";
+import { useCurrentSection } from "../hooks/useCurrentSection";
 
-function PHeader({ selected = 0 }: { selected: number }) {
+function PHeader() {
+  const [currentSection, setCurrentSection] = useCurrentSection();
+
   const [showHeader, setShowHeader] = useState(false);
 
   const headerRef = useRef(null);
 
   const scrollToSection = useCallback(
-    (event: React.MouseEvent<HTMLAnchorElement>) => {
+    (event: React.MouseEvent<HTMLAnchorElement>, index: number) => {
       event.preventDefault();
       const sectionId = `#${
         (event.target as HTMLAnchorElement).href.split("#")[1]
       }`;
-      const section = document.querySelector(sectionId);
 
-      // Ref. https://stackoverflow.com/a/63563437
-      const agent = window.navigator.userAgent.toLowerCase();
-      section!.scrollIntoView({
-        behavior: agent.indexOf("firefox") > -1 ? "smooth" : "auto",
-      });
+      setCurrentSection(index);
 
       window.history.pushState({}, "", sectionId);
     },
-    []
+    [setCurrentSection]
   );
 
   return (
@@ -29,7 +27,7 @@ function PHeader({ selected = 0 }: { selected: number }) {
       id="site-header"
       ref={headerRef}
       className={`fixed z-40 w-recommended overflow-hidden bg-white bg-opacity-80 px-16 pt-2 transition-all ${
-        showHeader || (selected !== 0 && selected !== 4)
+        showHeader || (currentSection !== 0 && currentSection !== 4)
           ? "opacity-100"
           : "opacity-0"
       }`}
@@ -42,45 +40,45 @@ function PHeader({ selected = 0 }: { selected: number }) {
       >
         <a
           className={`transition-all ${
-            selected === 0 && showHeader ? "!border-b-black" : ""
+            currentSection === 0 && showHeader ? "!border-b-black" : ""
           }`}
-          onClick={scrollToSection}
+          onClick={(event) => scrollToSection(event, 0)}
           href="#profile-section"
         >
           Profile
         </a>
         <a
           className={`transition-all ${
-            selected === 1 ? "!border-b-blue-500 !text-blue-500" : ""
+            currentSection === 1 ? "!border-b-blue-500 !text-blue-500" : ""
           }`}
-          onClick={scrollToSection}
+          onClick={(event) => scrollToSection(event, 1)}
           href="#records-section"
         >
           Records
         </a>
         <a
           className={`transition-all ${
-            selected === 2 ? "!border-b-green-500 !text-green-500" : ""
+            currentSection === 2 ? "!border-b-green-500 !text-green-500" : ""
           }`}
-          onClick={scrollToSection}
+          onClick={(event) => scrollToSection(event, 2)}
           href="#skills-section"
         >
           Skills
         </a>
         <a
           className={`transition-all ${
-            selected === 3 ? "!border-b-indigo-500 !text-indigo-500" : ""
+            currentSection === 3 ? "!border-b-indigo-500 !text-indigo-500" : ""
           }`}
-          onClick={scrollToSection}
+          onClick={(event) => scrollToSection(event, 3)}
           href="#works-section"
         >
           Works
         </a>
         <a
           className={`transition-all ${
-            selected === 4 ? "!border-b-black" : ""
+            currentSection === 4 ? "!border-b-black" : ""
           }`}
-          onClick={scrollToSection}
+          onClick={(event) => scrollToSection(event, 4)}
           href="#contacts-section"
         >
           Contacts

@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import PBody from "../components/PBody";
 import PFooter from "../components/PFooter";
 import PHeader from "../components/PHeader";
 import throttle from "../utils/throttle";
+import { useCurrentSection } from "../hooks/useCurrentSection";
 
 function MainScreen() {
   const mainScreenRef = useRef<HTMLDivElement>(null);
-  const [currentSection, setCurrentSection] = useState(0);
+  const [currentSection, setCurrentSection] = useCurrentSection();
   const [isScrolling, setIsScrolling] = useState(false);
 
   /** 사용자의 스크롤 입력을 인식해 섹션 전환 */
@@ -20,16 +21,24 @@ function MainScreen() {
         4
       );
 
-      mainScreenRef.current?.scrollTo({
-        top: nextSection * 1000,
-        behavior: "smooth",
-      });
-
       setCurrentSection(nextSection);
       setIsScrolling(true);
     },
-    [currentSection, isScrolling]
+    [currentSection, isScrolling, setCurrentSection]
   );
+
+  /** Section에 맞게 현재 위치를 조정 */
+  useEffect(() => {
+    // NOTE : Safari 브라우저의 경우 smooth scroll이 제대로 동작하지 않음.
+    // 관련 polyfill 사용 중이나 완벽하진 않은 탓에 메인 스크린의 스크롤에선 브라우저 종류 파악 후 스크롤 모드 설정
+    const agent = window.navigator.userAgent.toLowerCase();
+    const isSafari =
+      agent.indexOf("safari") !== -1 && agent.indexOf("chrome") === -1;
+    mainScreenRef.current?.scrollTo({
+      top: currentSection * 1000,
+      behavior: isSafari ? "auto" : "smooth",
+    });
+  }, [currentSection]);
 
   /** 스크롤에 의한 화면 전환이 중복해서 발동되는 것을 방지 */
   useEffect(() => {
@@ -44,7 +53,7 @@ function MainScreen() {
         onWheel={throttle(changeSectionByScroll, 250)}
         ref={mainScreenRef}
       >
-        <PHeader selected={currentSection} />
+        <PHeader />
         <PBody />
       </div>
       <PFooter />
