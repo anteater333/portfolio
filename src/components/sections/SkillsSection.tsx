@@ -435,13 +435,13 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
   return (
     <section
       id="skills-section"
-      className={`${"relative h-recommended snap-center snap-always overflow-hidden transition-colors duration-1000"} ${
+      className={`${"relative h-recommended snap-center snap-always overflow-hidden transition-all duration-700"} ${
         skillListSection === 0
           ? "bg-blue-500"
           : skillListSection === 1
           ? "bg-green-500"
           : "bg-indigo-500"
-      }`}
+      } ${isVisible ? "opacity-100" : "opacity-0"}`}
       ref={ref}
     >
       {/* 배경 화면 */}

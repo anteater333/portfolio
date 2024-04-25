@@ -375,7 +375,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   return (
     <section
       id="records-section"
-      className={`${"transition-{opacity} h-recommended snap-start snap-always overflow-scroll duration-[1000ms]"} ${
+      className={`${"h-recommended snap-start snap-always overflow-scroll bg-white transition-opacity duration-700"} ${
         isVisible ? "opacity-100" : "opacity-0"
       }`}
       onScroll={calcCurrentPosition}
