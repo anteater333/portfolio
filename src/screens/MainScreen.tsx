@@ -48,7 +48,6 @@ function MainScreen() {
 
   /** 0, 2, 3번 섹션은 스크롤 자유롭게 가능 */
   useEffect(() => {
-    console.log(currentSection);
     if (currentSection === 0 || currentSection === 2 || currentSection === 3) {
       setIsSectionOnBottom(true);
       setIsSectionOnTop(true);
