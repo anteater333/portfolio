@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import SectionProps from "./SectionProps";
 import { useImageLoader } from "../../hooks/useImageLoader";
 
@@ -19,6 +25,34 @@ import { easeInBack, easeOutBack } from "../../utils/easeFunctions";
 import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
 type RecordSpecItemProp = { text: string; emoji?: string; big?: boolean };
+
+type RecordButtonListProp = {
+  totalIndex: number;
+  currentIndex: number;
+  onClick: (index: number, event?: React.MouseEvent) => void;
+};
+
+/**
+ * 레코드 간 이동을 도와주는 버튼 리스트
+ * HOC, currentIndex가 변경될 때에만 재렌더링
+ */
+const RecordButtonList = React.memo(
+  ({ totalIndex, currentIndex, onClick }: RecordButtonListProp) => {
+    return (
+      <div className="flex w-full justify-center gap-4">
+        {Array.from({ length: totalIndex }).map((_, index) => {
+          return (
+            <div
+              className={`${"h-6 w-6 cursor-pointer rounded-full border-2 border-black transition-colors"} 
+              ${index <= currentIndex ? "bg-black" : ""}`}
+              onClick={(event) => onClick(index, event)}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+);
 
 /** 레코드 데이터 상세 정보를 담게 될 자식 span 아이템 컴포넌트, 해시태그 효과 */
 function RecordSpecItem({ text, emoji, big }: RecordSpecItemProp) {
@@ -400,6 +434,14 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     currentRecord,
   ]);
 
+  /** 리스트의 버튼 클릭 시 해당 인덱스의 레코드로 스크롤 이동 */
+  const toIndexedRecord = useCallback((index: number) => {
+    ref.current?.scrollTo({
+      top: (index + 1) * scrollPerRecord + scrollPerRecord / 2,
+      behavior: "smooth",
+    });
+  }, []);
+
   return (
     <section
       id="records-section"
@@ -430,7 +472,14 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
             className={`flex h-full origin-bottom font-bold`}
           >
             <div id="records-content-left" className="w-2/3">
-              <div className="flex h-full w-full flex-col pl-28 pt-36">
+              <div className="flex h-full w-full flex-col pl-28 pt-32">
+                <div className="mb-2 flex w-[27.5rem]">
+                  <RecordButtonList
+                    totalIndex={numberOfRecords - 3}
+                    currentIndex={currentRecord - 1}
+                    onClick={toIndexedRecord}
+                  />
+                </div>
                 <div className="z-20 flex w-full justify-start bg-white">
                   <div
                     id="records-picture-area"
