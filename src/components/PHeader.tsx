@@ -26,7 +26,7 @@ function PHeader() {
     <header
       id="site-header"
       ref={headerRef}
-      className={`fixed z-40 w-recommended overflow-hidden bg-white bg-opacity-80 px-16 pt-2 transition-all ${
+      className={`fixed z-40 w-full max-w-recommended overflow-hidden bg-white bg-opacity-80 px-16 pt-2 transition-all ${
         showHeader || (currentSection !== 0 && currentSection !== 4)
           ? "opacity-100"
           : "opacity-0"
