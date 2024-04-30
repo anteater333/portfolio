@@ -43,6 +43,7 @@ const RecordButtonList = React.memo(
         {Array.from({ length: totalIndex }).map((_, index) => {
           return (
             <div
+              key={`records-button-${index}`}
               className={`${"h-6 w-6 cursor-pointer rounded-full border-2 border-black transition-colors"} 
               ${index <= currentIndex ? "bg-black" : ""}`}
               onClick={(event) => onClick(index, event)}
