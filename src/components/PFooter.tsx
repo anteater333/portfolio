@@ -1,6 +1,6 @@
 function PFooter() {
   return (
-    <footer className="flex w-recommended flex-col text-center text-neutral-500">
+    <footer className="flex w-full max-w-recommended flex-col text-center text-neutral-500">
       <div className="mb-2 mt-2">
         Copyright© 2023.{" "}
         <a
