@@ -99,7 +99,7 @@ function MainScreen() {
     <>
       <div
         id="app-main-screen"
-        className="relative h-recommended w-recommended snap-y snap-mandatory overflow-hidden overscroll-y-none"
+        className="relative h-recommended w-full max-w-recommended snap-y snap-mandatory overflow-hidden overscroll-y-none"
         onWheel={throttle(changeSectionByScroll, 250)}
         ref={mainScreenRef}
       >

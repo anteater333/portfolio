@@ -102,7 +102,7 @@ function ProfileSection({
   return (
     <section
       id="profile-section"
-      className="relative h-recommended snap-center snap-always overflow-hidden"
+      className="relative h-recommended w-full snap-center snap-always overflow-hidden"
       onMouseMove={throttle(trackMouseMove, 50)}
       ref={ref}
     >
