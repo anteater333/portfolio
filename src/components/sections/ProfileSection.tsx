@@ -8,6 +8,7 @@ import throttle from "../../utils/throttle";
 import useIntersection from "../../hooks/useIntersection";
 
 import imgGHLogo from "../../resources/images/common/githubWhite.png";
+import imgNTLogo from "../../resources/images/common/notionWhite.png";
 
 /**
  * 트랜지션 시퀀스 정의 TailwindCSS 클래스 배열.
@@ -156,14 +157,24 @@ function ProfileSection({
             </h1>
             <h3 className="flex justify-between pr-10 text-5xl font-bold">
               <span>anteater1056@gmail.com</span>
-              <a
-                className="flex items-center"
-                href="https://github.com/anteater333"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img className="h-10 w-10" src={imgGHLogo} alt="gh" />
-              </a>
+              <div className="flex gap-4">
+                <a
+                  className="flex items-center"
+                  href="https://past-silver-b67.notion.site/Lee-Jihoon-Anteater-42a1ebc80b2e44688f0dd99598f019de"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img className="h-10 w-10" src={imgNTLogo} alt="nt" />
+                </a>
+                <a
+                  className="flex items-center"
+                  href="https://github.com/anteater333"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img className="h-10 w-10" src={imgGHLogo} alt="gh" />
+                </a>
+              </div>
             </h3>
             <h3 className="mt-8 text-5xl font-bold">
               is a SW developer, a front-end engineer,

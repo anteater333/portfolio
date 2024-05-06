@@ -11,6 +11,7 @@ import imgContacts06BMC from "../../resources/images/contacts/img_s5_06_BMC.png"
 import imgContacts07React from "../../resources/images/contacts/img_s5_07_React.png";
 import imgContacts08Tailwind from "../../resources/images/contacts/img_s5_08_Tailwind.png";
 import imgContacts09Vite from "../../resources/images/contacts/img_s5_09_Vite.png";
+import imgContacts10Notion from "../../resources/images/contacts/img_s5_10_Notion.png";
 
 import { useImageLoader } from "../../hooks/useImageLoader";
 import PMatter from "../PMatter";
@@ -30,6 +31,7 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
   const ImgContactsReact = useImageLoader(imgContacts07React);
   const ImgContactsTailwind = useImageLoader(imgContacts08Tailwind);
   const ImgContactsVite = useImageLoader(imgContacts09Vite);
+  const ImgContactsNotion = useImageLoader(imgContacts10Notion);
 
   /**
    * 이 섹션에 포함된 이미지들의 로딩 진행률을 계산해 부모에게 전달함.
@@ -45,8 +47,9 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
       ImgContactsBMC.progress +
       ImgContactsReact.progress +
       ImgContactsTailwind.progress +
-      ImgContactsVite.progress;
-    const length = 10;
+      ImgContactsVite.progress +
+      ImgContactsNotion.progress;
+    const length = 11;
     updateLoadingProgress(total / length, 4);
   }, [
     ImgContactsBMC.progress,
@@ -59,6 +62,7 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
     ImgContactsTailwind.progress,
     ImgContactsTalk.progress,
     ImgContactsVite.progress,
+    ImgContactsNotion.progress,
     updateLoadingProgress,
   ]);
 
@@ -207,7 +211,32 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
             </div>
           </div>
           {/* 기타 벳지 및 링크들 */}
-          <div className="mt-36">
+          <div className="mt-24 flex flex-col gap-6 font-galmuri7">
+            <p className="text-center text-2xl">more sites</p>
+            <div className="flex gap-36 text-right text-lg">
+              <a
+                href="https://blog.anteater-lab.link"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ImgContactsBlog.ImageComponent alt="blog" />
+                <p className="">ver. Blog</p>
+              </a>
+              <a
+                href="https://past-silver-b67.notion.site/Lee-Jihoon-Anteater-42a1ebc80b2e44688f0dd99598f019de"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ImgContactsNotion.ImageComponent
+                  className="object-contain"
+                  alt="notion"
+                />
+                <p className="mt-6">ver. Notion</p>
+              </a>
+            </div>
+          </div>
+
+          <div className="mt-16">
             <a
               href="https://solved.ac/anteater333/"
               target="_blank"
@@ -235,16 +264,8 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
               />
             </a>
           </div>
-          <div className="mb-24 mt-24">
-            <a
-              href="https://blog.anteater-lab.link"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <ImgContactsBlog.ImageComponent alt="blog" />
-            </a>
-          </div>
-          <div className="mb-32  flex flex-col items-center gap-4 font-galmuri7">
+
+          <div className="mb-32 mt-24 flex flex-col items-center gap-4 font-galmuri7">
             <div className="text-xl">powered by</div>
             <div className="mb-12 flex gap-12">
               <a href="https://react.dev/" target="_blank" rel="noreferrer">
