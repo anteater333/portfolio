@@ -121,8 +121,9 @@ function ProfileSection({
               className="-ml-16 mt-8"
               alt="me-irl"
               style={{
-                paddingLeft: 16 * ((mouseX / 1920) * 2),
-                paddingTop: 8 * ((mouseY / 1000) * 2),
+                transform: `translate(${16 * ((mouseX / 1920) * 2)}px, ${
+                  8 * ((mouseY / 1000) * 2)
+                }px)`,
               }}
             />
           </div>
@@ -135,8 +136,9 @@ function ProfileSection({
             <ImgMeCharacter
               alt="me-character"
               style={{
-                paddingLeft: 4 * ((mouseX / 1920) * 2),
-                paddingTop: 2 * ((mouseY / 1000) * 2),
+                transform: `translate(${4 * ((mouseX / 1920) * 2)}px, ${
+                  2 * ((mouseY / 1000) * 2)
+                }px)`,
               }}
             />
           </div>
