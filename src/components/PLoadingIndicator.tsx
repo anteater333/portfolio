@@ -45,21 +45,18 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
         </div>
         <div
           id="loading-text-area"
-          className="absolute bottom-16 right-16 flex select-none font-galmuri9 text-9xl"
+          className="absolute bottom-16 right-16 flex select-none font-galmuri9 text-6xl md:text-8xl"
           style={{
             color: colorByPercent,
           }}
         >
           <div id="loading-text" className="inline-block">
             Loading
-            <span id="loading-ellipsis" className="inline-block w-40">
+            <span id="loading-ellipsis" className="inline-block w-20 md:w-40">
               {Array(ellipsisCnt).fill(".").join("")}
             </span>
           </div>
-          <div
-            id="loading-percentage"
-            className="ml-4 inline-block w-[320px] text-right"
-          >
+          <div id="loading-percentage" className="ml-4 inline-block text-right">
             {Math.floor(percentage)}%
           </div>
         </div>
