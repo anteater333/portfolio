@@ -16,6 +16,7 @@ import imgSkill05 from "../../resources/images/skills/img_s3_07_skill_pm.png";
 import imgSkill06 from "../../resources/images/skills/img_s3_08_skill_infra.png";
 import imgSkill07 from "../../resources/images/skills/img_s3_09_skill_etc.png";
 import { useImageLoader } from "../../hooks/useImageLoader";
+import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
 const bgBannerTextArray = [
   [
@@ -279,6 +280,8 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
   const [isToLeft, setIsToLeft] = useState(false);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
 
+  const { setIsSectionOnBottom, setIsSectionOnTop } = useSectionScrollable();
+
   /** 자동 스크롤, 사용자 조작에 반응해야 해서 animation이 아닌 scroll을 직접 건드림 */
   useEffect(() => {
     if (selectedItem < 0 && isVisible) {
@@ -376,6 +379,9 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
       event.preventDefault();
       event.stopPropagation();
 
+      setIsSectionOnBottom(false);
+      setIsSectionOnTop(false);
+
       setIsFading(true);
       setIsUserScrolling(true);
       setTimeout(() => {
@@ -387,6 +393,9 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
     []
   );
   const returnToList = useCallback(() => {
+    setIsSectionOnBottom(true);
+    setIsSectionOnTop(true);
+
     setIsFading(true);
     setIsUserScrolling(true);
     setTimeout(() => {
