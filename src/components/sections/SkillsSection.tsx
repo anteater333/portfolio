@@ -228,7 +228,13 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
       const Selected = SkillImages[index];
 
-      return <Selected draggable="false" alt={skillsArray[index].title} />;
+      return (
+        <Selected
+          className="rounded-3xl"
+          draggable="false"
+          alt={skillsArray[index].title}
+        />
+      );
     },
     [
       ImgSkill00.ImageComponent,
@@ -541,7 +547,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 return (
                   <button
                     key={`skill-button-${i}`}
-                    className="custom-skill-button flex h-[40rem] w-[40rem] flex-shrink-0 items-center justify-center rounded-[4rem] bg-white"
+                    className="custom-skill-button flex h-[40rem] w-[40rem] flex-shrink-0 items-center justify-center rounded-3xl bg-white"
                     onClick={(event) => skillItemClickHandler(event, i)}
                   >
                     {SkillImageByIndex(i)}
@@ -573,16 +579,16 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
               />
               <div className="flex flex-1 px-12">
                 <button
-                  className="custom-skill-button flex h-[40rem] w-[40rem] flex-shrink-0 items-center justify-center rounded-[4rem] bg-white"
+                  className="custom-skill-button flex h-[33vw] max-h-[40rem] w-[33vw] max-w-[40rem] flex-shrink-0 items-center justify-center self-center overflow-hidden rounded-3xl bg-white p-[2.5%]"
                   onClick={returnToList}
                 >
                   {SkillImageByIndex(selectedItem)}
                 </button>
                 <div className="w-full font-bold text-white drop-shadow-lg">
-                  <div className="pb-8 text-right text-5xl">
+                  <div className="whitespace-nowrap pb-8 text-right text-5xl">
                     {skillsArray[selectedItem].title}
                   </div>
-                  <ul className="flex h-[38rem] flex-col gap-8 overflow-scroll pb-8 pl-32 text-4xl">
+                  <ul className="flex h-[36rem] flex-col gap-8 overflow-scroll pb-8 text-2xl md:pl-16 md:text-3xl xl:pl-32 xl:text-4xl">
                     {skillsArray[selectedItem].description.map(
                       (desc, index) => {
                         return (
