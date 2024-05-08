@@ -535,7 +535,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           <div>
             <div
               id="skills-items-list"
-              className="mb-10 mt-16 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-10 pt-16 transition-all duration-500 active:cursor-none"
+              className="mb-10 mt-16 flex cursor-grab flex-wrap items-center justify-center gap-8 px-8 pb-10 pt-16 transition-all duration-500 active:cursor-none md:flex-nowrap md:gap-80 md:overflow-y-scroll md:px-40"
               style={{
                 opacity: isFading ? "0" : "100",
                 transform: isFading ? "translateY(100%)" : "translateY(0%)",
@@ -547,7 +547,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 return (
                   <button
                     key={`skill-button-${i}`}
-                    className="custom-skill-button flex h-[40rem] w-[40rem] flex-shrink-0 items-center justify-center rounded-3xl bg-white"
+                    className="custom-skill-button flex h-36 w-36 flex-shrink-0 items-center justify-center rounded-3xl bg-white p-[2.5%] md:h-[40rem] md:w-[40rem]"
                     onClick={(event) => skillItemClickHandler(event, i)}
                   >
                     {SkillImageByIndex(i)}
