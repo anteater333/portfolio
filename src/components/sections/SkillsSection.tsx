@@ -560,13 +560,14 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           /* 2. 아이템 선택 후 화면 */
           <div className="flex h-full flex-col">
             <div
-              className="mt-32 flex items-center justify-between px-12 pb-10 opacity-100 transition-opacity"
+              className="mt-20 flex items-center justify-between px-12 pb-10 opacity-100 transition-opacity md:mt-32"
               style={{
                 opacity: isFading ? "0" : "100",
               }}
             >
               <img
-                className="w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
+                // TBD :: refactoring
+                className="hidden w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30 md:block"
                 draggable="false"
                 src={leftArrow}
                 alt="left-arrow"
@@ -577,18 +578,43 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                   );
                 }}
               />
-              <div className="flex flex-1 px-12">
-                <button
-                  className="custom-skill-button flex h-[33vw] max-h-[40rem] w-[33vw] max-w-[40rem] flex-shrink-0 items-center justify-center self-center overflow-hidden rounded-3xl bg-white p-[2.5%]"
-                  onClick={returnToList}
-                >
-                  {SkillImageByIndex(selectedItem)}
-                </button>
+              <div className="flex flex-1 flex-col md:flex-row md:px-12">
+                <div className="flex flex-1 flex-row items-center justify-between pb-4">
+                  <img
+                    className="block h-12 w-10 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30 md:hidden"
+                    draggable="false"
+                    src={leftArrow}
+                    alt="left-arrow"
+                    onClick={() => {
+                      setSelectedItem(
+                        (prev) =>
+                          (prev - 1 + skillsArray.length) % skillsArray.length
+                      );
+                    }}
+                  />
+                  <button
+                    className="custom-skill-button flex h-32 max-h-[40rem] w-32 max-w-[40rem] flex-shrink-0 items-center justify-center self-center overflow-hidden rounded-3xl bg-white p-[2.5%] md:h-[33vw] md:w-[33vw]"
+                    onClick={returnToList}
+                  >
+                    {SkillImageByIndex(selectedItem)}
+                  </button>
+                  <img
+                    className="block h-12 w-10 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30 md:hidden"
+                    draggable="false"
+                    src={rightArrow}
+                    alt="right-arrow"
+                    onClick={() => {
+                      setSelectedItem(
+                        (prev) => (prev + 1) % skillsArray.length
+                      );
+                    }}
+                  />
+                </div>
                 <div className="w-full font-bold text-white drop-shadow-lg">
-                  <div className="whitespace-nowrap pb-8 text-right text-5xl">
+                  <div className="whitespace-nowrap pb-8 text-center text-3xl md:text-right md:text-5xl">
                     {skillsArray[selectedItem].title}
                   </div>
-                  <ul className="flex h-[36rem] flex-col gap-8 overflow-scroll pb-8 text-2xl md:pl-16 md:text-3xl xl:pl-32 xl:text-4xl">
+                  <ul className="flex h-[34rem] flex-col gap-8 overflow-scroll pb-8 pl-8 text-2xl md:h-[36rem] md:pl-16 md:text-3xl xl:pl-32 xl:text-4xl">
                     {skillsArray[selectedItem].description.map(
                       (desc, index) => {
                         return (
@@ -605,7 +631,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 </div>
               </div>
               <img
-                className="w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
+                className="hidden w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30 md:block"
                 draggable="false"
                 src={rightArrow}
                 alt="right-arrow"
