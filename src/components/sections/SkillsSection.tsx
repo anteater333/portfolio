@@ -16,6 +16,7 @@ import imgSkill05 from "../../resources/images/skills/img_s3_07_skill_pm.png";
 import imgSkill06 from "../../resources/images/skills/img_s3_08_skill_infra.png";
 import imgSkill07 from "../../resources/images/skills/img_s3_09_skill_etc.png";
 import { useImageLoader } from "../../hooks/useImageLoader";
+import { useIsOnMobile } from "../../hooks/useIsOnMobile";
 import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
 const bgBannerTextArray = [
@@ -282,9 +283,11 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
   const { setIsSectionOnBottom, setIsSectionOnTop } = useSectionScrollable();
 
+  const { isOnMobile } = useIsOnMobile();
+
   /** 자동 스크롤, 사용자 조작에 반응해야 해서 animation이 아닌 scroll을 직접 건드림 */
   useEffect(() => {
-    if (selectedItem < 0 && isVisible) {
+    if (selectedItem < 0 && isVisible && !isOnMobile) {
       const target = sideScrollRef.current;
       const intervalId = setInterval(() => {
         if (!isUserScrolling && target) {
@@ -327,7 +330,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
       return () => clearInterval(intervalId);
     }
-  }, [isToLeft, isUserScrolling, isVisible, selectedItem]);
+  }, [isToLeft, isUserScrolling, isVisible, selectedItem, isOnMobile]);
 
   /** Drag & Drop Scrolling */
   useEffect(() => {
@@ -390,7 +393,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         setIsUserScrolling(false);
       }, 500);
     },
-    []
+    [setIsSectionOnBottom, setIsSectionOnTop]
   );
   const returnToList = useCallback(() => {
     setIsSectionOnBottom(true);
@@ -405,7 +408,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         setIsUserScrolling(false);
       }, 150);
     }, 150);
-  }, []);
+  }, [setIsSectionOnBottom, setIsSectionOnTop]);
 
   /** 이 섹션이 화면에 노출 시 행동 */
   useEffect(() => {
@@ -511,7 +514,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         }}
       />
 
-      <h1 className="absolute bottom-10 right-16 z-50 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
+      <h1 className="absolute bottom-10 right-8 z-50 border-b-[1rem] border-b-white text-8xl font-bold text-white md:right-16 md:text-10xl md:leading-[10rem]">
         <a
           href="https://blog.anteater-lab.link"
           target="_blank"
