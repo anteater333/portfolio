@@ -136,14 +136,14 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
           >
             <h2 className="text-8xl font-bold">이지훈</h2>
             <h3 className="mt-2 text-6xl font-bold">Lee Jihoon, Anteater</h3>
-            <h4 className="mt-8 text-4xl">
+            <h4 className="mt-8 whitespace-nowrap text-4xl">
               a SW Developer, a FE Engineer, a Programmer
             </h4>
           </div>
           {/* 연락처 리스트 */}
           <div
             id="contacts-list-container"
-            className="mt-4 flex w-1/2 flex-col justify-center gap-16"
+            className="mt-4 flex w-1/2 min-w-[42rem] flex-col justify-center gap-16"
           >
             <div id="contacts-email" className="flex items-center">
               <ImgContactsEmail.ImageComponent
