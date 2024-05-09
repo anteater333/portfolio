@@ -183,7 +183,7 @@ const recordsArray: {
   },
   {
     year: 2021,
-    title: "소프트웨어 마에스트로 12기 활동",
+    title: "소프트웨어 마에스트로 12기",
     lines: [
       [
         RecordSpecItem({
@@ -453,7 +453,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
       ref={ref}
     >
       <div className="-scroll-pb-0 h-[25000px] -scroll-mt-6">
-        <div className="sticky top-0 h-recommended">
+        <div className="sticky top-0 h-recommended md:min-w-[90rem]">
           <h1 className="absolute right-16 top-40 z-50 border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500">
             Records
           </h1>
@@ -568,7 +568,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
                         <div className="flex w-44 items-center text-5xl text-[4rem]">
                           <span>{recordsArray[currentRecord + 1].year}</span>
                         </div>
-                        <div className="mt-2 flex items-center text-4xl">
+                        <div className="mt-2 flex items-center whitespace-nowrap text-4xl">
                           <span>{recordsArray[currentRecord + 1].title}</span>
                         </div>
                       </div>
@@ -587,7 +587,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
                         <div className="flex w-44 items-center text-5xl text-[4rem]">
                           <span>{recordsArray[currentRecord + 2].year}</span>
                         </div>
-                        <div className="mt-2 flex items-center text-4xl">
+                        <div className="mt-2 flex items-center whitespace-nowrap text-4xl">
                           <span>{recordsArray[currentRecord + 2].title}</span>
                         </div>
                       </div>
