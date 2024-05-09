@@ -18,7 +18,7 @@ import PMatter from "../PMatter";
 import useIntersection from "../../hooks/useIntersection";
 import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 import { useQuery } from "@tanstack/react-query";
-import { getRandomUser } from "../../api";
+import { getRandomUser, getRandomUsersByNumber } from "../../api";
 
 function ContactsSection({ updateLoadingProgress }: SectionProps) {
   const ImgContactsEmail = useImageLoader(imgContacts00Email);
@@ -100,9 +100,14 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
     [setIsSectionOnTop]
   );
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["user"],
-    queryFn: getRandomUser,
+  // Demonstrating the ability to query to system
+  const {
+    data: userData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["userList"],
+    queryFn: () => getRandomUsersByNumber(50),
   });
 
   useEffect(() => {
@@ -112,8 +117,10 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
     }
 
     console.log("RANDOMUSER :: ");
-    console.log(data.results[0]);
-  }, [data, isLoading]);
+    console.log(userData);
+
+    getRandomUsersByNumber(50);
+  }, [userData, isLoading]);
 
   return (
     <section
