@@ -124,34 +124,36 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
     >
       <div className="relative h-fit w-full">
         <div className="relative z-10 flex w-full flex-col items-center">
-          <h1 className="mt-20 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] ">
+          <h1 className="mt-14 border-b-[1rem] border-b-white text-8xl font-bold md:mt-20 md:text-10xl md:leading-[10rem] ">
             Contacts
           </h1>
 
           <div
-            className={`${"mb-24 mt-32 flex flex-col items-center"} ${
+            className={`${"mb-12 mt-12 flex flex-col items-center md:mb-24 md:mt-32"} ${
               showEgg ? "cursor-open" : "cursor-closed"
             }`}
             onClick={() => setShowEgg(true)}
           >
-            <h2 className="text-8xl font-bold">이지훈</h2>
-            <h3 className="mt-2 text-6xl font-bold">Lee Jihoon, Anteater</h3>
-            <h4 className="mt-8 whitespace-nowrap text-4xl">
+            <h2 className="text-7xl font-bold md:text-8xl">이지훈</h2>
+            <h3 className="mt-2 text-5xl font-bold md:text-6xl">
+              Lee Jihoon, Anteater
+            </h3>
+            <h4 className="mt-4 whitespace-nowrap text-xl md:mt-8 md:text-4xl">
               a SW Developer, a FE Engineer, a Programmer
             </h4>
           </div>
           {/* 연락처 리스트 */}
           <div
             id="contacts-list-container"
-            className="mt-4 flex w-1/2 min-w-[42rem] flex-col justify-center gap-16"
+            className="flex w-3/4 flex-col justify-center gap-8 text-xl font-bold md:mt-4 md:w-1/2 md:min-w-[42rem] md:gap-16 md:text-4xl md:font-normal"
           >
             <div id="contacts-email" className="flex items-center">
               <ImgContactsEmail.ImageComponent
-                className="mr-8 h-16 w-16"
+                className="mr-4 h-8 w-8 md:mr-8 md:h-16 md:w-16"
                 alt="email"
               />
-              <div className="text-4xl">E-mail</div>
-              <div className="flex-grow text-right text-4xl font-light underline">
+              <div className="">E-mail</div>
+              <div className="flex-grow text-right font-light underline">
                 <a href="mailto:anteater1056@gmail.com">
                   anteater1056@gmail.com
                 </a>
@@ -159,21 +161,21 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
             </div>
             <div id="contacts-phone" className="flex items-center">
               <ImgContactsPhone.ImageComponent
-                className="mr-8 h-16 w-16"
+                className="mr-4 h-8 w-8 md:mr-8 md:h-16 md:w-16"
                 alt="phone"
               />
-              <div className="text-4xl">Phone</div>
-              <span className="flex-grow text-right text-4xl font-light">
+              <div className="">Phone</div>
+              <span className="flex-grow text-right font-light">
                 010-4174-4150
               </span>
             </div>
             <div id="contacts-github" className="flex items-center">
               <ImgContactsGithub.ImageComponent
-                className="mr-8 h-16 w-16"
+                className="mr-4 h-8 w-8 md:mr-8 md:h-16 md:w-16"
                 alt="github"
               />
-              <div className="text-4xl">Github</div>
-              <div className="flex-grow text-right text-4xl font-light underline">
+              <div className="">Github</div>
+              <div className="flex-grow text-right font-light underline">
                 <a
                   href="https://github.com/anteater333"
                   target="_blank"
@@ -185,21 +187,21 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
             </div>
             <div id="contacts-talk" className="flex items-center">
               <ImgContactsTalk.ImageComponent
-                className="mr-8 h-16 w-16"
+                className="mr-4 h-8 w-8 md:mr-8 md:h-16 md:w-16"
                 alt="talk"
               />
-              <div className="text-4xl">KakaoTalk</div>
-              <span className="flex-grow text-right text-4xl font-light">
+              <div className="">KakaoTalk</div>
+              <span className="flex-grow text-right font-light">
                 @Anteater333
               </span>
             </div>
             <div id="contacts-instagram" className="flex items-center">
               <ImgContactsInstagram.ImageComponent
-                className="mr-8 h-16 w-16"
+                className="mr-4 h-8 w-8 md:mr-8 md:h-16 md:w-16"
                 alt="instagram"
               />
-              <div className="text-4xl">Instagram</div>
-              <div className="flex-grow text-right text-4xl font-light underline">
+              <div className="">Instagram</div>
+              <div className="flex-grow text-right font-light underline">
                 <a
                   href="https://www.instagram.com/anteater333/"
                   target="_blank"
@@ -211,8 +213,8 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
             </div>
           </div>
           {/* 기타 벳지 및 링크들 */}
-          <div className="mt-24 flex flex-col gap-6 font-galmuri7">
-            <p className="text-center text-2xl">more sites</p>
+          <div className="mt-12 flex flex-col gap-6 font-galmuri7 md:mt-24">
+            <p className="text-center text-xl">more sites</p>
             <div className="flex gap-36 text-right text-lg">
               <a
                 href="https://blog.anteater-lab.link"
@@ -255,17 +257,17 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
               target="_blank"
               rel="noreferrer"
             >
-              <span className="mb-2 inline-block w-full text-center font-galmuri7 text-3xl">
+              <span className="mb-2 inline-block w-full text-center font-galmuri7 text-2xl md:text-3xl">
                 ☕ Buy me a potion ☕
               </span>
               <ImgContactsBMC.ImageComponent
-                className="h-96 w-96 rounded-3xl"
+                className="h-72 w-72 rounded-3xl md:h-96 md:w-96"
                 alt="buy-me-a-coffee"
               />
             </a>
           </div>
 
-          <div className="mb-32 mt-24 flex flex-col items-center gap-4 font-galmuri7">
+          <div className="mb-32 mt-24 flex flex-col items-center gap-4 px-8 font-galmuri7">
             <div className="text-xl">powered by</div>
             <div className="mb-12 flex gap-12">
               <a href="https://react.dev/" target="_blank" rel="noreferrer">
@@ -294,7 +296,9 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
                 />
               </a>
             </div>
-            <div className="text-4xl">Thank you for visiting me!</div>
+            <div className="text-2xl md:text-4xl">
+              Thank you for visiting me!
+            </div>
           </div>
         </div>
 
