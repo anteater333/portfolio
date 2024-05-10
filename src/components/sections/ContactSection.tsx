@@ -81,6 +81,15 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
     }
   }, [isVisible]);
 
+  useEffect(() => {
+    if (showEgg) {
+      ref.current?.scrollTo({
+        top: ref.current.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [showEgg]);
+
   const { setIsSectionOnTop } = useSectionScrollable();
 
   /** 화면에 현재 섹션이 표시될 때 스크롤을 통한 섹션 전환 상태 설정 */
