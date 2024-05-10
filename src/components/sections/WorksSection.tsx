@@ -72,6 +72,7 @@ import imgWorks08SS02 from "../../resources/images/works/screenshots/domado03.pn
 
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
+import { useIsOnMobile } from "../../hooks/useIsOnMobile";
 
 const worksArray: {
   workId: string;
@@ -812,13 +813,24 @@ function PWorld() {
 function PCamera({ vec = new Vector3(), initialState = true }) {
   const camera = useRef<TPerspectiveCamera>(null!);
 
+  const { isOnMobile } = useIsOnMobile();
+
   const frameHandler = useCallback(
     (state: RootState) => {
       if (initialState) {
-        camera.current?.position.lerp(vec.set(0, 5, 2), 0.05);
+        const cameraHeight = !isOnMobile ? 5 : 2.5;
+
+        camera.current?.position.lerp(vec.set(0, cameraHeight, 2), 0.05);
       } else {
+        /** 바닥을 바라보는 카메라의 높이 */
+        const cameraHeight = isOnMobile ? 5 : 2.5;
+
         camera.current?.position.lerp(
-          vec.set(-0 + state.mouse.x / 2, 2.5, 0.5 - state.mouse.y / 2),
+          vec.set(
+            -0 + state.mouse.x / 2,
+            cameraHeight,
+            0.5 - state.mouse.y / 2
+          ),
           0.1
         );
         camera.current?.rotation.set(...deg2RadXYZ(-80 + state.mouse.x, 0, 0));
@@ -826,7 +838,7 @@ function PCamera({ vec = new Vector3(), initialState = true }) {
 
       camera.current?.updateMatrixWorld();
     },
-    [initialState, vec]
+    [initialState, vec, isOnMobile]
   );
   useFrame(frameHandler);
 
