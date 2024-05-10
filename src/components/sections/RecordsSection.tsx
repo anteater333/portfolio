@@ -259,9 +259,10 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   /** 이 섹션이 화면에 표시될 때의 행동 */
   useEffect(() => {
     if (!isVisible) {
-      // ref.current?.scrollTo({ top: 0 });
       setIsDisappeared(false);
     } else {
+      ref.current?.scrollTo({ top: 0 });
+
       let timeoutId = setTimeout(() => {
         setIsDisappeared(true);
       }, 2000);

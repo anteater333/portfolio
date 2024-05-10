@@ -73,7 +73,10 @@ function ContactsSection({ updateLoadingProgress }: SectionProps) {
 
   useEffect(() => {
     if (!isVisible) {
-      ref.current?.scrollTo({ top: 0, behavior: "smooth" });
+      setTimeout(
+        () => ref.current?.scrollTo({ top: 0, behavior: "smooth" }),
+        500
+      );
       setShowEgg(false);
     }
   }, [isVisible]);
