@@ -23,6 +23,7 @@ import useIntersection from "../../hooks/useIntersection";
 
 import { easeInBack, easeOutBack } from "../../utils/easeFunctions";
 import { useSectionScrollable } from "../../hooks/useSectionScrollable";
+import { useCurrentSection } from "../../hooks/useCurrentSection";
 
 type RecordSpecItemProp = { text: string; emoji?: string; big?: boolean };
 
@@ -313,11 +314,17 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     }
   }, [isVisible, setIsSectionOnTop, setIsSectionOnBottom]);
 
+  const [currentSection] = useCurrentSection();
   /**
    * 현재 섹션의 위치 계산 함수
    */
   const calcCurrentPosition = useCallback(
     (event: React.UIEvent<HTMLElement, UIEvent>) => {
+      if (!isVisible || currentSection !== 1) {
+        // 섹션간 전환이 이뤄지는 와중에 스크롤이 발생 시 해당 이벤트 핸들러가 동작하는것을 방지
+        return;
+      }
+
       const el = event.currentTarget;
 
       setRecordScroll(el.scrollTop);
@@ -331,7 +338,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
       setIsSectionOnTop(scrollTop <= 0);
       setIsSectionOnBottom(scrollBottom <= 0);
     },
-    [setIsSectionOnBottom, setIsSectionOnTop]
+    [isVisible, setIsSectionOnBottom, setIsSectionOnTop, currentSection]
   );
 
   /**
