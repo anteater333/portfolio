@@ -73,6 +73,7 @@ import imgWorks08SS02 from "../../resources/images/works/screenshots/domado03.pn
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
 import { useIsOnMobile } from "../../hooks/useIsOnMobile";
+import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
 const worksArray: {
   workId: string;
@@ -452,6 +453,13 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
   }, [selectedItem.screenshots]);
 
   const [showImgSlider, setShowImgSlider] = useState(false);
+
+  const { setIsSectionOnBottom, setIsSectionOnTop } = useSectionScrollable();
+  /** 아이템이 선택되고 해제될때 섹션간 이동 가능 여부를 설정하는 Effect 훅 */
+  useEffect(() => {
+    setIsSectionOnBottom(selectedItemIndex < 0);
+    setIsSectionOnTop(selectedItemIndex < 0);
+  }, [selectedItemIndex, setIsSectionOnBottom, setIsSectionOnTop]);
 
   return (
     <section
