@@ -39,7 +39,7 @@ type RecordButtonListProp = {
 const RecordButtonList = React.memo(
   ({ totalIndex, currentIndex, onClick }: RecordButtonListProp) => {
     return (
-      <div className="flex w-full justify-center gap-4">
+      <div className="flex w-fit justify-center gap-4">
         {Array.from({ length: totalIndex }).map((_, index) => {
           return (
             <div
@@ -125,7 +125,7 @@ const recordsArray: {
   {
     title: "Records",
     year: "My",
-    lines: [[RecordSpecItem({ text: "스크롤 해 주세요" })]],
+    lines: [],
   },
   {
     year: 1995,
@@ -471,15 +471,15 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
             className={`flex h-full origin-bottom font-bold`}
           >
             <div id="records-content-left" className="w-full md:w-2/3">
-              <div className="flex h-full w-fit flex-col pl-8 pt-20 md:w-full md:pl-28 md:pt-32">
-                <div className="mb-2 flex w-full pr-36 md:w-[27.5rem] md:pr-0">
+              <div className="flex h-full w-full flex-col pl-8 pt-20 md:w-full md:pl-28 md:pt-32">
+                <div className="mb-2 flex w-[27.5rem] justify-center md:pr-0">
                   <RecordButtonList
                     totalIndex={numberOfRecords - 3}
                     currentIndex={currentRecord - 1}
                     onClick={toIndexedRecord}
                   />
                 </div>
-                <div className="z-20 flex w-full justify-center bg-white pr-36 md:justify-start md:pr-0">
+                <div className="z-20 flex w-full bg-white md:pr-0">
                   <div
                     id="records-picture-area"
                     className="flex h-[27.5rem] w-[27.5rem] justify-center overflow-hidden rounded-[6.25rem] bg-gradient-to-t from-sky-400 to-blue-500"

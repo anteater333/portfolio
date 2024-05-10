@@ -465,7 +465,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
           background: isFading ? "transparent" : undefined,
         }}
       >
-        <h1 className="border-b-[1rem] border-b-indigo-500 text-10xl font-bold leading-[10rem] text-indigo-500">
+        <h1 className="border-b-[1rem] border-b-indigo-500 text-8xl font-bold text-indigo-500 md:text-10xl md:leading-[10rem]">
           Works
         </h1>
       </div>
