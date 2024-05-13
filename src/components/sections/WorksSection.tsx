@@ -604,16 +604,16 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                   <div>
                     <h2 className="mb-4 text-4xl font-bold">Features</h2>
                     <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
-                      {selectedItem.features.map((feat) => (
-                        <li>{feat}</li>
+                      {selectedItem.features.map((feat, idx) => (
+                        <li key={`feat-list-${idx}`}>{feat}</li>
                       ))}
                     </ul>
                   </div>
                   <div>
                     <h2 className="mb-4 text-4xl font-bold">Tech Stack</h2>
                     <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
-                      {selectedItem.techStack.map((tech) => (
-                        <li>{tech}</li>
+                      {selectedItem.techStack.map((tech, idx) => (
+                        <li key={`tech-list-${idx}`}>{tech}</li>
                       ))}
                     </ul>
                   </div>
