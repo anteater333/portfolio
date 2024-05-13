@@ -534,9 +534,12 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               }, 150);
             }}
           >
-            <div id="works-description-left" className="pr-10 pt-20">
+            <div
+              id="works-description-left"
+              className="flex-shrink-0 pr-10 pt-20"
+            >
               <selectedItem.logoImg
-                className="h-[440px] w-[480px] rounded-3xl object-contain p-8 shadow-xl"
+                className="h-[440px] w-[440px] rounded-3xl object-contain p-8 shadow-xl"
                 alt={selectedItem.workId}
               />
             </div>
@@ -567,7 +570,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                     ({selectedItem.year})
                   </span>
                 </div>
-                <div className="flex flex-grow flex-col items-end gap-2 text-5xl">
+                <div className="flex flex-grow flex-col items-end gap-2 text-right text-5xl">
                   <span>{selectedItem.platform}</span>
 
                   <div className="flex gap-4">
@@ -618,12 +621,12 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               </div>
               <div
                 id="works-description-right-bottom"
-                className="flex justify-between"
+                className="flex justify-between gap-12"
               >
                 <div className="flex flex-col gap-20">
                   <div>
                     <h2 className="mb-4 text-4xl font-bold">Features</h2>
-                    <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
+                    <ul className="works-spec-list h-40 min-w-[16rem] max-w-lg list-disc overflow-scroll break-keep pl-8 text-3xl [&>li]:mb-4">
                       {selectedItem.features.map((feat, idx) => (
                         <li key={`feat-list-${idx}`}>{feat}</li>
                       ))}
@@ -631,20 +634,21 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                   </div>
                   <div>
                     <h2 className="mb-4 text-4xl font-bold">Tech Stack</h2>
-                    <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
+                    <ul className="works-spec-list h-40 min-w-[16rem] max-w-lg list-disc overflow-scroll break-keep pl-8 text-3xl [&>li]:mb-4">
                       {selectedItem.techStack.map((tech, idx) => (
                         <li key={`tech-list-${idx}`}>{tech}</li>
                       ))}
                     </ul>
                   </div>
                 </div>
-                <div className="flex flex-col items-center gap-12">
-                  <div className="inline h-24 w-[600px] border-l-4 border-indigo-500 pl-4 text-2xl">
+                <div className="flex min-w-[24rem] flex-col items-center gap-4">
+                  <div className="inline h-36 max-w-[600px] overflow-scroll border-l-4 border-indigo-500 pl-4 text-2xl">
                     {selectedItem.description}
                   </div>
-                  <div className="mt-4 w-[600px]">
+                  <div className="mt-4 h-full w-full max-w-[600px]">
                     {selectedItem.screenshots.length > 0 ? (
                       <button
+                        className="h-full w-full"
                         onClick={(event) => {
                           event.stopPropagation();
                           setShowImgSlider(true);
