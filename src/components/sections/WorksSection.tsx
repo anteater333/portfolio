@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import SectionProps from "./SectionProps";
 
 import {
@@ -75,7 +81,7 @@ import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
 import { useIsOnMobile } from "../../hooks/useIsOnMobile";
 import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
-const worksArray: {
+type WorksItemType = {
   workId: string;
   url: string;
   logoImg: ImgComponentType;
@@ -91,7 +97,9 @@ const worksArray: {
   description: string;
   features: string[];
   techStack: string[];
-}[] = [
+};
+
+const worksArray: WorksItemType[] = [
   {
     workId: "AIQA",
     url: "./3d/AIQA.glb",
@@ -322,6 +330,34 @@ const worksArray: {
   },
 ];
 
+/** 이미지 슬라이더 컴포넌트 */
+const MemoedSlider = React.memo(
+  ({ selectedItem }: { selectedItem: WorksItemType }) => {
+    // 이렇게 하지 않으면 새 아이템 선택할때마다 슬라이더의 첫 번째 이미지가 그대로 남아있는 문제가 있음
+    const InsideMemo = useMemo(() => {
+      return () => (
+        <SimpleImageSlider
+          width={"100%"}
+          height={"100%"}
+          images={selectedItem.screenshots}
+          showNavs={false}
+          showBullets={false}
+          autoPlay={selectedItem.screenshots.length > 1}
+          autoPlayDelay={5}
+          slideDuration={1.5}
+          bgColor="#ffffff"
+        />
+      );
+    }, [selectedItem.screenshots]);
+
+    return (
+      <div className="rsis-parent h-full w-full shadow-xl">
+        <InsideMemo />
+      </div>
+    );
+  }
+);
+
 const Model = (props: GroupProps & { index: number }) => {
   const { scene } = useGLTF(worksArray[props.index].url);
 
@@ -416,7 +452,9 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     ImgWorks09.ImageComponent,
   ]);
 
-  const [selectedItem, setSelectedItem] = useState(worksArray[0]);
+  const [selectedItem, setSelectedItem] = useState<WorksItemType>(
+    worksArray[0]
+  );
   const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
   const [isFading, setIsFading] = useState(false);
 
@@ -433,24 +471,6 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       setSelectedItem(worksArray[selectedItemIndex]);
     }
   }, [selectedItemIndex]);
-
-  const MemoedSlider = useMemo(() => {
-    return () => (
-      <div className="shadow-xl">
-        <SimpleImageSlider
-          width={"600px"}
-          height={"400px"}
-          images={selectedItem.screenshots}
-          showNavs={false}
-          showBullets={false}
-          autoPlay={selectedItem.screenshots.length > 1}
-          autoPlayDelay={5}
-          slideDuration={1.5}
-          bgColor="#ffffff"
-        />
-      </div>
-    );
-  }, [selectedItem.screenshots]);
 
   const [showImgSlider, setShowImgSlider] = useState(false);
 
@@ -630,7 +650,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                           setShowImgSlider(true);
                         }}
                       >
-                        <MemoedSlider />
+                        <MemoedSlider selectedItem={selectedItem} />
                       </button>
                     ) : undefined}
                   </div>
