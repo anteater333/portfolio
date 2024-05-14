@@ -40,7 +40,7 @@ type RecordButtonListProp = {
 const RecordButtonList = React.memo(
   ({ totalIndex, currentIndex, onClick }: RecordButtonListProp) => {
     return (
-      <div className="flex w-fit justify-center gap-4">
+      <div className="flex w-fit flex-col justify-center gap-4 md:flex-row">
         {Array.from({ length: totalIndex }).map((_, index) => {
           return (
             <div
@@ -462,7 +462,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     >
       <div className="-scroll-pb-0 h-[25000px] -scroll-mt-6">
         <div className="sticky top-0 h-recommended md:min-w-[90rem]">
-          <h1 className="absolute right-16 top-40 z-50 hidden border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500 md:block">
+          <h1 className="absolute left-[27rem] top-64 z-50 rotate-90 border-b-[1rem] border-b-blue-500 text-7xl font-bold text-blue-500 md:left-[auto] md:right-16 md:top-40 md:block md:rotate-0 md:text-10xl md:leading-[10rem]">
             Records
           </h1>
           <div
@@ -480,7 +480,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
           >
             <div id="records-content-left" className="w-full md:w-2/3">
               <div className="flex h-full w-full flex-col pl-8 pt-20 md:w-full md:pl-28 md:pt-32">
-                <div className="mb-2 flex w-[27.5rem] justify-center md:pr-0">
+                <div className="absolute left-[30rem] top-[10.5rem] z-50 pl-2 md:static md:mb-2 md:flex md:w-[27.5rem] md:justify-center md:pr-0">
                   <RecordButtonList
                     totalIndex={numberOfRecords - 3}
                     currentIndex={currentRecord - 1}
