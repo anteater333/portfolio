@@ -15,7 +15,7 @@ function PFooter() {
         All rights reserved.
       </div>
       <div>|</div>
-      <div>정보 갱신일 : {"2024-04-25"}</div>
+      <div>정보 갱신일 : {"2024-05-14"}</div>
       <div>|</div>
       <div>
         {import.meta.env.DEV ? (
