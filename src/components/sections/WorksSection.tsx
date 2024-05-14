@@ -197,7 +197,7 @@ const worksArray: WorksItemType[] = [
     logoImg: () => <></>,
     title: "Monallog",
     description:
-      'Monallog는 휘발되는 메시지를 주고받는 SNS라는 기획으로 개발을 시작한 프로젝트입니다. 사용자가 "채널"에서 실시간으로 떠다니는 메시지를 캡처할 수 있도록 만드는 것이 목표였으나 최종적으로 프로젝트가 드롭되었습니다.',
+      'Monallog는 휘발되는 메시지를 주고받는 SNS라는 기획으로 개발을 시작한 프로젝트입니다. 사용자가 "채널"에서 실시간으로 떠다니는 메시지를 캡처할 수 있도록 만드는 것이 목표였습니다.',
     year: "2019",
     platform: "Web Service",
     summary: "집단적 독백",
@@ -226,7 +226,7 @@ const worksArray: WorksItemType[] = [
       "QUE는 노래에 특화된 유튜브를 만들어보자는 아이디어에서 시작한 프로젝트입니다. 노래를 부르는 영상을 업로드하고 평가받을 수 있는 플랫폼을 만드는 것이 목표입니다.",
     year: "2022",
     platform: "Cross-platform Application",
-    summary: '"당신의 콘서트를 시작하세요"',
+    summary: "당신의 콘서트를 시작하세요",
     features: [
       "영상 업로드",
       "영상 내 타임라인 좋아요",
@@ -247,7 +247,7 @@ const worksArray: WorksItemType[] = [
       "숲은 2022년 어느날 혼자서 진행했던 해커톤에서 시작한 프로젝트입니다. '이 검색어가 왜 실검에 있지?'란 의문을 자주 하는 사람들을 위한 서비스입니다.",
     year: "2022",
     platform: "Web Service",
-    summary: '"가끔은 나무 대신 숲을 봐야 할 때도 있습니다."',
+    summary: "가끔은 나무 대신 숲을 봐야 할 때도 있습니다.",
     features: [
       "나무위키 실시간 인기 검색어 크롤링",
       "검색어에 대한 인스턴트 메모",
@@ -523,7 +523,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
             </div>
           ) : undefined}
           <div
-            className="absolute z-10 flex h-full w-full bg-white bg-opacity-95 pl-16 pr-32 pt-36 transition-opacity"
+            className="absolute z-10 flex h-full w-full flex-col bg-white bg-opacity-95 px-8 transition-opacity xl:flex-row xl:px-0 xl:pl-16 xl:pr-32 xl:pt-36"
             style={{
               opacity: isFading ? "100" : "0",
             }}
@@ -536,18 +536,86 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
           >
             <div
               id="works-description-left"
-              className="flex-shrink-0 pr-10 pt-20"
+              className="flex flex-shrink-0 justify-between pt-20 xl:mb-0 xl:pr-10"
             >
-              <selectedItem.logoImg
-                className="h-[440px] w-[440px] rounded-3xl object-contain p-8 shadow-xl"
-                alt={selectedItem.workId}
-              />
+              <div className="w-1/3 xl:w-full">
+                <selectedItem.logoImg
+                  className="h-20 w-20 object-contain xl:h-[440px] xl:w-[440px] xl:rounded-3xl xl:p-8 xl:shadow-xl"
+                  alt={selectedItem.workId}
+                />
+              </div>
+              <div
+                id="works-title-on-small"
+                className="flex flex-col items-center justify-center xl:hidden"
+              >
+                <span
+                  className={`${"font-bold"} ${
+                    selectedItem.smallTitle ? "text-2xl" : "text-4xl"
+                  }`}
+                >
+                  {selectedItem.title}
+                </span>
+                <span className="text-xl">({selectedItem.year})</span>
+              </div>
+              <div
+                id="works-properties-on-small"
+                className="flex w-1/3 flex-col items-end justify-center gap-2 pb-4 text-right text-xl xl:hidden"
+              >
+                <span>{selectedItem.platform}</span>
+
+                <div className="flex gap-2">
+                  {selectedItem.site ? (
+                    <a
+                      href={selectedItem.site}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                      }}
+                    >
+                      <img className="h-5" src={ICOHome} alt="hp" />
+                    </a>
+                  ) : undefined}
+                  {selectedItem.repoUrl ? (
+                    <a
+                      href={selectedItem.repoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                      }}
+                    >
+                      <img className="h-5" src={ICOGithub} alt="gh" />
+                    </a>
+                  ) : undefined}
+                  {selectedItem.reviewUrl ? (
+                    <a
+                      href={selectedItem.reviewUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                      }}
+                    >
+                      <img className="h-5" src={ICOBlog} alt="review" />
+                    </a>
+                  ) : undefined}
+                </div>
+              </div>
             </div>
+
+            <div
+              id="catchphrase-on-small"
+              className="mb-8 mt-2 text-center text-lg font-bold xl:hidden"
+            >
+              "{selectedItem.summary}"
+            </div>
+
             <div
               id="works-description-right"
-              className="flex flex-grow flex-col pl-12"
+              className="flex flex-1 flex-grow flex-col xl:flex-auto xl:pl-12"
             >
-              <div id="works-description-right-top" className="flex">
+              <div id="works-description-right-top" className="hidden xl:flex">
                 <div
                   className={
                     selectedItem.smallTitle ? "flex h-28 flex-col" : ""
@@ -615,37 +683,41 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               </div>
               <div
                 id="works-description-right-middle"
-                className="mb-12 mt-2 text-4xl"
+                className="mb-12 mt-2 hidden text-3xl font-bold xl:block"
               >
-                {selectedItem.summary}
+                "{selectedItem.summary}"
               </div>
               <div
                 id="works-description-right-bottom"
-                className="flex justify-between gap-12"
+                className="flex flex-1 flex-col gap-12 pb-64 xl:flex-auto xl:flex-row xl:justify-between xl:pb-32"
               >
-                <div className="flex flex-col gap-20">
-                  <div>
-                    <h2 className="mb-4 text-4xl font-bold">Features</h2>
-                    <ul className="works-spec-list h-40 min-w-[16rem] max-w-lg list-disc overflow-scroll break-keep pl-8 text-3xl [&>li]:mb-4">
+                <div className="flex gap-4 xl:flex-col xl:gap-20">
+                  <div className="mr-4 w-1/2 border-l-4 border-indigo-500 pl-4 xl:w-auto">
+                    <h2 className="mb-2 text-xl font-bold xl:mb-4 xl:text-4xl">
+                      Features
+                    </h2>
+                    <ul className="works-spec-list h-40 max-w-lg list-disc overflow-scroll break-keep pl-8 text-lg xl:min-w-[16rem] xl:text-3xl [&>li]:mb-1 xl:[&>li]:mb-4">
                       {selectedItem.features.map((feat, idx) => (
                         <li key={`feat-list-${idx}`}>{feat}</li>
                       ))}
                     </ul>
                   </div>
-                  <div>
-                    <h2 className="mb-4 text-4xl font-bold">Tech Stack</h2>
-                    <ul className="works-spec-list h-40 min-w-[16rem] max-w-lg list-disc overflow-scroll break-keep pl-8 text-3xl [&>li]:mb-4">
+                  <div className="w-1/2 border-l-4 border-indigo-500 pl-4 xl:ml-0 xl:w-auto">
+                    <h2 className="mb-2 text-xl font-bold xl:mb-4 xl:text-4xl">
+                      Tech Stack
+                    </h2>
+                    <ul className="works-spec-list h-40 max-w-lg list-disc overflow-scroll break-keep pl-8 text-lg xl:min-w-[16rem] xl:text-3xl [&>li]:mb-1 xl:[&>li]:mb-4">
                       {selectedItem.techStack.map((tech, idx) => (
                         <li key={`tech-list-${idx}`}>{tech}</li>
                       ))}
                     </ul>
                   </div>
                 </div>
-                <div className="flex min-w-[24rem] flex-col items-center gap-4">
-                  <div className="inline h-36 max-w-[600px] overflow-scroll border-l-4 border-indigo-500 pl-4 text-2xl">
+                <div className="flex flex-1 flex-row-reverse gap-4 xl:min-w-[24rem] xl:flex-auto xl:flex-col xl:items-end">
+                  <div className="mt-4 inline h-fit w-1/2 max-w-[600px] overflow-scroll border-l-4 border-indigo-500 pl-4 text-xl xl:mt-0 xl:h-1/3 xl:w-full xl:text-2xl">
                     {selectedItem.description}
                   </div>
-                  <div className="mt-4 h-full w-full max-w-[600px]">
+                  <div className="mt-4 h-full w-1/2 max-w-[600px] flex-shrink-0 xl:w-full xl:flex-shrink">
                     {selectedItem.screenshots.length > 0 ? (
                       <button
                         className="h-full w-full"
