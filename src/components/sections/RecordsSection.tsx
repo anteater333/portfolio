@@ -462,7 +462,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     >
       <div className="-scroll-pb-0 h-[25000px] -scroll-mt-6">
         <div className="sticky top-0 h-recommended md:min-w-[90rem]">
-          <h1 className="absolute right-16 top-40 z-50 hidden border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500 md:block">
+          <h1 className="absolute left-[27rem] top-64 z-50 rotate-90 border-b-[1rem] border-b-blue-500 text-7xl font-bold text-blue-500 md:left-[auto] md:right-16 md:top-40 md:block md:rotate-0 md:text-10xl md:leading-[10rem]">
             Records
           </h1>
           <div
