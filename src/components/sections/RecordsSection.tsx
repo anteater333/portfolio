@@ -23,6 +23,7 @@ import useIntersection from "../../hooks/useIntersection";
 
 import { easeInBack, easeOutBack } from "../../utils/easeFunctions";
 import { useSectionScrollable } from "../../hooks/useSectionScrollable";
+import { useCurrentSection } from "../../hooks/useCurrentSection";
 
 type RecordSpecItemProp = { text: string; emoji?: string; big?: boolean };
 
@@ -39,7 +40,7 @@ type RecordButtonListProp = {
 const RecordButtonList = React.memo(
   ({ totalIndex, currentIndex, onClick }: RecordButtonListProp) => {
     return (
-      <div className="flex w-full justify-center gap-4">
+      <div className="flex w-fit justify-center gap-4">
         {Array.from({ length: totalIndex }).map((_, index) => {
           return (
             <div
@@ -124,8 +125,8 @@ const recordsArray: {
 }[] = [
   {
     title: "Records",
-    lines: [],
     year: "My",
+    lines: [],
   },
   {
     year: 1995,
@@ -183,7 +184,7 @@ const recordsArray: {
   },
   {
     year: 2021,
-    title: "소프트웨어 마에스트로 12기 활동",
+    title: "소프트웨어 마에스트로 12기",
     lines: [
       [
         RecordSpecItem({
@@ -258,9 +259,10 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
   /** 이 섹션이 화면에 표시될 때의 행동 */
   useEffect(() => {
     if (!isVisible) {
-      // ref.current?.scrollTo({ top: 0 });
       setIsDisappeared(false);
     } else {
+      ref.current?.scrollTo({ top: 0 });
+
       let timeoutId = setTimeout(() => {
         setIsDisappeared(true);
       }, 2000);
@@ -313,11 +315,17 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
     }
   }, [isVisible, setIsSectionOnTop, setIsSectionOnBottom]);
 
+  const [currentSection] = useCurrentSection();
   /**
    * 현재 섹션의 위치 계산 함수
    */
   const calcCurrentPosition = useCallback(
     (event: React.UIEvent<HTMLElement, UIEvent>) => {
+      if (!isVisible || currentSection !== 1) {
+        // 섹션간 전환이 이뤄지는 와중에 스크롤이 발생 시 해당 이벤트 핸들러가 동작하는것을 방지
+        return;
+      }
+
       const el = event.currentTarget;
 
       setRecordScroll(el.scrollTop);
@@ -331,7 +339,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
       setIsSectionOnTop(scrollTop <= 0);
       setIsSectionOnBottom(scrollBottom <= 0);
     },
-    [setIsSectionOnBottom, setIsSectionOnTop]
+    [isVisible, setIsSectionOnBottom, setIsSectionOnTop, currentSection]
   );
 
   /**
@@ -453,35 +461,33 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
       ref={ref}
     >
       <div className="-scroll-pb-0 h-[25000px] -scroll-mt-6">
-        <div className="sticky top-0 h-recommended">
-          <h1 className="absolute right-16 top-40 z-50 border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500">
+        <div className="sticky top-0 h-recommended md:min-w-[90rem]">
+          <h1 className="absolute right-16 top-40 z-50 hidden border-b-[1rem] border-b-blue-500 text-10xl font-bold leading-[10rem] text-blue-500 md:block">
             Records
           </h1>
           <div
-            className="transition-{opacity} absolute bottom-40 z-50 w-full select-none text-center text-3xl font-bold ease-in"
+            className="transition-{opacity} absolute bottom-20 z-50 w-full select-none text-center font-galmuri7 text-4xl font-bold delay-500 duration-[2000ms] ease-linear"
             style={{
-              transitionDelay: isVisible ? "500ms" : "0ms",
-              transitionDuration: isVisible ? "2000ms" : "0ms",
               opacity: isVisible ? 0 : 100,
               display: isDisappeared ? "none" : "block",
             }}
           >
-            휠 클릭으로 스크롤해 보세요.
+            ↓ Scroll ↓
           </div>
           <div
             id="records-content-area"
             className={`flex h-full origin-bottom font-bold`}
           >
-            <div id="records-content-left" className="w-2/3">
-              <div className="flex h-full w-full flex-col pl-28 pt-32">
-                <div className="mb-2 flex w-[27.5rem]">
+            <div id="records-content-left" className="w-full md:w-2/3">
+              <div className="flex h-full w-full flex-col pl-8 pt-20 md:w-full md:pl-28 md:pt-32">
+                <div className="mb-2 flex w-[27.5rem] justify-center md:pr-0">
                   <RecordButtonList
                     totalIndex={numberOfRecords - 3}
                     currentIndex={currentRecord - 1}
                     onClick={toIndexedRecord}
                   />
                 </div>
-                <div className="z-20 flex w-full justify-start bg-white">
+                <div className="z-20 flex w-full bg-white md:pr-0">
                   <div
                     id="records-picture-area"
                     className="flex h-[27.5rem] w-[27.5rem] justify-center overflow-hidden rounded-[6.25rem] bg-gradient-to-t from-sky-400 to-blue-500"
@@ -515,28 +521,31 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
                     ></div>
                   </div>
                 </div>
-                <div className="h-full flex-1">
+                <div className="flex h-full flex-1 md:block md:justify-center">
                   <div
-                    className="absolute -ml-4 flex flex-col text-5xl"
+                    className="absolute ml-14 flex flex-col text-4xl md:-ml-4 md:text-5xl"
                     style={{
                       transform: `translateY(${recordPosition}px)`,
                     }}
                   >
-                    <div className="flex space-x-6 pt-6">
-                      <div className="flex w-44 items-center justify-end text-[4rem]">
+                    <div className="flex space-x-6 pt-12 md:pt-6">
+                      <div className="hidden w-44 items-center justify-end text-[4rem] md:flex">
                         <span>{recordsArray[currentRecord].year}</span>
                       </div>
-                      <div className="h-[4.5rem] w-[4.5rem] rounded-full border-[1rem] border-black bg-white"></div>
-                      <div className="flex items-center justify-center">
+                      <div className="h-12 w-12 rounded-full border-[.75rem] border-black bg-white md:h-[4.5rem] md:w-[4.5rem] md:border-[1rem]"></div>
+                      <div className="-mt-6 flex flex-col items-center justify-center md:mt-0">
+                        <span className="w-full text-xl md:hidden">
+                          {recordsArray[currentRecord].year}
+                        </span>
                         <span>{recordsArray[currentRecord].title}</span>
                       </div>
                     </div>
-                    <div className="mt-4 flex h-64 flex-col justify-center space-y-8 pl-[18.5rem] text-4xl">
+                    <div className="mt-12 flex flex-col justify-center space-y-4 pl-24 text-3xl md:mt-4 md:h-64 md:space-y-8 md:pl-[18.5rem] md:text-4xl">
                       {recordsArray[currentRecord].lines.map((line, index) => {
                         return (
                           <span
                             key={`record-context-${currentRecord}-${index}`}
-                            className="space-x-4"
+                            className="pr-4 md:space-x-4 md:whitespace-nowrap md:pr-0"
                           >
                             {line}
                           </span>
@@ -544,15 +553,15 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
                       })}
                     </div>
                   </div>
-                  <div className="ml-52 h-full w-6 bg-black" />
+                  <div className="ml-24 h-full w-4 bg-black md:ml-52 md:mr-0 md:w-6" />
                 </div>
               </div>
             </div>
             <div
               id="records-content-right"
-              className="flex h-full w-1/3 flex-col justify-end font-bold"
+              className="hidden h-full w-1/3 flex-col justify-end font-bold md:flex"
             >
-              <div className="z-30 h-full flex-grow-0 bg-white"></div>
+              <div className="z-40 hidden h-full flex-grow-0 bg-white md:block"></div>
               <div className="mt-6 h-[37.5rem] flex-shrink-0">
                 <div className="absolute flex flex-col space-y-28">
                   {/* Next Data #1 */}
@@ -568,7 +577,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
                         <div className="flex w-44 items-center text-5xl text-[4rem]">
                           <span>{recordsArray[currentRecord + 1].year}</span>
                         </div>
-                        <div className="mt-2 flex items-center text-4xl">
+                        <div className="mt-2 flex items-center whitespace-nowrap text-4xl">
                           <span>{recordsArray[currentRecord + 1].title}</span>
                         </div>
                       </div>
@@ -587,7 +596,7 @@ function RecordsSection({ updateLoadingProgress }: SectionProps) {
                         <div className="flex w-44 items-center text-5xl text-[4rem]">
                           <span>{recordsArray[currentRecord + 2].year}</span>
                         </div>
-                        <div className="mt-2 flex items-center text-4xl">
+                        <div className="mt-2 flex items-center whitespace-nowrap text-4xl">
                           <span>{recordsArray[currentRecord + 2].title}</span>
                         </div>
                       </div>

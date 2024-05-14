@@ -48,7 +48,7 @@ function PBody() {
   );
 
   return (
-    <main className={`flex w-recommended flex-col`}>
+    <main className={`flex w-full max-w-recommended flex-col`}>
       <ProfileSection
         updateLoadingProgress={updateSectionProgress}
         isAllSectionLoaded={isAllSectionLoaded}

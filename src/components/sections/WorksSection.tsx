@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import SectionProps from "./SectionProps";
 
 import {
@@ -72,8 +78,10 @@ import imgWorks08SS02 from "../../resources/images/works/screenshots/domado03.pn
 
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
+import { useIsOnMobile } from "../../hooks/useIsOnMobile";
+import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
-const worksArray: {
+type WorksItemType = {
   workId: string;
   url: string;
   logoImg: ImgComponentType;
@@ -89,7 +97,9 @@ const worksArray: {
   description: string;
   features: string[];
   techStack: string[];
-}[] = [
+};
+
+const worksArray: WorksItemType[] = [
   {
     workId: "AIQA",
     url: "./3d/AIQA.glb",
@@ -187,7 +197,7 @@ const worksArray: {
     logoImg: () => <></>,
     title: "Monallog",
     description:
-      'Monallog는 휘발되는 메시지를 주고받는 SNS라는 기획으로 개발을 시작한 프로젝트입니다. 사용자가 "채널"에서 실시간으로 떠다니는 메시지를 캡처할 수 있도록 만드는 것이 목표였으나 최종적으로 프로젝트가 드롭되었습니다.',
+      'Monallog는 휘발되는 메시지를 주고받는 SNS라는 기획으로 개발을 시작한 프로젝트입니다. 사용자가 "채널"에서 실시간으로 떠다니는 메시지를 캡처할 수 있도록 만드는 것이 목표였습니다.',
     year: "2019",
     platform: "Web Service",
     summary: "집단적 독백",
@@ -216,7 +226,7 @@ const worksArray: {
       "QUE는 노래에 특화된 유튜브를 만들어보자는 아이디어에서 시작한 프로젝트입니다. 노래를 부르는 영상을 업로드하고 평가받을 수 있는 플랫폼을 만드는 것이 목표입니다.",
     year: "2022",
     platform: "Cross-platform Application",
-    summary: '"당신의 콘서트를 시작하세요"',
+    summary: "당신의 콘서트를 시작하세요",
     features: [
       "영상 업로드",
       "영상 내 타임라인 좋아요",
@@ -237,7 +247,7 @@ const worksArray: {
       "숲은 2022년 어느날 혼자서 진행했던 해커톤에서 시작한 프로젝트입니다. '이 검색어가 왜 실검에 있지?'란 의문을 자주 하는 사람들을 위한 서비스입니다.",
     year: "2022",
     platform: "Web Service",
-    summary: '"가끔은 나무 대신 숲을 봐야 할 때도 있습니다."',
+    summary: "가끔은 나무 대신 숲을 봐야 할 때도 있습니다.",
     features: [
       "나무위키 실시간 인기 검색어 크롤링",
       "검색어에 대한 인스턴트 메모",
@@ -319,6 +329,34 @@ const worksArray: {
     site: "https://blog.anteater-lab.link/portfolio/",
   },
 ];
+
+/** 이미지 슬라이더 컴포넌트 */
+const MemoedSlider = React.memo(
+  ({ selectedItem }: { selectedItem: WorksItemType }) => {
+    // 이렇게 하지 않으면 새 아이템 선택할때마다 슬라이더의 첫 번째 이미지가 그대로 남아있는 문제가 있음
+    const InsideMemo = useMemo(() => {
+      return () => (
+        <SimpleImageSlider
+          width={"100%"}
+          height={"100%"}
+          images={selectedItem.screenshots}
+          showNavs={false}
+          showBullets={false}
+          autoPlay={selectedItem.screenshots.length > 1}
+          autoPlayDelay={5}
+          slideDuration={1.5}
+          bgColor="#ffffff"
+        />
+      );
+    }, [selectedItem.screenshots]);
+
+    return (
+      <div className="rsis-parent h-full w-full shadow-xl">
+        <InsideMemo />
+      </div>
+    );
+  }
+);
 
 const Model = (props: GroupProps & { index: number }) => {
   const { scene } = useGLTF(worksArray[props.index].url);
@@ -414,7 +452,9 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     ImgWorks09.ImageComponent,
   ]);
 
-  const [selectedItem, setSelectedItem] = useState(worksArray[0]);
+  const [selectedItem, setSelectedItem] = useState<WorksItemType>(
+    worksArray[0]
+  );
   const [selectedItemIndex, setSelectedItemIndex] = useState(-1);
   const [isFading, setIsFading] = useState(false);
 
@@ -432,25 +472,14 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
     }
   }, [selectedItemIndex]);
 
-  const MemoedSlider = useMemo(() => {
-    return () => (
-      <div className="shadow-xl">
-        <SimpleImageSlider
-          width={"600px"}
-          height={"400px"}
-          images={selectedItem.screenshots}
-          showNavs={false}
-          showBullets={false}
-          autoPlay={selectedItem.screenshots.length > 1}
-          autoPlayDelay={5}
-          slideDuration={1.5}
-          bgColor="#ffffff"
-        />
-      </div>
-    );
-  }, [selectedItem.screenshots]);
-
   const [showImgSlider, setShowImgSlider] = useState(false);
+
+  const { setIsSectionOnBottom, setIsSectionOnTop } = useSectionScrollable();
+  /** 아이템이 선택되고 해제될때 섹션간 이동 가능 여부를 설정하는 Effect 훅 */
+  useEffect(() => {
+    setIsSectionOnBottom(selectedItemIndex < 0);
+    setIsSectionOnTop(selectedItemIndex < 0);
+  }, [selectedItemIndex, setIsSectionOnBottom, setIsSectionOnTop]);
 
   return (
     <section
@@ -464,7 +493,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
           background: isFading ? "transparent" : undefined,
         }}
       >
-        <h1 className="border-b-[1rem] border-b-indigo-500 text-10xl font-bold leading-[10rem] text-indigo-500">
+        <h1 className="border-b-[1rem] border-b-indigo-500 text-8xl font-bold text-indigo-500 md:text-10xl md:leading-[10rem]">
           Works
         </h1>
       </div>
@@ -494,7 +523,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
             </div>
           ) : undefined}
           <div
-            className="absolute z-10 flex h-full w-full bg-white bg-opacity-95 pl-16 pr-32 pt-36 transition-opacity"
+            className="absolute z-10 flex h-full w-full flex-col bg-white bg-opacity-95 px-8 transition-opacity xl:flex-row xl:px-0 xl:pl-16 xl:pr-32 xl:pt-36"
             style={{
               opacity: isFading ? "100" : "0",
             }}
@@ -505,17 +534,88 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               }, 150);
             }}
           >
-            <div id="works-description-left" className="pr-10 pt-20">
-              <selectedItem.logoImg
-                className="h-[440px] w-[480px] rounded-3xl object-contain p-8 shadow-xl"
-                alt={selectedItem.workId}
-              />
+            <div
+              id="works-description-left"
+              className="flex flex-shrink-0 justify-between pt-20 xl:mb-0 xl:pr-10"
+            >
+              <div className="w-1/3 xl:w-full">
+                <selectedItem.logoImg
+                  className="h-20 w-20 object-contain xl:h-[440px] xl:w-[440px] xl:rounded-3xl xl:p-8 xl:shadow-xl"
+                  alt={selectedItem.workId}
+                />
+              </div>
+              <div
+                id="works-title-on-small"
+                className="flex flex-col items-center justify-center xl:hidden"
+              >
+                <span
+                  className={`${"font-bold"} ${
+                    selectedItem.smallTitle ? "text-2xl" : "text-4xl"
+                  }`}
+                >
+                  {selectedItem.title}
+                </span>
+                <span className="text-xl">({selectedItem.year})</span>
+              </div>
+              <div
+                id="works-properties-on-small"
+                className="flex w-1/3 flex-col items-end justify-center gap-2 pb-4 text-right text-xl xl:hidden"
+              >
+                <span>{selectedItem.platform}</span>
+
+                <div className="flex gap-2">
+                  {selectedItem.site ? (
+                    <a
+                      href={selectedItem.site}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                      }}
+                    >
+                      <img className="h-5" src={ICOHome} alt="hp" />
+                    </a>
+                  ) : undefined}
+                  {selectedItem.repoUrl ? (
+                    <a
+                      href={selectedItem.repoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                      }}
+                    >
+                      <img className="h-5" src={ICOGithub} alt="gh" />
+                    </a>
+                  ) : undefined}
+                  {selectedItem.reviewUrl ? (
+                    <a
+                      href={selectedItem.reviewUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                      }}
+                    >
+                      <img className="h-5" src={ICOBlog} alt="review" />
+                    </a>
+                  ) : undefined}
+                </div>
+              </div>
             </div>
+
+            <div
+              id="catchphrase-on-small"
+              className="mb-8 mt-2 text-center text-lg font-bold xl:hidden"
+            >
+              "{selectedItem.summary}"
+            </div>
+
             <div
               id="works-description-right"
-              className="flex flex-grow flex-col pl-12"
+              className="flex flex-1 flex-grow flex-col xl:flex-auto xl:pl-12"
             >
-              <div id="works-description-right-top" className="flex">
+              <div id="works-description-right-top" className="hidden xl:flex">
                 <div
                   className={
                     selectedItem.smallTitle ? "flex h-28 flex-col" : ""
@@ -538,7 +638,7 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                     ({selectedItem.year})
                   </span>
                 </div>
-                <div className="flex flex-grow flex-col items-end gap-2 text-5xl">
+                <div className="flex flex-grow flex-col items-end gap-2 text-right text-5xl">
                   <span>{selectedItem.platform}</span>
 
                   <div className="flex gap-4">
@@ -583,45 +683,50 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
               </div>
               <div
                 id="works-description-right-middle"
-                className="mb-12 mt-2 text-4xl"
+                className="mb-12 mt-2 hidden text-3xl font-bold xl:block"
               >
-                {selectedItem.summary}
+                "{selectedItem.summary}"
               </div>
               <div
                 id="works-description-right-bottom"
-                className="flex justify-between"
+                className="flex flex-1 flex-col gap-12 pb-64 xl:flex-auto xl:flex-row xl:justify-between xl:pb-32"
               >
-                <div className="flex flex-col gap-20">
-                  <div>
-                    <h2 className="mb-4 text-4xl font-bold">Features</h2>
-                    <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
-                      {selectedItem.features.map((feat) => (
-                        <li>{feat}</li>
+                <div className="flex gap-4 xl:flex-col xl:gap-20">
+                  <div className="mr-4 w-1/2 border-l-4 border-indigo-500 pl-4 xl:w-auto">
+                    <h2 className="mb-2 text-xl font-bold xl:mb-4 xl:text-4xl">
+                      Features
+                    </h2>
+                    <ul className="works-spec-list h-40 max-w-lg list-disc overflow-scroll break-keep pl-8 text-lg xl:min-w-[16rem] xl:text-3xl [&>li]:mb-1 xl:[&>li]:mb-4">
+                      {selectedItem.features.map((feat, idx) => (
+                        <li key={`feat-list-${idx}`}>{feat}</li>
                       ))}
                     </ul>
                   </div>
-                  <div>
-                    <h2 className="mb-4 text-4xl font-bold">Tech Stack</h2>
-                    <ul className="h-40 max-w-lg list-disc break-keep pl-8 text-3xl [&>li]:mb-4">
-                      {selectedItem.techStack.map((tech) => (
-                        <li>{tech}</li>
+                  <div className="w-1/2 border-l-4 border-indigo-500 pl-4 xl:ml-0 xl:w-auto">
+                    <h2 className="mb-2 text-xl font-bold xl:mb-4 xl:text-4xl">
+                      Tech Stack
+                    </h2>
+                    <ul className="works-spec-list h-40 max-w-lg list-disc overflow-scroll break-keep pl-8 text-lg xl:min-w-[16rem] xl:text-3xl [&>li]:mb-1 xl:[&>li]:mb-4">
+                      {selectedItem.techStack.map((tech, idx) => (
+                        <li key={`tech-list-${idx}`}>{tech}</li>
                       ))}
                     </ul>
                   </div>
                 </div>
-                <div className="flex flex-col items-center gap-12">
-                  <div className="inline h-24 w-[600px] border-l-4 border-indigo-500 pl-4 text-2xl">
+                <div className="flex flex-1 flex-row-reverse gap-4 xl:min-w-[24rem] xl:flex-auto xl:flex-col xl:items-end">
+                  <div className="mt-4 inline h-fit w-1/2 max-w-[600px] overflow-scroll border-l-4 border-indigo-500 pl-4 text-xl xl:mt-0 xl:h-1/3 xl:w-full xl:text-2xl">
                     {selectedItem.description}
                   </div>
-                  <div className="mt-4 w-[600px]">
+                  <div className="mt-4 h-full w-1/2 max-w-[600px] flex-shrink-0 xl:w-full xl:flex-shrink">
                     {selectedItem.screenshots.length > 0 ? (
                       <button
+                        className="h-full w-full"
                         onClick={(event) => {
                           event.stopPropagation();
                           setShowImgSlider(true);
                         }}
                       >
-                        <MemoedSlider />
+                        <MemoedSlider selectedItem={selectedItem} />
                       </button>
                     ) : undefined}
                   </div>
@@ -812,13 +917,24 @@ function PWorld() {
 function PCamera({ vec = new Vector3(), initialState = true }) {
   const camera = useRef<TPerspectiveCamera>(null!);
 
+  const { isOnMobile } = useIsOnMobile();
+
   const frameHandler = useCallback(
     (state: RootState) => {
       if (initialState) {
-        camera.current?.position.lerp(vec.set(0, 5, 2), 0.05);
+        const cameraHeight = !isOnMobile ? 5 : 2.5;
+
+        camera.current?.position.lerp(vec.set(0, cameraHeight, 2), 0.05);
       } else {
+        /** 바닥을 바라보는 카메라의 높이 */
+        const cameraHeight = isOnMobile ? 5 : 2.5;
+
         camera.current?.position.lerp(
-          vec.set(-0 + state.mouse.x / 2, 2.5, 0.5 - state.mouse.y / 2),
+          vec.set(
+            -0 + state.mouse.x / 2,
+            cameraHeight,
+            0.5 - state.mouse.y / 2
+          ),
           0.1
         );
         camera.current?.rotation.set(...deg2RadXYZ(-80 + state.mouse.x, 0, 0));
@@ -826,7 +942,7 @@ function PCamera({ vec = new Vector3(), initialState = true }) {
 
       camera.current?.updateMatrixWorld();
     },
-    [initialState, vec]
+    [initialState, vec, isOnMobile]
   );
   useFrame(frameHandler);
 

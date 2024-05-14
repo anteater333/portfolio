@@ -9,6 +9,12 @@ module.exports = {
       height: {
         recommended: "1000px",
       },
+      maxWidth: {
+        recommended: "1920px",
+      },
+      maxHeight: {
+        recommended: "1000px",
+      },
       colors: {
         white: "#f2f2f2",
         black: "#222222",

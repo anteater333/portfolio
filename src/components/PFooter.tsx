@@ -1,7 +1,9 @@
 function PFooter() {
   return (
-    <footer className="flex w-recommended flex-col text-center text-neutral-500">
-      <div className="mb-2 mt-2">
+    <footer className="mt-4 flex w-full min-w-[1080px] max-w-recommended justify-center gap-2 text-center text-neutral-500">
+      <div>이 사이트는 1920x1200 해상도에 최적화 되어있습니다.</div>
+      <div>|</div>
+      <div>
         Copyright© 2023.{" "}
         <a
           className="cursor-pointer"
@@ -12,9 +14,10 @@ function PFooter() {
         </a>{" "}
         All rights reserved.
       </div>
-      <div>정보 갱신일 : {"2024-04-25"}</div>
-      <div>이 사이트는 1920x1200 해상도에 최적화 되어있습니다.</div>
-      <div className="mb-4 mt-2 flex justify-center">
+      <div>|</div>
+      <div>정보 갱신일 : {"2024-05-14"}</div>
+      <div>|</div>
+      <div>
         {import.meta.env.DEV ? (
           <p>DEV MODE</p>
         ) : (

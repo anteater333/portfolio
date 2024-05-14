@@ -26,7 +26,7 @@ function PHeader() {
     <header
       id="site-header"
       ref={headerRef}
-      className={`fixed z-40 w-recommended overflow-hidden bg-white bg-opacity-80 px-16 pt-2 transition-all ${
+      className={`fixed z-40 w-full max-w-recommended overflow-hidden bg-white bg-opacity-80 px-4 pt-2 transition-all md:px-16 ${
         showHeader || (currentSection !== 0 && currentSection !== 4)
           ? "opacity-100"
           : "opacity-0"
@@ -36,7 +36,7 @@ function PHeader() {
     >
       <nav
         id="site-nav-bar"
-        className="flex justify-evenly text-2xl [&>a]:flex [&>a]:h-16 [&>a]:w-48 [&>a]:items-center [&>a]:justify-center [&>a]:border-b-4 [&>a]:border-b-black/0"
+        className="flex justify-evenly text-lg md:text-2xl [&>a]:flex [&>a]:h-12 [&>a]:w-48 [&>a]:items-center [&>a]:justify-center [&>a]:border-b-4 [&>a]:border-b-black/0 md:[&>a]:h-16"
       >
         <a
           className={`transition-all ${

@@ -16,6 +16,7 @@ import imgSkill05 from "../../resources/images/skills/img_s3_07_skill_pm.png";
 import imgSkill06 from "../../resources/images/skills/img_s3_08_skill_infra.png";
 import imgSkill07 from "../../resources/images/skills/img_s3_09_skill_etc.png";
 import { useImageLoader } from "../../hooks/useImageLoader";
+import { useIsOnMobile } from "../../hooks/useIsOnMobile";
 import { useSectionScrollable } from "../../hooks/useSectionScrollable";
 
 const bgBannerTextArray = [
@@ -227,7 +228,13 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
       const Selected = SkillImages[index];
 
-      return <Selected draggable="false" alt={skillsArray[index].title} />;
+      return (
+        <Selected
+          className="rounded-3xl"
+          draggable="false"
+          alt={skillsArray[index].title}
+        />
+      );
     },
     [
       ImgSkill00.ImageComponent,
@@ -282,9 +289,11 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
   const { setIsSectionOnBottom, setIsSectionOnTop } = useSectionScrollable();
 
+  const { isOnMobile } = useIsOnMobile();
+
   /** 자동 스크롤, 사용자 조작에 반응해야 해서 animation이 아닌 scroll을 직접 건드림 */
   useEffect(() => {
-    if (selectedItem < 0 && isVisible) {
+    if (selectedItem < 0 && isVisible && !isOnMobile) {
       const target = sideScrollRef.current;
       const intervalId = setInterval(() => {
         if (!isUserScrolling && target) {
@@ -327,7 +336,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
 
       return () => clearInterval(intervalId);
     }
-  }, [isToLeft, isUserScrolling, isVisible, selectedItem]);
+  }, [isToLeft, isUserScrolling, isVisible, selectedItem, isOnMobile]);
 
   /** Drag & Drop Scrolling */
   useEffect(() => {
@@ -390,7 +399,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         setIsUserScrolling(false);
       }, 500);
     },
-    []
+    [setIsSectionOnBottom, setIsSectionOnTop]
   );
   const returnToList = useCallback(() => {
     setIsSectionOnBottom(true);
@@ -405,7 +414,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         setIsUserScrolling(false);
       }, 150);
     }, 150);
-  }, []);
+  }, [setIsSectionOnBottom, setIsSectionOnTop]);
 
   /** 이 섹션이 화면에 노출 시 행동 */
   useEffect(() => {
@@ -511,7 +520,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
         }}
       />
 
-      <h1 className="absolute bottom-10 right-16 z-50 border-b-[1rem] border-b-white text-10xl font-bold leading-[10rem] text-white">
+      <h1 className="absolute bottom-10 right-8 z-50 border-b-[1rem] border-b-white text-8xl font-bold text-white md:right-16 md:text-10xl md:leading-[10rem]">
         <a
           href="https://blog.anteater-lab.link"
           target="_blank"
@@ -526,7 +535,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           <div>
             <div
               id="skills-items-list"
-              className="mb-10 mt-16 flex cursor-grab items-center gap-80 overflow-y-scroll px-40 pb-10 pt-16 transition-all duration-500 active:cursor-none"
+              className="mb-10 mt-16 flex cursor-grab flex-wrap items-center justify-center gap-8 px-8 pb-10 pt-16 transition-all duration-500 active:cursor-none md:flex-nowrap md:gap-80 md:overflow-y-scroll md:px-40"
               style={{
                 opacity: isFading ? "0" : "100",
                 transform: isFading ? "translateY(100%)" : "translateY(0%)",
@@ -538,7 +547,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 return (
                   <button
                     key={`skill-button-${i}`}
-                    className="custom-skill-button flex h-[40rem] w-[40rem] flex-shrink-0 items-center justify-center rounded-[4rem] bg-white"
+                    className="custom-skill-button flex h-36 w-36 flex-shrink-0 items-center justify-center rounded-3xl bg-white p-[2.5%] md:h-[40rem] md:w-[40rem]"
                     onClick={(event) => skillItemClickHandler(event, i)}
                   >
                     {SkillImageByIndex(i)}
@@ -551,13 +560,14 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
           /* 2. 아이템 선택 후 화면 */
           <div className="flex h-full flex-col">
             <div
-              className="mt-32 flex items-center justify-between px-12 pb-10 opacity-100 transition-opacity"
+              className="mt-20 flex items-center justify-between px-12 pb-10 opacity-100 transition-opacity md:mt-32"
               style={{
                 opacity: isFading ? "0" : "100",
               }}
             >
               <img
-                className="w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
+                // TBD :: refactoring
+                className="hidden w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30 md:block"
                 draggable="false"
                 src={leftArrow}
                 alt="left-arrow"
@@ -568,18 +578,43 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                   );
                 }}
               />
-              <div className="flex flex-1 px-12">
-                <button
-                  className="custom-skill-button flex h-[40rem] w-[40rem] flex-shrink-0 items-center justify-center rounded-[4rem] bg-white"
-                  onClick={returnToList}
-                >
-                  {SkillImageByIndex(selectedItem)}
-                </button>
+              <div className="flex flex-1 flex-col md:flex-row md:px-12">
+                <div className="flex flex-1 flex-row items-center justify-between pb-4">
+                  <img
+                    className="block h-12 w-10 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30 md:hidden"
+                    draggable="false"
+                    src={leftArrow}
+                    alt="left-arrow"
+                    onClick={() => {
+                      setSelectedItem(
+                        (prev) =>
+                          (prev - 1 + skillsArray.length) % skillsArray.length
+                      );
+                    }}
+                  />
+                  <button
+                    className="custom-skill-button flex h-32 max-h-[40rem] w-32 max-w-[40rem] flex-shrink-0 items-center justify-center self-center overflow-hidden rounded-3xl bg-white p-[2.5%] md:h-[33vw] md:w-[33vw]"
+                    onClick={returnToList}
+                  >
+                    {SkillImageByIndex(selectedItem)}
+                  </button>
+                  <img
+                    className="block h-12 w-10 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30 md:hidden"
+                    draggable="false"
+                    src={rightArrow}
+                    alt="right-arrow"
+                    onClick={() => {
+                      setSelectedItem(
+                        (prev) => (prev + 1) % skillsArray.length
+                      );
+                    }}
+                  />
+                </div>
                 <div className="w-full font-bold text-white drop-shadow-lg">
-                  <div className="pb-8 text-right text-5xl">
+                  <div className="whitespace-nowrap pb-8 text-center text-3xl md:text-right md:text-5xl">
                     {skillsArray[selectedItem].title}
                   </div>
-                  <ul className="flex h-[38rem] flex-col gap-8 overflow-scroll pb-8 pl-32 text-4xl">
+                  <ul className="flex h-[34rem] flex-col gap-8 overflow-scroll pb-8 pl-8 text-2xl md:h-[36rem] md:pl-16 md:text-3xl xl:pl-32 xl:text-4xl">
                     {skillsArray[selectedItem].description.map(
                       (desc, index) => {
                         return (
@@ -596,7 +631,7 @@ function SkillsSection({ updateLoadingProgress }: SectionProps) {
                 </div>
               </div>
               <img
-                className="w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30"
+                className="hidden w-14 cursor-pointer opacity-70 hover:opacity-100 active:opacity-30 md:block"
                 draggable="false"
                 src={rightArrow}
                 alt="right-arrow"

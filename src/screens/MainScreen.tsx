@@ -69,7 +69,7 @@ function MainScreen() {
 
   /** 스크롤에 의한 화면 전환이 중복해서 발동되는 것을 방지 */
   useEffect(() => {
-    if (isScrolling) setTimeout(() => setIsScrolling(false), 1000);
+    if (isScrolling) setTimeout(() => setIsScrolling(false), 750);
   }, [isScrolling]);
 
   /** MainScreen 마운트 시 URL을 파싱해 URL에 ID가 포함된 섹션의 위치로 자동 스크롤 */
@@ -99,7 +99,7 @@ function MainScreen() {
     <>
       <div
         id="app-main-screen"
-        className="relative h-recommended w-recommended snap-y snap-mandatory overflow-hidden overscroll-y-none"
+        className="relative h-recommended w-full max-w-recommended snap-y snap-mandatory overflow-hidden overscroll-y-none"
         onWheel={throttle(changeSectionByScroll, 250)}
         ref={mainScreenRef}
       >
