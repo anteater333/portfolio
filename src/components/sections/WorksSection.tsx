@@ -75,6 +75,9 @@ import imgWorks07SS03 from "../../resources/images/works/screenshots/theWhiteboa
 import imgWorks08SS00 from "../../resources/images/works/screenshots/domado01.png";
 import imgWorks08SS01 from "../../resources/images/works/screenshots/domado02.png";
 import imgWorks08SS02 from "../../resources/images/works/screenshots/domado03.png";
+import imgWorks09SS00 from "../../resources/images/works/screenshots/portfolio01.png";
+import imgWorks09SS01 from "../../resources/images/works/screenshots/portfolio02.png";
+import imgWorks09SS02 from "../../resources/images/works/screenshots/portfolio03.png";
 
 import useIntersection from "../../hooks/useIntersection";
 import { ImgComponentType, useImageLoader } from "../../hooks/useImageLoader";
@@ -311,7 +314,7 @@ const worksArray: WorksItemType[] = [
   {
     workId: "portfolio",
     url: "./3d/portfolio.glb",
-    screenshots: [],
+    screenshots: [imgWorks09SS00, imgWorks09SS01, imgWorks09SS02],
     logoImg: () => <></>,
     title: "포트폴리오",
     description:
@@ -322,6 +325,7 @@ const worksArray: WorksItemType[] = [
     features: [
       "자기소개",
       "다양한 상호작용",
+      "2D & 3D CGI",
       "사이트에 숨겨진 버튼을 찾아보세요.",
     ],
     techStack: ["React", "TailwindCSS", "Three.js"],
