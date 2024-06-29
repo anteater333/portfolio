@@ -140,7 +140,7 @@ const skillsArray: {
     ],
   },
   {
-    title: "Javascript",
+    title: "JavaScript",
     description: [
       "주력 프로그래밍 언어",
       "JavaScript 기반 풀 스택 웹 서비스 개발 가능",
