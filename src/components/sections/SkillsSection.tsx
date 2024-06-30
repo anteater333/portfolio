@@ -144,7 +144,7 @@ const skillsArray: {
     description: [
       "주력 프로그래밍 언어",
       "JavaScript 기반 풀 스택 웹 서비스 개발 가능",
-      "자바스크립트 비동기 처리 주제 블로그 article 작성",
+      "JavaScript 비동기 처리 주제 블로그 article 작성",
       "JavaScript 관련 팁 블로그 article 다수 작성",
       "Web Browser, Node.js, Deno 다양한 JS 실행 환경 경험 보유",
       "TypeScript 적용 프로젝트 경험 보유",
