@@ -59,6 +59,8 @@ import imgWorks02SS01 from "../../resources/images/works/screenshots/Ill01.png";
 import imgWorks03SS00 from "../../resources/images/works/screenshots/Lab00.png";
 import imgWorks03SS01 from "../../resources/images/works/screenshots/Lab01.png";
 import imgWorks03SS02 from "../../resources/images/works/screenshots/Lab02.png";
+import imgWorks03SS03 from "../../resources/images/works/screenshots/Lab03.png";
+import imgWorks03SS04 from "../../resources/images/works/screenshots/Lab04.png";
 import imgWorks04SS00 from "../../resources/images/works/screenshots/Monallog00.gif";
 import imgWorks05SS00 from "../../resources/images/works/screenshots/QUE00.png";
 import imgWorks05SS01 from "../../resources/images/works/screenshots/QUE01.png";
@@ -174,13 +176,19 @@ const worksArray: WorksItemType[] = [
   {
     workId: "Lab",
     url: "./3d/Lab.glb",
-    screenshots: [imgWorks03SS00, imgWorks03SS01, imgWorks03SS02],
+    screenshots: [
+      imgWorks03SS00,
+      imgWorks03SS01,
+      imgWorks03SS02,
+      imgWorks03SS03,
+      imgWorks03SS04,
+    ],
     logoImg: () => <></>,
     title: "Anteater's laboratory",
     smallTitle: true,
     description:
-      "Jekyll로 구축한 개인 기술 블로그입니다. 개발 중 사용했던 자잘한 해결책들, 독후감, 특정 용어에 대한 고찰, 프로젝트 회고 등 다양한 주제의 글을 작성하고 있습니다.",
-    year: "2021",
+      "개발 중 사용했던 자잘한 해결책들, 독후감, 특정 용어에 대한 고찰, 프로젝트 회고 등 다양한 주제의 글을 작성했습니다. 2021년 Jekyll을 기반으로 구축하였으며, 2024년 Next.js 프레임워크 기반으로 기술 스택을 이전, 블로그를 재구축했습니다.",
+    year: "2021, 2024",
     platform: "Web Service",
     summary: "기술 블로그",
     features: [
@@ -189,7 +197,15 @@ const worksArray: WorksItemType[] = [
       "Hack the terms🪓",
       "프로젝트 회고록 저장소🗃️",
     ],
-    techStack: ["Jekyll", "Sass", "Vanilla JS", "Docker"],
+    techStack: [
+      "Next.js",
+      "React",
+      "Styled-components",
+      "Jekyll (2021)",
+      "Sass (2021)",
+      "Vanilla JS (2021)",
+      "Docker (2021)",
+    ],
     repoUrl: "https://github.com/anteater333/anteater333.github.io",
     site: "https://blog.anteater-lab.link/",
   },
@@ -698,7 +714,10 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                 <div className="flex gap-4 xl:flex-col xl:gap-20">
                   <div className="mr-4 w-1/2 border-l-4 border-indigo-500 pl-4 xl:w-auto">
                     <h2 className="mb-2 text-xl font-bold xl:mb-4 xl:text-4xl">
-                      Features
+                      Features{" "}
+                      <span className="text-sm font-normal">
+                        ({selectedItem.features.length} items)
+                      </span>
                     </h2>
                     <ul className="works-spec-list h-40 max-w-lg list-disc overflow-scroll break-keep pl-8 text-lg xl:min-w-[16rem] xl:text-3xl [&>li]:mb-1 xl:[&>li]:mb-4">
                       {selectedItem.features.map((feat, idx) => (
@@ -708,7 +727,10 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
                   </div>
                   <div className="w-1/2 border-l-4 border-indigo-500 pl-4 xl:ml-0 xl:w-auto">
                     <h2 className="mb-2 text-xl font-bold xl:mb-4 xl:text-4xl">
-                      Tech Stack
+                      Tech Stack{" "}
+                      <span className="text-sm font-normal">
+                        ({selectedItem.techStack.length} items)
+                      </span>
                     </h2>
                     <ul className="works-spec-list h-40 max-w-lg list-disc overflow-scroll break-keep pl-8 text-lg xl:min-w-[16rem] xl:text-3xl [&>li]:mb-1 xl:[&>li]:mb-4">
                       {selectedItem.techStack.map((tech, idx) => (
