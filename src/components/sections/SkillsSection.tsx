@@ -133,21 +133,21 @@ const skillsArray: {
   {
     title: "HTML/CSS",
     description: [
-      "정적 사이트 생성기 Jekyll 블로그 운영 중\n(Liquid, SCSS 기반)",
-      "CSS media query 기반 반응형 디자인 구현 경험 보유",
+      "정적 사이트 생성기 Jekyll 블로그 운영 경험\n(Liquid, SCSS 기반)",
+      "CSS media query 기반 반응형 디자인 구현 가능",
       "CSS flex 속성 기반 규격화된 보고서 형태의 웹 페이지 구현 경험 보유",
-      "TailwindCSS 사용 경험 보유",
+      "TailwindCSS, Styled-components 사용 경험 보유",
     ],
   },
   {
     title: "JavaScript",
     description: [
       "주력 프로그래밍 언어",
-      "JavaScript 기반 풀 스택 웹 서비스 개발 가능",
+      "JavaScript 기반 풀 스택 웹 서비스 개발 능력 보유",
       "JavaScript 비동기 처리 주제 블로그 article 작성",
       "JavaScript 관련 팁 블로그 article 다수 작성",
       "Web Browser, Node.js, Deno 다양한 JS 실행 환경 경험 보유",
-      "TypeScript 적용 프로젝트 경험 보유",
+      "TypeScript 코드 작성 가능",
     ],
   },
   {
@@ -164,7 +164,7 @@ const skillsArray: {
       "데이터 시각화 라이브러리 ApexCharts.js 사용 경험 보유",
       "웹 성능 측정 도구 Lighthouse 사용 및 성능 개선 경험 보유",
       "URL 스키마 기반 웹 페이지의 클라이언트측 에이전트 프로그램 실행 기능 개발 경험 보유",
-      "Next.js 기반 블로그 구축 경험 보유",
+      "Next.js 기반 블로그 구축 및 운영 중",
     ],
   },
   {
@@ -193,7 +193,6 @@ const skillsArray: {
     title: "etc.",
     description: [
       "Java(ExcelParser), C#(WinForm), Python(Numpy/Pandas, 웹 크롤링) 사용 경험 보유",
-      "개인 일정 관리 및 회고를 위해 Notion 사용 중",
       "Figma 활용 개인 프로젝트 프로토타이핑 경험 보유",
       "비개발자 대상 웹 개발 주제 스터디 진행 경험 보유",
     ],
