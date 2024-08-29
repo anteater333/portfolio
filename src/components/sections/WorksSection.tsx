@@ -16,7 +16,6 @@ import {
 } from "@react-three/fiber";
 import {
   useGLTF,
-  useProgress,
   PerspectiveCamera,
   SpotLight,
   useDepthBuffer,
@@ -414,8 +413,6 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
   const entry = useIntersection(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
-  const { progress: threeProgress } = useProgress();
-
   useEffect(() => {
     // 하ㅏㅏㅏㅏrrrrrrrr드 코딩 1
     const total =
@@ -428,13 +425,11 @@ function WorksSection({ updateLoadingProgress }: SectionProps) {
       ImgWorks06.progress +
       ImgWorks07.progress +
       ImgWorks08.progress +
-      ImgWorks09.progress +
-      threeProgress;
-    const length = 11;
+      ImgWorks09.progress;
+    const length = 10;
     updateLoadingProgress(total / length, 3);
   }, [
     updateLoadingProgress,
-    threeProgress,
     ImgWorks00.progress,
     ImgWorks01.progress,
     ImgWorks02.progress,

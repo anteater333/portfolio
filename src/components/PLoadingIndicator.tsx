@@ -15,7 +15,7 @@ function PLoadingIndicator({ percentage }: PLoadingIndicatorProps) {
    * RGB(34, 34, 34) to RGB(242, 242, 242) by props.percentage
    */
   useEffect(() => {
-    setColorByPercent(calcRGBByPercentage(100 - percentage));
+    setColorByPercent(calcRGBByPercentage(100 - percentage / 2));
   }, [percentage]);
 
   /**
